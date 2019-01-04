@@ -201,7 +201,7 @@ ApplicationWindow {
     }
     function run(){
         appSettings.uApp=appListLaucher.ca
-        var urlGit=''+unik.getFile(appsDir+'/'+appListLaucher.ca)
+        var urlGit=''+unik.getFile('./'+appListLaucher.ca)
         var params=urlGit
         var m0=urlGit.split('/')
         var s1=(''+m0[m0.length-1]).replace('.git', '')
