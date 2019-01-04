@@ -205,9 +205,11 @@ ApplicationWindow {
         var params=urlGit
         var m0=urlGit.split('/')
         var s1=(''+m0[m0.length-1]).replace('.git', '')
-        params+=',-dir='+pws+'/'+s1
+        params+=', -folder='+pws+'/'+s1
+        params+=', -dir='+pws+'/'+s1
         unik.setUnikStartSettings(params)
         console.log('New USS params: '+params)
+        unik.setFile('/storage/emulated/0/Documents/uniklog', params)
         unik.restartApp()
     }
 }
