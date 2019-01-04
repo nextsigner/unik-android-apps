@@ -46,7 +46,6 @@ ApplicationWindow {
         onCountChanged: {
             console.log('File: '+fl.get(f,"fileName"))
             f++
-            //tf.restart()
         }
     }
     Rectangle{
@@ -120,6 +119,7 @@ ApplicationWindow {
                     onClicked: {
                         appListLaucher.ci=index
                         appListLaucher.ca=fileName
+                        appSettings.uApp=appListLaucher.al[index]
                         run()
                     }
                     onDoubleClicked: {
@@ -195,38 +195,17 @@ ApplicationWindow {
             }else{
                 xP.visible=true
             }
-
             flick.opacity=1.0
         }
 
     }
-    /*Timer{
-        id: tlaunch
-        running: true
-        repeat: true
-        interval: 1000
-        property bool enabled: true
-        onTriggered: {
-            appListLaucher.sec++
-            if(appListLaucher.sec===7){
-                run()
-            }
-            psec.width=psec.parent.width/5*(appListLaucher.sec-1)
-
-        }
-    }*/
     function run(){
         appSettings.uApp=appListLaucher.ca
-        var p=unik.getFile(appsDir+'/'+appListLaucher.ca)
-        var args=(''+p).split(' ')
-        var params=''
-        for(var i=0; i<args.length;i++){
-            if(i===0){
-                params+=args[i]
-            }else{
-                params+=','+args[i]
-            }
-        }
+        var urlGit=''+unik.getFile(appsDir+'/'+appListLaucher.ca)
+        var params=urlGit
+        var m0=urlGit.split('/')
+        var s1=(''+m0[m0.length-1]).replace('.git', '')
+        params+=',-dir='+appsDir+'/'+s1
         unik.setUnikStartSettings(params)
         console.log('New USS params: '+params)
         unik.restartApp()
