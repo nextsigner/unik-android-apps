@@ -62,41 +62,41 @@ ApplicationWindow {
         Rectangle{
             id:xP
             visible: false
-             width:parent.width*0.33
-             height: appListLaucher.fs*0.125
-             color: appListLaucher.c2
-             anchors.horizontalCenter: parent.horizontalCenter
-             anchors.verticalCenter: parent.verticalCenter
-             anchors.verticalCenterOffset: appListLaucher.fs*2+appListLaucher.fs*0.125
-             Rectangle{
-                 id:psec
-                 width: 1
-                 height: parent.height
-                 color: 'red'
-             }
+            width:parent.width*0.33
+            height: appListLaucher.fs*0.125
+            color: appListLaucher.c2
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.verticalCenterOffset: appListLaucher.fs*2+appListLaucher.fs*0.125
+            Rectangle{
+                id:psec
+                width: 1
+                height: parent.height
+                color: 'red'
+            }
         }
 
         Flickable{
-           id:flick
-           width: appListLaucher.width
-           height: appListLaucher.height
-           contentHeight: lv.height
-           opacity:0.0
-           Behavior on opacity{NumberAnimation{duration: 500}}
-           Behavior on contentY{NumberAnimation{duration: 500}}
-           ListView{
-            id:lv
-            spacing: appListLaucher.fs*0.25
-            model:fl
-            delegate: delegate
-            width: appListLaucher.width-appListLaucher.fs*2
-            height: (appListLaucher.fs*2+appListLaucher.fs*0.25)*lv.count
-            anchors.horizontalCenter: parent.horizontalCenter
-            onCurrentIndexChanged: {
-                flick.contentY=(appListLaucher.fs*2+appListLaucher.fs*0.25)*currentIndex-appListLaucher.height/2
+            id:flick
+            width: appListLaucher.width
+            height: appListLaucher.height
+            contentHeight: lv.height
+            opacity:0.0
+            Behavior on opacity{NumberAnimation{duration: 500}}
+            Behavior on contentY{NumberAnimation{duration: 500}}
+            ListView{
+                id:lv
+                spacing: appListLaucher.fs*0.25
+                model:fl
+                delegate: delegate
+                width: appListLaucher.width-appListLaucher.fs*2
+                height: (appListLaucher.fs*2+appListLaucher.fs*0.25)*lv.count
+                anchors.horizontalCenter: parent.horizontalCenter
+                onCurrentIndexChanged: {
+                    flick.contentY=(appListLaucher.fs*2+appListLaucher.fs*0.25)*currentIndex-appListLaucher.height/2
+                }
             }
         }
-    }
         Component{
             id:delegate
             Rectangle{
@@ -161,32 +161,6 @@ ApplicationWindow {
             }
         }
 
-       }
-    Shortcut{
-        sequence: 'Esc'
-        onActivated: Qt.quit()
-    }
-    Shortcut{
-        sequence: 'Down'
-        onActivated: {
-            if(appListLaucher.ci<appListLaucher.al.length-1){
-                appListLaucher.ci++
-            }else{
-                appListLaucher.ci=0
-            }
-            tlaunch.stop()
-        }
-    }
-    Shortcut{
-        sequence: 'Up'
-        onActivated: {
-            if(appListLaucher.ci>0){
-                appListLaucher.ci--
-            }else{
-                appListLaucher.ci=appListLaucher.al.length-1
-            }
-            tlaunch.stop()
-        }
     }
     Rectangle{
         id:tap
@@ -229,7 +203,7 @@ ApplicationWindow {
         }
 
     }
-    Timer{
+    /*Timer{
         id: tlaunch
         running: true
         repeat: true
@@ -243,35 +217,23 @@ ApplicationWindow {
             psec.width=psec.parent.width/5*(appListLaucher.sec-1)
 
         }
-    }
+    }*/
     function run(){
         appSettings.uApp=appListLaucher.ca
         var p=unik.getFile(appsDir+'/'+appListLaucher.ca)
-        if(Qt.platform.os!=='android'){
-            unik.ejecutarLineaDeComandoAparte('"'+appExec+'" -cfg '+p)
-        }else{
-            var args=(''+p).split(' ')
-            var cfgData='{'
-            for(var i=0; i<args.length;i++){
-                if(i===0){
-                    cfgData+='"arg'+i+'":"'+args[i]+'"'
-                }else{
-                    cfgData+=',"arg'+i+'":"'+args[i]+'"'
-                }
+        var args=(''+p).split(' ')
+        var params=''
+        for(var i=0; i<args.length;i++){
+            if(i===0){
+                params+=args[i]
+            }else{
+                params+=','+args[i]
             }
-            cfgData+=',"arg'+args.length+'":"-cfg"'
-            unik.setFile(pws+'/temp_cfg.json', cfgData)
-            unik.restartApp()
-            //unik.restartApp('"'+appExec+'" -cfg '+p)
         }
-
-        appListLaucher.close()
+        unik.setUnikStartSettings(params)
+        console.log('New USS params: '+params)
+        unik.restartApp()
     }
-    Component.onCompleted: {
-        //tap.opacity=1.0
-        //appListLaucher.ca=appListLaucher.al[0]
-    }
-
 }
 
 
