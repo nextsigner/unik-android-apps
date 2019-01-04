@@ -56,9 +56,7 @@ ApplicationWindow {
         color: 'transparent'
         anchors.centerIn: parent
         focus: true
-        Keys.onReturnPressed: {
-            run()
-        }
+
         Rectangle{
             id:xP
             visible: false
@@ -122,11 +120,10 @@ ApplicationWindow {
                     onClicked: {
                         appListLaucher.ci=index
                         appListLaucher.ca=fileName
+                        run()
                     }
                     onDoubleClicked: {
-                        var p=unik.getFile(appsDir+'/'+fileName)
-                        unik.ejecutarLineaDeComandoAparte('"'+appExec+'" -cfg '+p)
-                        appListLaucher.close()
+                        unik.restartApp()
                     }
                 }
                 Text {
