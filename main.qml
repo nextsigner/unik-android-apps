@@ -137,7 +137,7 @@ ApplicationWindow {
     }
     Text{
         id:txta
-        font.pixelSize: app.fs*2
+        font.pixelSize: app.fs
         anchors.centerIn: parent
         width: r.width*0.8
         wrapMode: Text.WrapAnywhere
@@ -181,14 +181,14 @@ ApplicationWindow {
         var params=urlGit
         var m0=urlGit.split('/')
         var s1=(''+m0[m0.length-1]).replace('.git', '')
-
+        txta.text+=' '+s1
         uklData+=' -folder='+pws+'/'+s1
         unik.setFile(uklFileLocation, uklData)
 
         params+=', -folder='+pws+'/'+s1
         params+=', -dir='+pws+'/'+s1
         //unik.setUnikStartSettings(params)
-        engine.load('qrc:/appsListLauncher.qml')
+        //engine.load('qrc:/appsListLauncher.qml')
         //unik.restartApp()
     }
 }
