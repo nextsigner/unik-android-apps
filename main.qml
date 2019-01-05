@@ -7,9 +7,8 @@ ApplicationWindow {
     objectName: 'uaa'
     visibility:  "FullScreen"
     color: "black"
-    flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
     property string moduleName: 'unik-android-apps'
-    property int fs: Qt.platform.os !=='android'?app.width*0.02:app.width*0.03
+    property int fs: width>height?app.width*0.03:app.width*0.06
     property color c1: "#1fbc05"
     property color c2: "#4fec35"
     property color c3: "white"
@@ -57,19 +56,14 @@ ApplicationWindow {
         anchors.centerIn: parent
         ListView{
             id:lv
+            height: parent.height
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: app.fs
             spacing: app.fs*0.25
             model:fl
             delegate: delegate
-            width: app.width-app.fs*2
-            height: (app.fs*2+app.fs*0.25)*lv.count
-            onCurrentIndexChanged: {
-                flick.contentY=(app.fs*2+app.fs*0.25)*currentIndex-app.height/2
-            }
         }
-
         Component{
             id:delegate
             Rectangle{
@@ -185,8 +179,6 @@ ApplicationWindow {
         params+=', -folder='+pws+'/'+s1
         params+=', -dir='+pws+'/'+s1
         unik.setUnikStartSettings(params)
-        console.log('New USS params: '+params)
-        unik.setFile('/storage/emulated/0/Documents/uniklog', params)
         unik.restartApp()
     }
 }
