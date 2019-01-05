@@ -65,7 +65,6 @@ ApplicationWindow {
             delegate: delegate
             width: app.width-app.fs*2
             height: (app.fs*2+app.fs*0.25)*lv.count
-            anchors.horizontalCenter: parent.horizontalCenter
             onCurrentIndexChanged: {
                 flick.contentY=(app.fs*2+app.fs*0.25)*currentIndex-app.height/2
             }
