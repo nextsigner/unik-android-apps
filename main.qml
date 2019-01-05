@@ -173,13 +173,20 @@ ApplicationWindow {
     function run(){
         appSettings.uApp=app.ca
         var urlGit=(''+unik.getFile(app.ca)).replace(/\n/g, '')
+        var uklFileLocation=pws+'/link_'+s1+'.ukl'
+        var uklData=''+urlGit
         var params=urlGit
         var m0=urlGit.split('/')
         var s1=(''+m0[m0.length-1]).replace('.git', '')
+
+        uklData+=' -folder='+pws+'/'+s1
+        unik.setFile(uklFileLocation, uklData)
+
         params+=', -folder='+pws+'/'+s1
         params+=', -dir='+pws+'/'+s1
-        unik.setUnikStartSettings(params)
-        unik.restartApp()
+        //unik.setUnikStartSettings(params)
+        engine.load('qrc:/appsListLauncher.qml')
+        //unik.restartApp()
     }
 }
 
