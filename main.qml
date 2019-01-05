@@ -3,12 +3,13 @@ import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.2
 import Qt.labs.settings 1.0
 ApplicationWindow {
-    id: appListLaucher
-    objectName: 'awll'
-    visibility:  "Maximized"
-    color: "transparent"
+    id: app
+    objectName: 'uaa'
+    visibility:  "FullScreen"
+    color: "black"
     flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
-    property int fs: Qt.platform.os !=='android'?appListLaucher.width*0.02:appListLaucher.width*0.03
+    property string moduleName: 'unik-android-apps'
+    property int fs: Qt.platform.os !=='android'?app.width*0.02:app.width*0.03
     property color c1: "#1fbc05"
     property color c2: "#4fec35"
     property color c3: "white"
@@ -26,7 +27,7 @@ ApplicationWindow {
             close.accepted = false;
         }
     }
-    onCiChanged: appListLaucher.ca=appListLaucher.al[appListLaucher.ci]
+    onCiChanged: app.ca=app.al[app.ci]
     FontLoader {name: "FontAwesome";source: "qrc:/fontawesome-webfont.ttf";}
     Settings{
         id: appSettings
@@ -50,76 +51,50 @@ ApplicationWindow {
     }
     Rectangle{
         id:r
-        width: appListLaucher.width-appListLaucher.fs
+        width: app.width-app.fs
         height:parent.height
-        color: 'transparent'
+        color: 'black'
         anchors.centerIn: parent
-        focus: true
-
-        Rectangle{
-            id:xP
-            visible: false
-            width:parent.width*0.33
-            height: appListLaucher.fs*0.125
-            color: appListLaucher.c2
+        ListView{
+            id:lv
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.verticalCenterOffset: appListLaucher.fs*2+appListLaucher.fs*0.125
-            Rectangle{
-                id:psec
-                width: 1
-                height: parent.height
-                color: 'red'
+            anchors.top: parent.top
+            anchors.topMargin: app.fs
+            spacing: app.fs*0.25
+            model:fl
+            delegate: delegate
+            width: app.width-app.fs*2
+            height: (app.fs*2+app.fs*0.25)*lv.count
+            anchors.horizontalCenter: parent.horizontalCenter
+            onCurrentIndexChanged: {
+                flick.contentY=(app.fs*2+app.fs*0.25)*currentIndex-app.height/2
             }
         }
 
-        Flickable{
-            id:flick
-            width: appListLaucher.width
-            height: appListLaucher.height
-            contentHeight: lv.height
-            opacity:0.0
-            Behavior on opacity{NumberAnimation{duration: 500}}
-            Behavior on contentY{NumberAnimation{duration: 500}}
-            ListView{
-                id:lv
-                spacing: appListLaucher.fs*0.25
-                model:fl
-                delegate: delegate
-                width: appListLaucher.width-appListLaucher.fs*2
-                height: (appListLaucher.fs*2+appListLaucher.fs*0.25)*lv.count
-                anchors.horizontalCenter: parent.horizontalCenter
-                onCurrentIndexChanged: {
-                    flick.contentY=(appListLaucher.fs*2+appListLaucher.fs*0.25)*currentIndex-appListLaucher.height/2
-                }
-            }
-        }
         Component{
             id:delegate
             Rectangle{
                 id:xItem
-                width: txt.contentWidth+appListLaucher.fs*2
-                height: appListLaucher.fs*2
-                color: xItem.border.width!==0?appListLaucher.c4:appListLaucher.c2
-                radius: appListLaucher.fs*0.25
-                border.width: fileName===appListLaucher.ca?2:0
-                border.color: fileName===appListLaucher.ca?appListLaucher.c2:appListLaucher.c4
+                width: txt.contentWidth+app.fs*2
+                height: app.fs*2
+                color: xItem.border.width!==0?app.c4:app.c2
+                radius: app.fs*0.25
+                border.width: fileName===app.ca?2:0
+                border.color: fileName===app.ca?app.c2:app.c4
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0
                 onColorChanged: {
                     if(xItem.border.width!==0){
-                        appListLaucher.ca=appListLaucher.al[index]
+                        app.ca=app.al[index]
                         lv.currentIndex=index
                     }
-
-                }//lv.currentIndex=index
-
+                }
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        appListLaucher.ci=index
-                        appListLaucher.ca=fileName
-                        appSettings.uApp=appListLaucher.al[index]
+                        app.ci=index
+                        app.ca=fileName
+                        appSettings.uApp=app.al[index]
                         run()
                     }
                     onDoubleClicked: {
@@ -129,30 +104,33 @@ ApplicationWindow {
                 Text {
                     id: txt
                     text: (''+fileName).substring(5, (''+fileName).length-4)
-                    font.pixelSize: appListLaucher.fs
-                    color:xItem.border.width!==0?appListLaucher.c2:appListLaucher.c4
+                    font.pixelSize: app.fs
+                    color:xItem.border.width!==0?app.c2:app.c4
                     anchors.centerIn: parent
                 }
                 Component.onCompleted: {
-                    appListLaucher.al.push(fileName)
-                    if((''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.json')>0&&!appListLaucher.prima){
-                        appListLaucher.ca=appListLaucher.al[index]
-                        appListLaucher.prima=true
+                    app.al.push(fileName)
+                    if((''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.json')>0&&!app.prima){
+                        app.ca=app.al[index]
+                        app.prima=true
                         tap.color='black'
                         xP.visible=true
                     }
                     if( tlaunch.enabled){
                         tinit.restart()
                     }
+                    if(xItem.width>lv.width){
+                        lv.width=xItem.width
+                    }
                 }
                 Text {
                     text: '\uf061'
                     font.family: "FontAwesome"
-                    font.pixelSize: appListLaucher.fs
-                    color:appListLaucher.c2
+                    font.pixelSize: app.fs
+                    color:app.c2
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.left
-                    anchors.rightMargin: appListLaucher.fs*0.5
+                    anchors.rightMargin: app.fs*0.5
                     visible: xItem.border.width!==0
                 }
             }
@@ -174,23 +152,23 @@ ApplicationWindow {
         interval: 1000
         onTriggered: {
             tap.opacity=0.0
-            if(appSettings.uApp===''&&appListLaucher.al.length>0){
-                appSettings.uApp=appListLaucher.al[0]
+            if(appSettings.uApp===''&&app.al.length>0){
+                appSettings.uApp=app.al[0]
             }
             var vacio=true
-            for(var i=0;i<appListLaucher.al.length;i++){
-                if((''+appListLaucher.al[i]).indexOf('.ukl')>0){
-                    //appListLaucher.visible=true
+            for(var i=0;i<app.al.length;i++){
+                if((''+app.al[i]).indexOf('.ukl')>0){
+                    //app.visible=true
                     vacio=false
                 }
-                if(appSettings.uApp===appListLaucher.al[i]){
-                    appListLaucher.ca=appListLaucher.al[i]
+                if(appSettings.uApp===app.al[i]){
+                    app.ca=app.al[i]
                 }
             }
             if(vacio){
                 tlaunch.enabled=false
                 tlaunch.stop()
-                appListLaucher.close()
+                app.close()
                 engine.load(appsDir+'/unik-tools/main.qml')
             }else{
                 xP.visible=true
@@ -200,8 +178,8 @@ ApplicationWindow {
 
     }
     function run(){
-        appSettings.uApp=appListLaucher.ca
-        var urlGit=(''+unik.getFile(appListLaucher.ca)).replace(/\n/g, '')
+        appSettings.uApp=app.ca
+        var urlGit=(''+unik.getFile(app.ca)).replace(/\n/g, '')
         var params=urlGit
         var m0=urlGit.split('/')
         var s1=(''+m0[m0.length-1]).replace('.git', '')
