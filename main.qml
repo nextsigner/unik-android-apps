@@ -85,10 +85,7 @@ ApplicationWindow {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        app.ci=index
-                        app.ca=fileName
-                        appSettings.uApp=fileName
-                        run()
+                        run(fileName)
                     }
                     onDoubleClicked: {
                         unik.restartApp()
@@ -138,6 +135,14 @@ ApplicationWindow {
         Behavior on opacity{NumberAnimation{duration:500}
         }
     }
+    Text{
+        id:txta
+        font.pixelSize: app.fs*2
+        anchors.centerIn: parent
+        width: r.width*0.8
+        wrapMode: Text.WrapAnywhere
+        color: 'yellow'
+    }
     Timer{
         id: tinit
         running: true
@@ -168,9 +173,9 @@ ApplicationWindow {
         }
 
     }
-    function run(){
-        appSettings.uApp=app.ca
-        var urlGit=(''+unik.getFile(app.ca)).replace(/\n/g, '')
+    function run(ukl){
+        var urlGit=(''+unik.getFile(ukl)).replace(/\n/g, '')
+        txta.text=urlGit
         var uklFileLocation=pws+'/link_'+s1+'.ukl'
         var uklData=''+urlGit
         var params=urlGit
