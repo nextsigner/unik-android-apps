@@ -182,6 +182,7 @@ ApplicationWindow {
         var m0=urlGit.split('/')
         var s1=(''+m0[m0.length-1]).replace('.git', '')
         txta.text+=' '+s1
+        txta.text+=' '+pws
         uklData+=' -folder='+pws+'/'+s1
         unik.setFile(uklFileLocation, uklData)
 
