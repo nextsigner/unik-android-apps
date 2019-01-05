@@ -112,16 +112,17 @@ ApplicationWindow {
                     if(xItem.width>lv.width){
                         lv.width=xItem.width
                     }
+                    var uklFileLocation=pws+'/'+fileName
+                    msg1.visible=unik.fileExist(uklFileLocation)
                 }
                 Text {
-                    text: '\uf061'
-                    font.family: "FontAwesome"
-                    font.pixelSize: app.fs
+                    id: msg1
+                    text: 'Instalada'
+                    font.pixelSize: app.fs*0.25
                     color:app.c2
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: parent.left
                     anchors.rightMargin: app.fs*0.5
-                    visible: xItem.border.width!==0
                 }
             }
         }
@@ -134,14 +135,6 @@ ApplicationWindow {
         opacity:0.0
         Behavior on opacity{NumberAnimation{duration:500}
         }
-    }
-    Text{
-        id:txta
-        font.pixelSize: app.fs
-        anchors.centerIn: parent
-        width: r.width*0.8
-        wrapMode: Text.WrapAnywhere
-        color: 'yellow'
     }
     Timer{
         id: tinit
@@ -175,21 +168,16 @@ ApplicationWindow {
     }
     function run(ukl){
         var urlGit=(''+unik.getFile(ukl)).replace(/\n/g, '')
-        txta.text=urlGit
         var params=urlGit
         var m0=urlGit.split('/')
         var s1=(''+m0[m0.length-1]).replace('.git', '')
         var uklFileLocation=pws+'/link_'+s1+'.ukl'
         var uklData=''+urlGit
-        txta.text+=' '+s1
-        txta.text+=' '+pws
         uklData+=' -folder='+pws+'/'+s1
         unik.setFile(uklFileLocation, uklData)
-
         params+=', -folder='+pws+'/'+s1
         params+=', -dir='+pws+'/'+s1
         unik.setUnikStartSettings(params)
-        //engine.load('qrc:/appsListLauncher.qml')
         unik.restartApp()
     }
 }
