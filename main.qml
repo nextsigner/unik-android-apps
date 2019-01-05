@@ -176,11 +176,11 @@ ApplicationWindow {
     function run(ukl){
         var urlGit=(''+unik.getFile(ukl)).replace(/\n/g, '')
         txta.text=urlGit
-        var uklFileLocation=pws+'/link_'+s1+'.ukl'
-        var uklData=''+urlGit
         var params=urlGit
         var m0=urlGit.split('/')
         var s1=(''+m0[m0.length-1]).replace('.git', '')
+        var uklFileLocation=pws+'/link_'+s1+'.ukl'
+        var uklData=''+urlGit
         txta.text+=' '+s1
         txta.text+=' '+pws
         uklData+=' -folder='+pws+'/'+s1
@@ -188,9 +188,9 @@ ApplicationWindow {
 
         params+=', -folder='+pws+'/'+s1
         params+=', -dir='+pws+'/'+s1
-        //unik.setUnikStartSettings(params)
+        unik.setUnikStartSettings(params)
         //engine.load('qrc:/appsListLauncher.qml')
-        //unik.restartApp()
+        unik.restartApp()
     }
 }
 
