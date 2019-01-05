@@ -87,7 +87,7 @@ ApplicationWindow {
                     onClicked: {
                         app.ci=index
                         app.ca=fileName
-                        appSettings.uApp=app.al[index]
+                        appSettings.uApp=fileName
                         run()
                     }
                     onDoubleClicked: {
@@ -109,9 +109,9 @@ ApplicationWindow {
                         tap.color='black'
                         xP.visible=true
                     }
-                    if( tlaunch.enabled){
+                    //if( tlaunch.enabled){
                         tinit.restart()
-                    }
+                    //}
                     if(xItem.width>lv.width){
                         lv.width=xItem.width
                     }
@@ -159,10 +159,8 @@ ApplicationWindow {
                 }
             }
             if(vacio){
-                tlaunch.enabled=false
-                tlaunch.stop()
                 app.close()
-                engine.load(appsDir+'/unik-tools/main.qml')
+                engine.load('qrc:/appsListLaucher.qml')
             }else{
                 xP.visible=true
             }
