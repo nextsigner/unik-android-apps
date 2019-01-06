@@ -118,11 +118,11 @@ ApplicationWindow {
                 Text {
                     id: msg1
                     text: 'Instalada'
-                    font.pixelSize: app.fs*0.25
+                    font.pixelSize: app.fs*0.4
                     color:app.c2
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.right: parent.left
-                    anchors.rightMargin: app.fs*0.5
+                    anchors.left: parent.left
+                    anchors.leftMargin: app.fs*0.5
                 }
             }
         }
