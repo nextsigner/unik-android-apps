@@ -54,6 +54,12 @@ ApplicationWindow {
         height:parent.height
         color: 'black'
         anchors.centerIn: parent
+        Text {
+            id: txtFlFolder
+            text: "Folder: "+fl.folder
+            color:'white'
+            font.pixelSize: 12
+        }
         ListView{
             id:lv
             height: parent.height
