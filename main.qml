@@ -166,7 +166,7 @@ ApplicationWindow {
                 app.close()
                 engine.load('qrc:/appsListLaucher.qml')
             }else{
-                xP.visible=true
+                //xP.visible=true
             }
             flick.opacity=1.0
         }
