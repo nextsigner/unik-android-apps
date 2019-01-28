@@ -168,7 +168,7 @@ ApplicationWindow {
             }else{
                 //xP.visible=true
             }
-            flick.opacity=1.0
+            //flick.opacity=1.0
         }
 
     }
