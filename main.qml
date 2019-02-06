@@ -180,7 +180,7 @@ ApplicationWindow {
         var uklFileLocation=pws+'/link_'+s1+'.ukl'
         var uklData=''+urlGit
         uklData+=' -folder='+pws+'/'+s1
-        //uklData+=' -dir='+pws+'/'+s1
+        uklData+=' -dir='+pws+'/'+s1
         unik.setFile(uklFileLocation, uklData)
         params+=', -folder='+pws+'/'+s1
         params+=', -dir='+pws+'/'+s1
