@@ -181,8 +181,8 @@ ApplicationWindow {
         var uklData=''+urlGit
         uklData+=' -dir='+pws+'/'+s1+' \n'
         unik.setFile(uklFileLocation, uklData)
-        //params+=', -folder='+pws+'/'+s1
-        params+=', -dir='+pws+'/'+s1
+        params+=', -folder='+pws+'/'+s1
+        //params+=', -dir='+pws+'/'+s1
         unik.setUnikStartSettings(params)
         unik.restartApp()
     }
