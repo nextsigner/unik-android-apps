@@ -179,10 +179,9 @@ ApplicationWindow {
         var s1=(''+m0[m0.length-1]).replace('.git', '')
         var uklFileLocation=pws+'/link_'+s1+'.ukl'
         var uklData=''+urlGit
-        uklData+=' -folder='+pws+'/'+s1
-        uklData+=' -dir='+pws+'/'+s1
+        uklData+=' -dir='+pws+'/'+s1+' \n'
         unik.setFile(uklFileLocation, uklData)
-        params+=', -folder='+pws+'/'+s1
+        //params+=', -folder='+pws+'/'+s1
         params+=', -dir='+pws+'/'+s1
         unik.setUnikStartSettings(params)
         unik.restartApp()
