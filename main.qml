@@ -23,7 +23,7 @@ ApplicationWindow {
 
     onClosing: {
         if(Qt.platform.os==='android'){
-            close.accepted = false;
+            //close.accepted = false;
         }
     }
     onCiChanged: app.ca=app.al[app.ci]
