@@ -192,6 +192,9 @@ ApplicationWindow {
             var mn=m2[m2.length-1].replace(/.git/g, '')
 
             var d = unik.downloadGit(m1[0], pws)
+            if(!unik.fileExist(pws+'/'+mn)){
+                unik.mkdir(pws+'/'+mn)
+            }
             unik.cd(pws+'/'+mn)
             engine.load(pws+'/'+mn+'/main.qml')
         }
