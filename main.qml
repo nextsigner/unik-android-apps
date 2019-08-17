@@ -142,6 +142,92 @@ ApplicationWindow {
         Behavior on opacity{NumberAnimation{duration:500}
         }
     }
+    Rectangle{
+        id: xPb
+        opacity: 0.0
+        width: Screen.desktopAvailableWidth<Screen.desktopAvailableHeight ? Screen.desktopAvailableWidth*0.95 : Screen.desktopAvailableHeight*0.95
+        height: titDownloadLog.contentHeight+log.contentHeight+pblaunch.height+app.fs
+        anchors.centerIn: parent
+        color: app.c1
+        //radius: unikSettings.radius
+        border.width: unikSettings.borderWidth
+        border.color: app.c2
+        clip:true
+        Behavior on opacity{
+            NumberAnimation{duration: 1000}
+        }
+        Column{
+            id: colDownloadLog
+            anchors.centerIn: parent
+            spacing: app.fs*0.5
+            Text{
+                id: titDownloadLog
+                color: app.c2
+                width: app.width<app.height ? app.width*0.9 : app.height*0.9
+                height: contentHeight
+                wrapMode: Text.WordWrap
+                font.pixelSize: app.fs
+                horizontalAlignment: Text.AlignHCenter
+                text: unikSettings.lang==='es'?'<b>Descargando '+app.ca+'</b>':'<b>Downloading '+app.ca+'</b>'
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+            Text{
+                id: log
+                color: app.c2
+                width: app.width<app.height ? app.width*0.9 : app.height*0.9
+                height: contentHeight
+                wrapMode: Text.WordWrap
+                font.pixelSize: app.fs*0.5
+                horizontalAlignment: Text.AlignHCenter
+                function setTxtLog(t){
+                    var  d=(''+t).replace(/\n/g, ' ')
+                    var p=true
+                    if(d.indexOf('Socket')>=0){
+                        p=false
+                    }else if(d.indexOf('download git')>=0){
+                        var m0=''+d.replace('download git ','')
+                        var m1=m0.split(' ')
+                        if(m1.length>1){
+                            var m2=(''+m1[1]).replace('%','')
+                            //unik.setFile('/home/nextsigner/nnn', ''+m2)
+                            var m3=parseInt(m2.replace(/ /g,''))
+                            pblaunch.width=pblaunch.parent.width/100*m3
+                        }
+
+                    }
+                    if(p){
+                        log.text=t
+                    }
+                }
+            }
+
+            Rectangle{
+                id:pblaunch
+                height: app.fs*0.5
+                width: 0
+                color: 'red'
+            }
+        }
+
+        Boton{//Close
+            id: btnCloseDownload
+            w:app.fs
+            h: w
+            t: "\uf00d"
+            d:unikSettings.lang==='es'?'Cerrar':'Close'
+            b:app.c1
+            c: app.c2
+            anchors.right: parent.right
+            anchors.rightMargin: app.fs*0.5
+            anchors.top: parent.top
+            anchors.topMargin: app.fs*0.5
+            onClicking: {
+                xPb.visible=false
+            }
+        }
+    }
+
+
     Timer{
         id: tinit
         running: true
@@ -172,6 +258,7 @@ ApplicationWindow {
         }
 
     }
+
     function run(ukl){
         var urlGit=(''+unik.getFile(ukl)).replace(/\n/g, '')
         var params=urlGit
@@ -186,6 +273,7 @@ ApplicationWindow {
         app.close()
         //downloadGit(QByteArray url, QByteArray localFolder)
         if(params.indexOf('-git=')>=0&&params.indexOf('-git=')!==params.length-1&&params.length>5){
+            xPb.opacity=1.0
             var m0=params.split('-git=')
             var m1=m0[1].split(',')
             var m2=m1[0].split('/')
