@@ -191,10 +191,11 @@ ApplicationWindow {
             var m2=m1[0].split('/')
             var mn=m2[m2.length-1].replace(/.git/g, '')
 
+            console.log('Launching from Unik Android Apps: '+m1[0])
+            console.log('Launching from Unik Android Apps: '+m1[0])
+            unik.cd(pws)
+            unik.mkdir(pws+'/'+mn)
             var d = unik.downloadGit(m1[0], pws)
-            if(!unik.fileExist(pws+'/'+mn)){
-                unik.mkdir(pws+'/'+mn)
-            }
             unik.cd(pws+'/'+mn)
             engine.load(pws+'/'+mn+'/main.qml')
         }
