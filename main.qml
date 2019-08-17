@@ -34,6 +34,21 @@ ApplicationWindow {
         category: 'conf-appsListLauncher'
         property string uApp
     }
+    UnikSettings{
+        id: unikSettings
+        Component.onCompleted: {
+            console.log('UnikColorTheme currentNumColor: '+unikSettings.currentNumColor)
+            console.log('UnikColorTheme defaultColors: '+unikSettings.defaultColors)
+            var nc=unikSettings.currentNumColor
+            var cc1=unikSettings.defaultColors.split('|')
+            var cc2=cc1[nc].split('-')
+            app.c1=cc2[0]
+            app.c2=cc2[1]
+            app.c3=cc2[2]
+            app.c4=cc2[3]
+            app.visible=true
+        }
+    }
     FolderListModel{
         folder: 'file://./'
         id:fl
