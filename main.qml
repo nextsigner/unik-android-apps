@@ -183,8 +183,20 @@ ApplicationWindow {
         unik.setFile(uklFileLocation, uklData)
         params+=', -folder='+pws+'/'+s1
         //params+=', -dir='+pws+'/'+s1
-        unik.setUnikStartSettings(params)
-        unik.restartApp()
+        app.close()
+        //downloadGit(QByteArray url, QByteArray localFolder)
+        if(params.indexOf('-git=')>=0&&params.indexOf('-git=')!==params.length-1&&params.length>5){
+            var m0=params.split('-git=')
+            var m1=m0[1].split(',')
+            var m2=m1[0].split('/')
+            var mn=m2[m2.length-1].replace(/.git/g, '')
+
+            var d = unik.downloadGit(m1[0], pws)
+            unik.cd(pws+'/'+mn)
+            engine.load(pws+'/'+mn+'/main.qml')
+        }
+        //unik.setUnikStartSettings(params)
+        //unik.restartApp()
     }
 }
 
