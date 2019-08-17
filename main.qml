@@ -1,5 +1,6 @@
 ﻿import QtQuick 2.7
 import QtQuick.Controls 2.0
+import QtQuick.Window 2.2
 import Qt.labs.folderlistmodel 2.2
 import Qt.labs.settings 1.0
 ApplicationWindow {
@@ -125,7 +126,7 @@ ApplicationWindow {
                     id: msg1
                     text: 'Instalada'
                     font.pixelSize: app.fs*0.4
-                    color:app.c2
+                    color:app.c1
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.leftMargin: app.fs*0.5
