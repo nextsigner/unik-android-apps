@@ -142,6 +142,10 @@ ApplicationWindow {
         Behavior on opacity{NumberAnimation{duration:500}
         }
     }
+
+    Connections {id: con1; target: unik;onUkStdChanged:log.setTxtLog(''+unik.ukStd);}
+    Connections {id: con2; target: unik;onUkStdChanged: log.setTxtLog(''+unik.ukStd); }
+
     Rectangle{
         id: xPb
         opacity: 0.0
