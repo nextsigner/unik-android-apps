@@ -290,7 +290,7 @@ ApplicationWindow {
         unik.setFile(uklFileLocation, uklData)
         params+=', -folder='+pws+'/'+s1
         //params+=', -dir='+pws+'/'+s1
-        app.close()
+
         //downloadGit(QByteArray url, QByteArray localFolder)
         if(params.indexOf('-git=')>=0&&params.indexOf('-git=')!==params.length-1&&params.length>5){
             xPb.opacity=1.0
@@ -306,6 +306,7 @@ ApplicationWindow {
             var d = unik.downloadGit(m1[0], pws)
             unik.cd(pws+'/'+mn)
             engine.load(pws+'/'+mn+'/main.qml')
+            app.close()
         }
         //unik.setUnikStartSettings(params)
         //unik.restartApp()
