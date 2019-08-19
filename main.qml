@@ -250,19 +250,24 @@ ApplicationWindow {
 
 
     Rectangle{
-        id: xUErrors
+        id: xUWarnings
         width: app.width-app.fs
         height:parent.height
-        color: 'red'
-        border.width: 10
-        border.color: 'green'
+        color: app.c1
+        border.width: unikSettings.borderWidth
+        border.color: app.c2
         //visible: txtErrors.text!=='<b>Unik Errors</b>'
-        Connections {target: unik;onUWarningChanged: txtErrors.text+='AAA AAA '+unik.getUWarning()+'\n'; }
+        Connections {
+            target: unik
+            onUWarningChanged: {
+                txtErrors.text+=''+unik.getUWarning()+'\n';
+            }
+        }
         Timer{
             running: true
             repeat: true
             interval: 3000
-            onTriggered: xUErrors.setUData()
+            onTriggered: xUWarnings.setUData()
         }
         Flickable{
             anchors.fill: parent
@@ -271,15 +276,29 @@ ApplicationWindow {
             Text {
                 id: txtErrors
                 text: '<b>Unik Errors</b>'
-                font.pixelSize: unikSettings?xUErrors.width*0.02*unikSettings.zoom:xUErrors.width*0.02
-                width: xUErrors.width*0.98
+                font.pixelSize: unikSettings?xUWarnings.width*0.03*unikSettings.zoom:xUWarnings.width*0.03
+                width: xUWarnings.width*0.98
+                wrapMode: Text.WordWrap
                 anchors.top: parent.top
-                anchors.topMargin: unikSettings?xUErrors.width*0.02*unikSettings.zoom:xUErrors.width*0.02
+                anchors.topMargin: unikSettings?xUWarnings.width*0.02*unikSettings.zoom:xUWarnings.width*0.02
+                anchors.horizontalCenter: parent.horizontalCenter
             }
         }
-        MouseArea{
-            anchors.fill: parent
-            onDoubleClicked: xUErrors.visible=false
+        Boton{//Close
+            id: btnCloseDownload
+            w:app.fs
+            h: w
+            t: "\uf00d"
+            d:unikSettings.lang==='es'?'Cerrar':'Close'
+            b:app.c1
+            c: app.c2
+            anchors.right: parent.right
+            anchors.rightMargin: app.fs*0.5
+            anchors.top: parent.top
+            anchors.topMargin: app.fs*0.5
+            onClicking: {
+                xUWarnings.visible=false
+            }
         }
     }
 
