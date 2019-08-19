@@ -262,7 +262,7 @@ ApplicationWindow {
             target: unik
             onUWarningChanged: {
                 txtErrors.text+=''+unik.getUWarning()+'\n';
-                if(!notShowAgain){
+                if(!xUWarnings.notShowAgain){
                     xUWarnings.visible=true
                 }
             }
@@ -305,7 +305,7 @@ ApplicationWindow {
                 xUWarnings.visible=false
             }
         }
-        Boton{//Close for ever
+        /*Boton{//Close for ever
             id: btnCloseXUWarningNotAgain
             w:app.fs
             h: w
@@ -320,7 +320,7 @@ ApplicationWindow {
                 xUWarnings.notShowAgain=true
                 xUWarnings.visible=false
             }
-        }
+        }*/
     }
 
     Timer{
