@@ -7,7 +7,7 @@ ApplicationWindow {
     id: app
     objectName: 'uaa'
     visibility:  "FullScreen"
-    color: "#ff8833"
+    color: app.c1
     property string moduleName: 'unik-android-apps'
     property int fs: width>height?app.width*0.03:app.width*0.06
     property color c1: "#1fbc05"
@@ -68,7 +68,7 @@ ApplicationWindow {
         id:r
         width: app.width-app.fs
         height:parent.height
-        color: 'black'
+        color: app.c1
         anchors.centerIn: parent
         Text {
             id: txtFlFolder
@@ -92,10 +92,10 @@ ApplicationWindow {
                 id:xItem
                 width: txt.contentWidth+app.fs*2
                 height: app.fs*2
-                color: xItem.border.width!==0?app.c4:app.c2
+                color: xItem.border.width!==0?app.c1:app.c2
                 radius: app.fs*0.25
                 border.width: fileName===app.ca?2:0
-                border.color: fileName===app.ca?app.c2:app.c4
+                border.color: fileName===app.ca?app.c2:app.c1
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0
                 onColorChanged: {
@@ -117,7 +117,7 @@ ApplicationWindow {
                     id: txt
                     text: (''+fileName).substring(5, (''+fileName).length-4)
                     font.pixelSize: app.fs
-                    color:xItem.border.width!==0?app.c2:app.c4
+                    color:xItem.border.width!==0?app.c2:app.c1
                     anchors.centerIn: parent
                 }
                 Component.onCompleted: {

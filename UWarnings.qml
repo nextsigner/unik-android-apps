@@ -40,6 +40,7 @@ Rectangle{
             color: app.c2
             width: xUWarnings.width-app.fs*3
             wrapMode: Text.WordWrap
+            textFormat: Text.Normal
         }
     }
     Boton{//Close
