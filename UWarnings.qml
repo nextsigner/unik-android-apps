@@ -35,7 +35,7 @@ Rectangle{
         anchors.topMargin: app.fs
         Text {
             id: txtErrors
-            text: unikSettings.lang==='es'?'<b>Unik Advertencias</b>\n\n\n':'<b>Unik Warnings</b>\n\n\n'
+            text: unikSettings.lang==='es'?'<b>Unik Advertencias</b><br /><br />':'<b>Unik Warnings</b><br /><br />'
             font.pixelSize: app.fs
             color: app.c2
             width: xUWarnings.width-app.fs*3
@@ -74,19 +74,19 @@ Rectangle{
             xUWarnings.visible=false
         }
     }
-    Boton{//Close for ever
+    Boton{//Clear
         id: btnCloseXUWarningClear
         w:app.fs
         h: w
-        t: "\uf011"
+        t: "\uf12d"
         d:unikSettings.lang==='es'?'Limpiar':'Clear'
         b:app.c1
         c: app.c2
-        anchors.right: btnCloseXUWarning.right
-        anchors.top: btnCloseXUWarning.bottom
+        anchors.right: btnCloseXUWarningNotAgain.right
+        anchors.top: btnCloseXUWarningNotAgain.bottom
         anchors.topMargin: app.fs*0.5
         onClicking: {
-            txtErrors.text=unikSettings.lang==='es'?'<b>Unik Advertencias</b>\n\n\n':'<b>Unik Warnings</b>\n\n\n'
+            txtErrors.text=unikSettings.lang==='es'?'<b>Unik Advertencias</b><br /><br />':'<b>Unik Warnings</b><br /><br />'
         }
     }
 }
