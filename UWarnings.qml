@@ -13,7 +13,7 @@ Rectangle{
     Connections {
         target: unik
         onUWarningChanged: {
-            txtErrors.text+=''+unik.getUWarning()+'\n\n';
+            txtUWarnings.text+=''+unik.getUWarning()+'\n';
             if(!xUWarnings.notShowAgain){
                 xUWarnings.visible=true
             }
@@ -26,21 +26,23 @@ Rectangle{
         onTriggered: xUWarnings.setUData()
     }
     Flickable{
+        id: flickUW
         width: parent.width-app.fs
         height: parent.height-app.fs
-        contentWidth: txtErrors.contentWidth
-        contentHeight: txtErrors.contentHeight
+        contentWidth: txtUWarnings.contentWidth
+        contentHeight: txtUWarnings.contentHeight
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: app.fs
         Text {
-            id: txtErrors
-            text: unikSettings.lang==='es'?'<b>Unik Advertencias</b><br /><br />':'<b>Unik Warnings</b><br /><br />'
+            id: txtUWarnings
+            text: unikSettings.lang==='es'?'<b>Unik Advertencias</b>\n':'<b>Unik Warnings</b>\n'
             font.pixelSize: app.fs
             color: app.c2
-            width: xUWarnings.width-app.fs*3
+            width: parent.width-app.fs*3
             wrapMode: Text.WordWrap
             textFormat: Text.Normal
+            onTextChanged: flickUW.contentY=txtUWarnings.contentHeight
         }
     }
     Boton{//Close
@@ -87,7 +89,7 @@ Rectangle{
         anchors.top: btnCloseXUWarningNotAgain.bottom
         anchors.topMargin: app.fs*0.5
         onClicking: {
-            txtErrors.text=unikSettings.lang==='es'?'<b>Unik Advertencias</b><br /><br />':'<b>Unik Warnings</b><br /><br />'
+            txtUWarnings.text=unikSettings.lang==='es'?'<b>Unik Advertencias</b>\n':'<b>Unik Warnings</b>\n'
         }
     }
 }
