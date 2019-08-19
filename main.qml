@@ -7,7 +7,7 @@ ApplicationWindow {
     id: app
     objectName: 'uaa'
     visibility:  "FullScreen"
-    color: "black"
+    color: "#ff8833"
     property string moduleName: 'unik-android-apps'
     property int fs: width>height?app.width*0.03:app.width*0.06
     property color c1: "#1fbc05"
@@ -256,13 +256,13 @@ ApplicationWindow {
         border.width: 10
         border.color: 'green'
         //visible: txtErrors.text!=='<b>Unik Errors</b>'
-        Connections {target: unik;onUErrorsChanged: txtErrors.text+='AAA AAA '+unik.getUErrors()+'\n'; }
+        /*Connections {target: unik;onUErrorsChanged: txtErrors.text+='AAA AAA '+unik.getUErrors()+'\n'; }
         Timer{
             running: true
             repeat: true
             interval: 3000
             onTriggered: xUErrors.setUData()
-        }
+        }*/
         Flickable{
             anchors.fill: parent
             contentWidth: txtErrors.contentWidth
