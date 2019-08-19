@@ -257,10 +257,14 @@ ApplicationWindow {
         border.width: unikSettings.borderWidth
         border.color: app.c2
         //visible: txtErrors.text!=='<b>Unik Errors</b>'
+        property bool notShowAgain: false
         Connections {
             target: unik
             onUWarningChanged: {
                 txtErrors.text+=''+unik.getUWarning()+'\n';
+                if(!notShowAgain){
+                    xUWarnings.visible=true
+                }
             }
         }
         Timer{
@@ -276,7 +280,8 @@ ApplicationWindow {
             Text {
                 id: txtErrors
                 text: '<b>Unik Errors</b>'
-                font.pixelSize: unikSettings?xUWarnings.width*0.03*unikSettings.zoom:xUWarnings.width*0.03
+                font.pixelSize: app.fs
+                color: app.c2
                 width: xUWarnings.width*0.98
                 wrapMode: Text.WordWrap
                 anchors.top: parent.top
@@ -297,6 +302,22 @@ ApplicationWindow {
             anchors.top: parent.top
             anchors.topMargin: app.fs*0.5
             onClicking: {
+                xUWarnings.visible=false
+            }
+        }
+        Boton{//Close for ever
+            id: btnCloseXUWarningNotAgain
+            w:app.fs
+            h: w
+            t: "\uf00d"
+            d:unikSettings.lang==='es'?'Cerrar - No mostrar mas':'Close - Not Show Again'
+            b:app.c1
+            c: app.c2
+            anchors.right: btnCloseXUWarning.right
+            anchors.top: btnCloseXUWarning.bottom
+            anchors.topMargin: app.fs*0.5
+            onClicking: {
+                xUWarnings.notShowAgain=true
                 xUWarnings.visible=false
             }
         }
