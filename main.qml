@@ -256,12 +256,13 @@ ApplicationWindow {
         color: app.c1
         border.width: unikSettings.borderWidth
         border.color: app.c2
-        //visible: txtErrors.text!=='<b>Unik Errors</b>'
+        visible: false
+        clip: true
         property bool notShowAgain: false
         Connections {
             target: unik
             onUWarningChanged: {
-                txtErrors.text+=''+unik.getUWarning()+'\n';
+                txtErrors.text+=''+unik.getUWarning()+'\n\n';
                 if(!xUWarnings.notShowAgain){
                     xUWarnings.visible=true
                 }
@@ -274,19 +275,24 @@ ApplicationWindow {
             onTriggered: xUWarnings.setUData()
         }
         Flickable{
-            anchors.fill: parent
-            contentWidth: txtErrors.contentWidth
+            width: parent.width-app.fs
+            height: parent.height-app.fs
+            contentWidth: parent.width
             contentHeight: txtErrors.contentHeight
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: app.fs
             Text {
                 id: txtErrors
                 text: '<b>Unik Errors</b>'
                 font.pixelSize: app.fs
                 color: app.c2
-                width: xUWarnings.width*0.98
+                width: xUWarnings.width-app.fs*3
                 wrapMode: Text.WordWrap
                 anchors.top: parent.top
                 anchors.topMargin: unikSettings?xUWarnings.width*0.02*unikSettings.zoom:xUWarnings.width*0.02
                 anchors.horizontalCenter: parent.horizontalCenter
+                anchors.horizontalCenterOffset: 0-app.fs*2
             }
         }
         Boton{//Close
@@ -305,11 +311,11 @@ ApplicationWindow {
                 xUWarnings.visible=false
             }
         }
-        /*Boton{//Close for ever
+        Boton{//Close for ever
             id: btnCloseXUWarningNotAgain
             w:app.fs
             h: w
-            t: "\uf00d"
+            t: "\uf011"
             d:unikSettings.lang==='es'?'Cerrar - No mostrar mas':'Close - Not Show Again'
             b:app.c1
             c: app.c2
@@ -320,7 +326,7 @@ ApplicationWindow {
                 xUWarnings.notShowAgain=true
                 xUWarnings.visible=false
             }
-        }*/
+        }
     }
 
     Timer{
