@@ -129,7 +129,7 @@ ApplicationWindow {
                         xP.visible=true
                     }
                     //if( tlaunch.enabled){
-                        tinit.restart()
+                    tinit.restart()
                     //}
                     if(xItem.width>lv.width){
                         lv.width=xItem.width
@@ -196,6 +196,7 @@ ApplicationWindow {
                 color: app.c2
                 width: app.width<app.height ? app.width*0.9 : app.height*0.9
                 height: contentHeight
+                textFormat: Text.RichText
                 wrapMode: Text.WordWrap
                 font.pixelSize: app.fs*0.5
                 horizontalAlignment: Text.AlignHCenter
@@ -247,6 +248,39 @@ ApplicationWindow {
         }
     }
 
+
+    Rectangle{
+        id: xUErrors
+        anchors.fill: parent
+        color: 'red'
+        border.width: 10
+        border.color: 'green'
+        visible: txtErrors.text!=='<b>Unik Errors</b>'
+        Connections {target: unik;onUErrorsChanged: txtErrors.text+=''+unik.getUErrors()+'\n'; }
+        Timer{
+            running: true
+            repeat: true
+            interval: 3000
+            onTriggered: xUErrors.setUData()
+        }
+        Flickable{
+            anchors.fill: parent
+            contentWidth: txtErrors.contentWidth
+            contentHeight: txtErrors.contentHeight
+            Text {
+                id: txtErrors
+                text: '<b>Unik Errors</b>'
+                font.pixelSize: unikSettings?xUErrors.width*0.02*unikSettings.zoom:xUErrors.width*0.02
+                width: xUErrors.width*0.98
+                anchors.top: parent.top
+                anchors.topMargin: unikSettings?xUErrors.width*0.02*unikSettings.zoom:xUErrors.width*0.02
+            }
+        }
+        MouseArea{
+            anchors.fill: parent
+            onDoubleClicked: xUErrors.visible=false
+        }
+    }
 
     Timer{
         id: tinit
