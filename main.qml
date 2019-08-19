@@ -75,6 +75,7 @@ ApplicationWindow {
             text: "Folder: "+fl.folder
             color:'white'
             font.pixelSize: 12
+            visible: false
         }
         ListView{
             id:lv
@@ -139,11 +140,11 @@ ApplicationWindow {
                 }
                 Text {
                     id: msg1
-                    text: 'Instalada'
+                    text: unikSettings.lang==='es'?'Instalada':'Installed'
                     font.pixelSize: app.fs*0.4
-                    color:app.c1
+                    color:app.c2
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
+                    anchors.right: parent.left
                     anchors.leftMargin: app.fs*0.5
                 }
             }

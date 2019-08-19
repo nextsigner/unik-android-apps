@@ -20,12 +20,6 @@ Rectangle{
             }
         }
     }
-    Timer{
-        running: true
-        repeat: true
-        interval: 3000
-        onTriggered: xUWarnings.setUData()
-    }
     Flickable{
         id: flickUW
         width: parent.width-app.fs
@@ -44,7 +38,7 @@ Rectangle{
         }
         Text {
             id: txtUWarnings
-            text: unikSettings.lang==='es'?'<b>Unik Advertencias</b><br /><br />':'<b>Unik Warnings</b><br />'
+            text: unikSettings.lang==='es'?'<b>Unik Advertencias</b><br /><br />':'<b>Unik Warnings</b><br /><br />'
             font.pixelSize: app.fs
             color: app.c2
             width: parent.width-app.fs*3
@@ -101,7 +95,7 @@ Rectangle{
         anchors.top: btnCloseXUWarningNotAgain.bottom
         anchors.topMargin: app.fs*0.5
         onClicking: {
-            txtUWarnings.text=unikSettings.lang==='es'?'<b>Unik Advertencias</b><br />':'<b>Unik Warnings</b><br />'
+            txtUWarnings.text=unikSettings.lang==='es'?'<b>Unik Advertencias</b><br /><br />':'<b>Unik Warnings</b><br /><br />'
         }
     }
 }
