@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.12
 
 Rectangle{
     id: xUWarnings
@@ -13,7 +14,7 @@ Rectangle{
     Connections {
         target: unik
         onUWarningChanged: {
-            txtUWarnings.text+=''+unik.getUWarning()+'\n';
+            txtUWarnings.text+=''+unik.getUWarning()+'<br />';
             if(!xUWarnings.notShowAgain){
                 xUWarnings.visible=true
             }
@@ -34,15 +35,22 @@ Rectangle{
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: app.fs
+        ScrollBar.vertical: ScrollBar {
+            parent: flickUW.parent
+            anchors.top: flickUW.top
+            anchors.topMargin: app.fs*6
+            anchors.left: flickUW.right
+            anchors.bottom: flickUW.bottom
+        }
         Text {
             id: txtUWarnings
-            text: unikSettings.lang==='es'?'<b>Unik Advertencias</b>\n':'<b>Unik Warnings</b>\n'
+            text: unikSettings.lang==='es'?'<b>Unik Advertencias</b><br /><br />':'<b>Unik Warnings</b><br />'
             font.pixelSize: app.fs
             color: app.c2
             width: parent.width-app.fs*3
             wrapMode: Text.WordWrap
-            textFormat: Text.Normal
-            onTextChanged: flickUW.contentY=txtUWarnings.contentHeight
+            textFormat: Text.RichText
+            onTextChanged: flickUW.contentY=flickUW.contentHeight
         }
     }
     Boton{//Close
@@ -89,7 +97,7 @@ Rectangle{
         anchors.top: btnCloseXUWarningNotAgain.bottom
         anchors.topMargin: app.fs*0.5
         onClicking: {
-            txtUWarnings.text=unikSettings.lang==='es'?'<b>Unik Advertencias</b>\n':'<b>Unik Warnings</b>\n'
+            txtUWarnings.text=unikSettings.lang==='es'?'<b>Unik Advertencias</b><br />':'<b>Unik Warnings</b><br />'
         }
     }
 }
