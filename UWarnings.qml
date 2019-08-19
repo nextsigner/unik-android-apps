@@ -14,7 +14,7 @@ Rectangle{
     Connections {
         target: unik
         onUWarningChanged: {
-            txtUWarnings.text+=''+unik.getUWarning()+'<br />';
+            txtUWarnings.text+=''+unik.getUWarning()+'<br /><br />';
             if(!xUWarnings.notShowAgain){
                 xUWarnings.visible=true
             }
@@ -50,7 +50,11 @@ Rectangle{
             width: parent.width-app.fs*3
             wrapMode: Text.WordWrap
             textFormat: Text.RichText
-            onTextChanged: flickUW.contentY=flickUW.contentHeight-flickUW.height
+            onTextChanged: {
+                if(flickUW.contentHeight>xUWarnings.height-app.fs){
+                    flickUW.contentY=flickUW.contentHeight-flickUW.height
+                }
+            }
         }
     }
     Boton{//Close
