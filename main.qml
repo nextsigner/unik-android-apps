@@ -285,7 +285,7 @@ ApplicationWindow {
             }
         }
         Boton{//Close
-            id: btnCloseDownload
+            id: btnCloseXUWarning
             w:app.fs
             h: w
             t: "\uf00d"
