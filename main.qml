@@ -257,7 +257,7 @@ ApplicationWindow {
         border.width: 10
         border.color: 'green'
         //visible: txtErrors.text!=='<b>Unik Errors</b>'
-        Connections {target: unik;onUErrorsChanged: txtErrors.text+='AAA AAA '+unik.getUErrors()+'\n'; }
+        Connections {target: unik;onUWarningChanged: txtErrors.text+='AAA AAA '+unik.getUWarning()+'\n'; }
         Timer{
             running: true
             repeat: true
