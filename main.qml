@@ -257,13 +257,13 @@ ApplicationWindow {
         border.width: 10
         border.color: 'green'
         //visible: txtErrors.text!=='<b>Unik Errors</b>'
-        /*Connections {target: unik;onUErrorsChanged: txtErrors.text+='AAA AAA '+unik.getUErrors()+'\n'; }
+        Connections {target: unik;onUErrorsChanged: txtErrors.text+='AAA AAA '+unik.getUErrors()+'\n'; }
         Timer{
             running: true
             repeat: true
             interval: 3000
             onTriggered: xUErrors.setUData()
-        }*/
+        }
         Flickable{
             anchors.fill: parent
             contentWidth: txtErrors.contentWidth
