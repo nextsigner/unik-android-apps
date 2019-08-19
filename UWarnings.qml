@@ -50,7 +50,7 @@ Rectangle{
             width: parent.width-app.fs*3
             wrapMode: Text.WordWrap
             textFormat: Text.RichText
-            onTextChanged: flickUW.contentY=flickUW.height-flickUW.contentHeight
+            onTextChanged: flickUW.contentY=flickUW.contentHeight-flickUW.height
         }
     }
     Boton{//Close
