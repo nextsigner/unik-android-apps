@@ -251,7 +251,8 @@ ApplicationWindow {
 
     Rectangle{
         id: xUErrors
-        anchors.fill: app
+        width: app.width-app.fs
+        height:parent.height
         color: 'red'
         border.width: 10
         border.color: 'green'
