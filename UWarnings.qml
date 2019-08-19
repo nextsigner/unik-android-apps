@@ -30,7 +30,7 @@ Rectangle{
         id: flickUW
         width: parent.width-app.fs
         height: parent.height-app.fs
-        contentWidth: txtUWarnings.contentWidth
+        contentWidth: width
         contentHeight: txtUWarnings.contentHeight
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
@@ -38,7 +38,7 @@ Rectangle{
         ScrollBar.vertical: ScrollBar {
             parent: flickUW.parent
             anchors.top: flickUW.top
-            anchors.topMargin: app.fs*6
+            anchors.topMargin: app.fs*4
             anchors.left: flickUW.right
             anchors.bottom: flickUW.bottom
         }
@@ -50,7 +50,7 @@ Rectangle{
             width: parent.width-app.fs*3
             wrapMode: Text.WordWrap
             textFormat: Text.RichText
-            onTextChanged: flickUW.contentY=flickUW.contentHeight
+            onTextChanged: flickUW.contentY=flickUW.height-flickUW.contentHeight
         }
     }
     Boton{//Close
