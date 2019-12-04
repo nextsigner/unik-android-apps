@@ -6,6 +6,7 @@ import Qt.labs.settings 1.0
 ApplicationWindow {
     id: app
     objectName: 'uaa'
+    visible: true
     visibility:  "FullScreen"
     color: app.c1
     property string moduleName: 'unik-android-apps'
