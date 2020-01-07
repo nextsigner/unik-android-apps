@@ -9,8 +9,8 @@ ApplicationWindow {
     objectName: 'uaa'
     visible: true
     visibility:  Qt.platform.os==='android'?"FullScreen":"Windowed"
-    width: Qt.platform.os!=='android'?height/16*9:undefined
-    height: Qt.platform.os!=='android'?Screen.height*0.8:undefined
+    width: Qt.platform.os!=='android'?height/16*9:Screen.height
+    height: Qt.platform.os!=='android'?Screen.height*0.8:Screen.height
     color: app.c1
     property string moduleName: 'unik-android-apps'
     property int fs: width>height?app.width*0.03:app.width*0.06
