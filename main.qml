@@ -9,8 +9,8 @@ ApplicationWindow {
     objectName: 'uaa'
     visible: true
     visibility:  Qt.platform.os==='android'?"FullScreen":"Windowed"
-    width: Qt.platform.os!=='android'?height/16*9:Screen.width
-    height: Qt.platform.os!=='android'?Screen.height*0.8:Screen.height
+    width: Qt.platform.os!=='android'?540:Screen.width
+    height: Qt.platform.os!=='android'?888:Screen.height
     color: app.c1
     property string moduleName: 'unik-android-apps'
     property int fs: width>height?app.width*0.03:app.width*0.06
@@ -81,7 +81,6 @@ ApplicationWindow {
         anchors.centerIn: parent
         rotation: app.width<app.height?0:-90
         property int mod: 0
-
         Rectangle{
             anchors.fill: parent
             color: 'transparent'
@@ -121,16 +120,23 @@ ApplicationWindow {
                 text: qsTr("Install Apps\nModulo en Construcción")
                 anchors.centerIn: parent
             }
-            UxBotCirc{
-                width: app.fs*2
-                text: '\uf060'
-                animationEnabled: false
-                blurEnabled: false
+            Item{
+                width: app.width-app.fs
+                height: app.fs*2
+                anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
-                anchors.topMargin: width*0.1
-                anchors.left:  parent.left
-                anchors.leftMargin: width*0.1
-                onClicked: r.mod = 0
+                anchors.topMargin: app.fs
+                UxBotCirc{
+                    width: app.fs*2
+                    text: '\uf060'
+                    animationEnabled: false
+                    blurEnabled: false
+                    //anchors.top: parent.top
+                    //anchors.topMargin: width*0.1
+                    //anchors.left:  parent.left
+                    //anchors.leftMargin: width*0.1
+                    onClicked: r.mod = 0
+                }
             }
         }
 
@@ -142,67 +148,105 @@ ApplicationWindow {
             property int modView: 0
             onModViewChanged: {
                 for(let i=0;i<lv.count;i++){
-                    console.log('lv'+i+': '+lv.contentItem.children[i].installed)
-                    if(xListApps.modView===1){
-                        if(lv.contentItem.children[i].installed){
-                            lv.contentItem.children[i].visible = true
+                    if(lv.contentItem.children[i]){
+                        console.log('lv'+i+': '+lv.contentItem.children[i].objectName)
+                        if(xListApps.modView===1){
+                            if(lv.contentItem.children[i].installed){
+                                lv.contentItem.children[i].visible = true
+                            }else{
+                                lv.contentItem.children[i].visible = false
+                            }
+                        }else  if(xListApps.modView===2){
+                            if(!lv.contentItem.children[i].installed){
+                                lv.contentItem.children[i].visible = (''+fl.get(i, 'fileName')).indexOf('link')===0&&(''+fl.get(i, 'fileName')).indexOf('.ukl')>0
+                            }else{
+                                lv.contentItem.children[i].visible = false
+                            }
                         }else{
-                            lv.contentItem.children[i].visible = false
-                        }
-                    }else  if(xListApps.modView===2){
-                        if(!lv.contentItem.children[i].installed){
                             lv.contentItem.children[i].visible = (''+fl.get(i, 'fileName')).indexOf('link')===0&&(''+fl.get(i, 'fileName')).indexOf('.ukl')>0
-                        }else{
-                            lv.contentItem.children[i].visible = false
                         }
-                    }else{
-                        lv.contentItem.children[i].visible = (''+fl.get(i, 'fileName')).indexOf('link')===0&&(''+fl.get(i, 'fileName')).indexOf('.ukl')>0
                     }
                 }
             }
-            ListView{
-                id:lv
-                width: app.width-app.fs
-                height: parent.height-app.fs*5
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.top
-                anchors.topMargin: app.fs*3
-                spacing: app.fs*0.25
-                model:fl
-                delegate: delegate
-                Component{
-                    id:delegate
-                    UxBotRect{
-                        id:xItem
-                        height: visible?app.fs*3:0
-                        visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0//&&(xListApps.modView===0||xListApps.modView===1&&msg1.visible)
-                        property bool installed: false
-                        text: (''+fileName).substring(5, (''+fileName).length-4)
-                        anchors.horizontalCenter: parent.horizontalCenter
+            Column{
+                anchors.centerIn: parent
+                Item{
+                    id: xBotListApps
+                    width: app.width
+                    height: app.fs*3
+                    UxBotCirc{
+                        text: '\uf060'
                         animationEnabled: false
-                        glowEnabled: false
+                        blurEnabled: false
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left:  parent.left
+                        anchors.leftMargin: app.fs
+                        onClicked: r.mod = 0
+                    }
+                    UxBotCirc{
+                        text: xListApps.modView===0?'\uf069':xListApps.modView===1?'\uf00c':'\uf019'
+                        fontSize: app.fs
+                        animationEnabled: false
+                        blurEnabled: false
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right:  parent.right
+                        anchors.rightMargin: app.fs
                         onClicked: {
-                            run(fileName)
-                        }
-                        Component.onCompleted: {
-                            app.al.push(fileName)
-                            if((''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.json')>0&&!app.prima){
-                                app.ca=app.al[index]
-                                app.prima=true
-                                tap.color='black'
-                                xP.visible=true
+                            if(xListApps.modView===0){
+                                xListApps.modView=1
+                            }else  if(xListApps.modView===1){
+                                xListApps.modView=2
+                            }else{
+                                xListApps.modView=0
                             }
-                            //if( tlaunch.enabled){
-                            tinit.restart()
-                            //}
-                            if(xItem.width>lv.width){
-                                lv.width=xItem.width
-                            }
-                            var uklFileLocation=pws+'/'+fileName
-                            xItem.installed=unik.fileExist(uklFileLocation)
                         }
                     }
-                    /*Rectangle{
+
+                }
+                ListView{
+                    id:lv
+                    width: app.width-app.fs
+                    height: app.height-app.fs*5
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    //anchors.top: parent.top
+                    //anchors.topMargin: app.fs*3
+                    spacing: app.fs*0.25
+                    model:fl
+                    delegate: delegate
+                    Component{
+                        id:delegate
+                        UxBotRect{
+                            id:xItem
+                            objectName: 'aaa'+index
+                            height: visible?app.fs*3:0
+                            visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0//&&(xListApps.modView===0||xListApps.modView===1&&msg1.visible)
+                            property bool installed: false
+                            text: (''+fileName).substring(5, (''+fileName).length-4)
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            animationEnabled: false
+                            glowEnabled: false
+                            onClicked: {
+                                run(fileName)
+                            }
+                            Component.onCompleted: {
+                                app.al.push(fileName)
+                                if((''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.json')>0&&!app.prima){
+                                    app.ca=app.al[index]
+                                    app.prima=true
+                                    tap.color='black'
+                                    xP.visible=true
+                                }
+                                //if( tlaunch.enabled){
+                                tinit.restart()
+                                //}
+                                if(xItem.width>lv.width){
+                                    lv.width=xItem.width
+                                }
+                                var uklFileLocation=pws+'/'+fileName
+                                xItem.installed=unik.fileExist(uklFileLocation)
+                            }
+                        }
+                        /*Rectangle{
                         id:xItem
                         width: txt.contentWidth+app.fs*2
                         height: visible?app.fs*2:0
@@ -254,36 +298,6 @@ ApplicationWindow {
                             //msg1.visible=xItem.installed
                         }
                                            }*/
-                }
-            }
-            UxBotCirc{
-                //width: app.fs*2
-                text: '\uf060'
-                animationEnabled: false
-                blurEnabled: false
-                anchors.top: parent.top
-                anchors.topMargin: width*0.1
-                anchors.left:  parent.left
-                anchors.leftMargin: width*0.1
-                onClicked: r.mod = 0
-            }
-            UxBotCirc{
-                //width: app.fs*2
-                text: xListApps.modView===0?'\uf069':xListApps.modView===1?'\uf00c':'\uf019'
-                fontSize: app.fs
-                animationEnabled: false
-                blurEnabled: false
-                anchors.top: parent.top
-                anchors.topMargin: width*0.1
-                anchors.right:  parent.right
-                anchors.rightMargin: width*0.1
-                onClicked: {
-                    if(xListApps.modView===0){
-                        xListApps.modView=1
-                    }else  if(xListApps.modView===1){
-                        xListApps.modView=2
-                    }else{
-                        xListApps.modView=0
                     }
                 }
             }
@@ -374,8 +388,9 @@ ApplicationWindow {
                 }
             }
         }
-        UWarnings{}
+
     }
+    UWarnings{}
     Rectangle{
         id:tap
         anchors.fill: parent
@@ -389,7 +404,7 @@ ApplicationWindow {
     Connections {id: con2; target: unik;onUkStdChanged: log.setTxtLog(''+unik.ukStd); }
 
 
-     Timer{
+    Timer{
         id: tinit
         running: true
         repeat: false
