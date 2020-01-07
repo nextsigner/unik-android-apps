@@ -58,7 +58,7 @@ ApplicationWindow {
         }
     }
     FolderListModel{
-        folder: 'file:./' //Qt.platform.os==='android'?'file://./':'file:./'
+        folder: 'file://'+unik.currentFolderPath() //Qt.platform.os==='android'?'file://./':'file:./'
         id:fl
         showDirs:  false
         showDotAndDotDot: false
@@ -361,6 +361,12 @@ ApplicationWindow {
 
     UWarnings{}
 
+    Text {
+        id: fp
+        text: fl.folder
+        font.pixelSize: 14
+        color: 'white'
+    }
     Timer{
         id: tinit
         running: true
