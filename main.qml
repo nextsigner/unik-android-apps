@@ -59,7 +59,7 @@ ApplicationWindow {
         }
     }
     FolderListModel{
-        folder: Qt.platform.os==='android'?'file://./':'file://'+unik.currentFolderPath()
+        folder: Qt.platform.os!=='android'?'file://./':'file://'+unik.currentFolderPath()
         id:fl
         showDirs:  false
         showDotAndDotDot: false
