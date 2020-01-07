@@ -9,7 +9,7 @@ ApplicationWindow {
     objectName: 'uaa'
     visible: true
     visibility:  Qt.platform.os==='android'?"FullScreen":"Windowed"
-    width: Qt.platform.os!=='android'?height/16*9:Screen.height
+    width: Qt.platform.os!=='android'?height/16*9:Screen.width
     height: Qt.platform.os!=='android'?Screen.height*0.8:Screen.height
     color: app.c1
     property string moduleName: 'unik-android-apps'
@@ -59,7 +59,7 @@ ApplicationWindow {
         }
     }
     FolderListModel{
-        folder: Qt.platform.os!=='android'?'file://./':'file://'+unik.currentFolderPath()
+        folder: Qt.platform.os!=='android'?'file:./':'file://'+unik.currentFolderPath()
         id:fl
         showDirs:  false
         showDotAndDotDot: false
@@ -75,10 +75,11 @@ ApplicationWindow {
     }
     Rectangle{
         id:r
-        width: app.width-app.fs
-        height:parent.height
+        width: app.width<app?app.width-app.fs:app.height-app.fs
+        height: app.width<app?app.height-app.fs:app.width-app.fs
         color: app.c1
         anchors.centerIn: parent
+        rotation: app.width<app.height?0:-90
         property int mod: 0
 
         Rectangle{
@@ -161,6 +162,7 @@ ApplicationWindow {
             }
             ListView{
                 id:lv
+                width: app.width-app.fs
                 height: parent.height-app.fs*5
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
@@ -255,7 +257,7 @@ ApplicationWindow {
                 }
             }
             UxBotCirc{
-                width: app.fs*2
+                //width: app.fs*2
                 text: '\uf060'
                 animationEnabled: false
                 blurEnabled: false
@@ -266,7 +268,7 @@ ApplicationWindow {
                 onClicked: r.mod = 0
             }
             UxBotCirc{
-                width: app.fs*2
+                //width: app.fs*2
                 text: xListApps.modView===0?'\uf069':xListApps.modView===1?'\uf00c':'\uf019'
                 fontSize: app.fs
                 animationEnabled: false
@@ -286,6 +288,93 @@ ApplicationWindow {
                 }
             }
         }
+
+        Rectangle{
+            id: xPb
+            opacity: 0.0
+            width: Screen.desktopAvailableWidth<Screen.desktopAvailableHeight ? Screen.desktopAvailableWidth*0.95 : Screen.desktopAvailableHeight*0.95
+            height: titDownloadLog.contentHeight+log.contentHeight+pblaunch.height+app.fs
+            anchors.centerIn: parent
+            color: app.c1
+            //radius: unikSettings.radius
+            border.width: unikSettings.borderWidth
+            border.color: app.c2
+            clip:true
+            Behavior on opacity{
+                NumberAnimation{duration: 1000}
+            }
+            Column{
+                id: colDownloadLog
+                anchors.centerIn: parent
+                spacing: app.fs*0.5
+                Text{
+                    id: titDownloadLog
+                    color: app.c2
+                    width: app.width<app.height ? app.width*0.9 : app.height*0.9
+                    height: contentHeight
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: app.fs
+                    horizontalAlignment: Text.AlignHCenter
+                    text: unikSettings.lang==='es'?'<b>Descargando '+app.ca+'</b>':'<b>Downloading '+app.ca+'</b>'
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                Text{
+                    id: log
+                    color: app.c2
+                    width: app.width<app.height ? app.width*0.9 : app.height*0.9
+                    height: contentHeight
+                    textFormat: Text.RichText
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: app.fs*0.5
+                    horizontalAlignment: Text.AlignHCenter
+                    function setTxtLog(t){
+                        var  d=(''+t).replace(/\n/g, ' ')
+                        var p=true
+                        if(d.indexOf('Socket')>=0){
+                            p=false
+                        }else if(d.indexOf('download git')>=0){
+                            var m0=''+d.replace('download git ','')
+                            var m1=m0.split(' ')
+                            if(m1.length>1){
+                                var m2=(''+m1[1]).replace('%','')
+                                //unik.setFile('/home/nextsigner/nnn', ''+m2)
+                                var m3=parseInt(m2.replace(/ /g,''))
+                                pblaunch.width=pblaunch.parent.width/100*m3
+                            }
+
+                        }
+                        if(p){
+                            log.text=t
+                        }
+                    }
+                }
+
+                Rectangle{
+                    id:pblaunch
+                    height: app.fs*0.5
+                    width: 0
+                    color: 'red'
+                }
+            }
+
+            Boton{//Close
+                id: btnCloseDownload
+                w:app.fs
+                h: w
+                t: "\uf00d"
+                d:unikSettings.lang==='es'?'Cerrar':'Close'
+                b:app.c1
+                c: app.c2
+                anchors.right: parent.right
+                anchors.rightMargin: app.fs*0.5
+                anchors.top: parent.top
+                anchors.topMargin: app.fs*0.5
+                onClicking: {
+                    xPb.visible=false
+                }
+            }
+        }
+        UWarnings{}
     }
     Rectangle{
         id:tap
@@ -299,94 +388,6 @@ ApplicationWindow {
     Connections {id: con1; target: unik;onUkStdChanged:log.setTxtLog(''+unik.ukStd);}
     Connections {id: con2; target: unik;onUkStdChanged: log.setTxtLog(''+unik.ukStd); }
 
-    Rectangle{
-        id: xPb
-        opacity: 0.0
-        width: Screen.desktopAvailableWidth<Screen.desktopAvailableHeight ? Screen.desktopAvailableWidth*0.95 : Screen.desktopAvailableHeight*0.95
-        height: titDownloadLog.contentHeight+log.contentHeight+pblaunch.height+app.fs
-        anchors.centerIn: parent
-        color: app.c1
-        //radius: unikSettings.radius
-        border.width: unikSettings.borderWidth
-        border.color: app.c2
-        clip:true
-        Behavior on opacity{
-            NumberAnimation{duration: 1000}
-        }
-        Column{
-            id: colDownloadLog
-            anchors.centerIn: parent
-            spacing: app.fs*0.5
-            Text{
-                id: titDownloadLog
-                color: app.c2
-                width: app.width<app.height ? app.width*0.9 : app.height*0.9
-                height: contentHeight
-                wrapMode: Text.WordWrap
-                font.pixelSize: app.fs
-                horizontalAlignment: Text.AlignHCenter
-                text: unikSettings.lang==='es'?'<b>Descargando '+app.ca+'</b>':'<b>Downloading '+app.ca+'</b>'
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-            Text{
-                id: log
-                color: app.c2
-                width: app.width<app.height ? app.width*0.9 : app.height*0.9
-                height: contentHeight
-                textFormat: Text.RichText
-                wrapMode: Text.WordWrap
-                font.pixelSize: app.fs*0.5
-                horizontalAlignment: Text.AlignHCenter
-                function setTxtLog(t){
-                    var  d=(''+t).replace(/\n/g, ' ')
-                    var p=true
-                    if(d.indexOf('Socket')>=0){
-                        p=false
-                    }else if(d.indexOf('download git')>=0){
-                        var m0=''+d.replace('download git ','')
-                        var m1=m0.split(' ')
-                        if(m1.length>1){
-                            var m2=(''+m1[1]).replace('%','')
-                            //unik.setFile('/home/nextsigner/nnn', ''+m2)
-                            var m3=parseInt(m2.replace(/ /g,''))
-                            pblaunch.width=pblaunch.parent.width/100*m3
-                        }
-
-                    }
-                    if(p){
-                        log.text=t
-                    }
-                }
-            }
-
-            Rectangle{
-                id:pblaunch
-                height: app.fs*0.5
-                width: 0
-                color: 'red'
-            }
-        }
-
-        Boton{//Close
-            id: btnCloseDownload
-            w:app.fs
-            h: w
-            t: "\uf00d"
-            d:unikSettings.lang==='es'?'Cerrar':'Close'
-            b:app.c1
-            c: app.c2
-            anchors.right: parent.right
-            anchors.rightMargin: app.fs*0.5
-            anchors.top: parent.top
-            anchors.topMargin: app.fs*0.5
-            onClicking: {
-                xPb.visible=false
-            }
-        }
-    }
-
-
-    UWarnings{}
 
      Timer{
         id: tinit
