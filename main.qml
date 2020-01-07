@@ -29,7 +29,8 @@ ApplicationWindow {
     onClosing: {
         if(Qt.platform.os==='android'){
             close.accepted = true;
-            engine.load('qrc:/appsListLauncher.qml')
+            Qt.quit()
+            //engine.load('qrc:/appsListLauncher.qml')
         }else{
             close.accepted = true;
             Qt.quit()
@@ -39,7 +40,7 @@ ApplicationWindow {
     FontLoader {name: "FontAwesome";source: "qrc:/fontawesome-webfont.ttf";}
     Settings{
         id: appSettings
-        category: 'conf-appsListLauncher'
+        category: 'conf-android-apps'
         property string uApp
     }
     UnikSettings{
@@ -58,7 +59,7 @@ ApplicationWindow {
         }
     }
     FolderListModel{
-        folder: 'file://'+unik.currentFolderPath() //Qt.platform.os==='android'?'file://./':'file:./'
+        folder: Qt.platform.os==='android'?'file://./':'file://'+unik.currentFolderPath()
         id:fl
         showDirs:  false
         showDotAndDotDot: false
@@ -91,6 +92,7 @@ ApplicationWindow {
                     width: r.width*0.5
                     height: width
                     text: unikSettings.lang==='es'?'Instalar App':'Install App'
+                    onClicked: r.mod = 2
                 }
                 UxBotCirc{
                     width: r.width*0.5
@@ -107,6 +109,27 @@ ApplicationWindow {
                 blurEnabled: false
                 anchors.bottom: parent.bottom
                 anchors.right: parent.right
+            }
+        }
+        Item{
+            id: xInstallApps
+            anchors.fill: parent
+            visible: r.mod===2
+            UText {
+                id: labelInstallApp
+                text: qsTr("Install Apps\nModulo en Construcción")
+                anchors.centerIn: parent
+            }
+            UxBotCirc{
+                width: app.fs*2
+                text: '\uf060'
+                animationEnabled: false
+                blurEnabled: false
+                anchors.top: parent.top
+                anchors.topMargin: width*0.1
+                anchors.left:  parent.left
+                anchors.leftMargin: width*0.1
+                onClicked: r.mod = 0
             }
         }
 
@@ -147,13 +170,15 @@ ApplicationWindow {
                 delegate: delegate
                 Component{
                     id:delegate
-                    BotonUX{
+                    UxBotRect{
                         id:xItem
-                        height: visible?app.fs*2:0
+                        height: visible?app.fs*3:0
                         visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0//&&(xListApps.modView===0||xListApps.modView===1&&msg1.visible)
                         property bool installed: false
                         text: (''+fileName).substring(5, (''+fileName).length-4)
                         anchors.horizontalCenter: parent.horizontalCenter
+                        animationEnabled: false
+                        glowEnabled: false
                         onClicked: {
                             run(fileName)
                         }
@@ -230,6 +255,7 @@ ApplicationWindow {
                 }
             }
             UxBotCirc{
+                width: app.fs*2
                 text: '\uf060'
                 animationEnabled: false
                 blurEnabled: false
@@ -240,6 +266,7 @@ ApplicationWindow {
                 onClicked: r.mod = 0
             }
             UxBotCirc{
+                width: app.fs*2
                 text: xListApps.modView===0?'\uf069':xListApps.modView===1?'\uf00c':'\uf019'
                 fontSize: app.fs
                 animationEnabled: false
@@ -361,13 +388,7 @@ ApplicationWindow {
 
     UWarnings{}
 
-    Text {
-        id: fp
-        text: fl.folder
-        font.pixelSize: 14
-        color: 'white'
-    }
-    Timer{
+     Timer{
         id: tinit
         running: true
         repeat: false
