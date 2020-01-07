@@ -58,7 +58,7 @@ ApplicationWindow {
         }
     }
     FolderListModel{
-        folder: 'file://./' //Qt.platform.os==='android'?'file://./':'file:./'
+        folder: 'file:./' //Qt.platform.os==='android'?'file://./':'file:./'
         id:fl
         showDirs:  false
         showDotAndDotDot: false
