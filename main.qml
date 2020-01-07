@@ -382,8 +382,8 @@ ApplicationWindow {
                 }
             }
             if(vacio){
-                app.close()
-                engine.load('qrc:/appsListLauncher.qml')
+                //app.close()
+                //engine.load('qrc:/appsListLauncher.qml')
             }else{
                 //xP.visible=true
             }
