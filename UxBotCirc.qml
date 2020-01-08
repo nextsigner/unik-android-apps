@@ -121,7 +121,7 @@ Item{
         }
     }
     Timer{
-        id: tInit
+        id: tinit2
         running: false
         repeat: false
         onTriggered: an1.start()
@@ -132,7 +132,7 @@ Item{
         var max = 4
         let seconds   = Math.floor(Math.random()*(max-min+1)+min);
         console.log('UxBotCirc: '+unikSettings.lang)
-        tInit.interval = seconds*1000
-        tInit.start()
+        tinit2.interval = seconds*1000
+        tinit2.start()
     }
 }

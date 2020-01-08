@@ -157,17 +157,23 @@ ApplicationWindow {
                         if(xListApps.modView===1){
                             if(lv.contentItem.children[i].installed){
                                 lv.contentItem.children[i].visible = true
+                                lv.contentItem.children[i].height = app.fs*3+unikSettings.borderWidth*2
                             }else{
                                 lv.contentItem.children[i].visible = false
                             }
                         }else  if(xListApps.modView===2){
                             if(!lv.contentItem.children[i].installed){
-                                lv.contentItem.children[i].visible = (''+fl.get(i, 'fileName')).indexOf('link')===0&&(''+fl.get(i, 'fileName')).indexOf('.ukl')>0
+                                lv.contentItem.children[i].visible = (''+fl.get(i, 'fileName')).indexOf('link')===0&&(''+fl.get(i, 'fileName')).indexOf('.ukl')>0                                
                             }else{
                                 lv.contentItem.children[i].visible = false
                             }
                         }else{
                             lv.contentItem.children[i].visible = (''+fl.get(i, 'fileName')).indexOf('link')===0&&(''+fl.get(i, 'fileName')).indexOf('.ukl')>0
+                        }
+                        if(lv.contentItem.children[i].visible){
+                            lv.contentItem.children[i].height = app.fs*3+unikSettings.borderWidth*2
+                        }else{
+                            lv.contentItem.children[i].height = 0
                         }
                     }
                 }
@@ -220,7 +226,7 @@ ApplicationWindow {
                     delegate: delegate
                     Component{
                         id:delegate
-                        UxBotRect{
+                        /*UxBotRect{
                             id:xItem
                             objectName: 'aaa'+index
                             height: visible?app.fs*3+unikSettings.borderWidth*2:0
@@ -253,7 +259,8 @@ ApplicationWindow {
                                 xItem.installed=unik.fileExist(uklFileLocation)
                             }
                         }
-                        /*Rectangle{
+                            */
+                        Rectangle{
                         id:xItem
                         width: txt.contentWidth+app.fs*2
                         height: visible?app.fs*2:0
@@ -304,7 +311,7 @@ ApplicationWindow {
                             xItem.installed=unik.fileExist(uklFileLocation)
                             //msg1.visible=xItem.installed
                         }
-                                           }*/
+                                           }
                     }
                 }
             }
