@@ -48,23 +48,11 @@ ApplicationWindow {
     UnikSettings{
         id: unikSettings
         url:pws+'/uaa.json'
-        //zoom: 5.4
         Component.onCompleted: {
-            console.log('UnikColorTheme currentNumColor: '+unikSettings.currentNumColor)
-            console.log('UnikColorTheme defaultColors: '+unikSettings.defaultColors)
-            var nc=1//unikSettings.currentNumColor
-            var cc1=unikSettings.defaultColors.split('|')
-            var cc2=cc1[nc].split('-')
-            app.c1=cc2[0]
-            app.c2=cc2[1]
-            app.c3=cc2[2]
-            app.c4=cc2[3]
-            app.visible=true
-            zoom=1.4
-            borderWidth=app.fs*0.5
-            padding=0.5
+            updateUnikSettings()
         }
     }
+
     FolderListModel{
         folder: Qt.platform.os!=='android'?'file:./':'file://'+unik.currentFolderPath()
         id:fl
@@ -85,13 +73,16 @@ ApplicationWindow {
         width: app.width<app?app.width-app.fs:app.height-app.fs
         height: app.width<app?app.height-app.fs:app.width-app.fs
         color: app.c1
-        anchors.centerIn: parent
+        anchors.centerIn: app
         rotation: app.width<app.height?0:90
         property int mod: 0
         Rectangle{
-            anchors.fill: parent
+            width: app.width
+            height: app.height
             color: 'transparent'
             visible: r.mod===0
+            //border.width: 10
+            //border.color: 'red'
             Column{
                 anchors.centerIn: parent
                 spacing: app.fs
@@ -109,6 +100,38 @@ ApplicationWindow {
                 }
             }
             UxBotCirc{
+                text: '\uf1fc'
+                fontSize: app.fs
+                animationEnabled: false
+                blurEnabled: false
+                anchors.left: parent.left
+                anchors.leftMargin: app.fs*0.5
+                anchors.top: parent.top
+                anchors.topMargin: app.fs*0.5
+                onClicked: {
+                    var cc=unikSettings.defaultColors.split('|').length
+                    if(unikSettings.currentNumColor<cc-1){
+                        unikSettings.currentNumColor++
+                    }else{
+                        unikSettings.currentNumColor=0
+                    }
+                   updateUnikSettings()
+                }
+            }
+            UxBotCirc{
+                text: '\uf011'
+                fontSize: app.fs
+                animationEnabled: false
+                blurEnabled: false
+                anchors.right: parent.right
+                anchors.rightMargin: app.fs*0.5
+                anchors.top: parent.top
+                anchors.topMargin: app.fs*0.5
+                onClicked: {
+                   Qt.quit()
+                }
+            }
+            UxBotCirc{
                 width: app.fs*4
                 height: width
                 text: '<b>+</b>'
@@ -120,7 +143,8 @@ ApplicationWindow {
         }
         Item{
             id: xInstallApps
-            anchors.fill: parent
+            width: app.width
+            height: app.height
             visible: r.mod===2
             UText {
                 id: labelInstallApp
@@ -148,7 +172,8 @@ ApplicationWindow {
         }
         Item{
             id: xListApps
-            anchors.fill: parent
+            width: app.width
+            height: app.height
             visible: r.mod===1
             onVisibleChanged: if(visible)lv.focus=true
             property int modView: 0
@@ -318,6 +343,19 @@ ApplicationWindow {
                 }
             }
         }
+//        MouseArea{
+//            anchors.fill: parent
+//            onClicked:  {
+//                var cc=unikSettings.defaultColors.split('|').length
+//                if(unikSettings.currentNumColor<cc-1){
+//                    unikSettings.currentNumColor++
+//                }else{
+//                    unikSettings.currentNumColor=0
+//                }
+//               updateUnikSettings()
+//            }
+//        }
+
         Rectangle{
             id: xPb
             opacity: 0.0
@@ -457,6 +495,22 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: Qt.quit()
+    }
+
+    function updateUnikSettings(){
+        var nc=unikSettings.currentNumColor
+        var cc1=unikSettings.defaultColors.split('|')
+        var cc2=cc1[nc].split('-')
+        app.c1=cc2[0]
+        app.c2=cc2[1]
+        app.c3=cc2[2]
+        app.c4=cc2[3]
+
+        unikSettings.zoom=1.4
+        unikSettings.borderWidth=app.fs*0.5
+        unikSettings.padding=0.5
+
+        app.visible=true
     }
 
     function run(ukl){
