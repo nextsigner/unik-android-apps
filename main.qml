@@ -47,7 +47,7 @@ ApplicationWindow {
     }
     UnikSettings{
         id: unikSettings
-        url:pws+'/uaa.json'
+        url:moduleName//pws+'/'+moduleName+'/settings.json'
         Component.onCompleted: {
             updateUnikSettings()
         }
@@ -156,7 +156,7 @@ ApplicationWindow {
                 height: app.fs*2
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
-                anchors.topMargin: app.fs
+                //anchors.topMargin: app.fs
                 UxBotCirc{
                     width: app.fs*2
                     text: '\uf060'
