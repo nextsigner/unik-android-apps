@@ -231,6 +231,8 @@ ApplicationWindow {
                             animationEnabled: false
                             glowEnabled: false
                             onClicked: {
+                                app.ca=app.al[index]
+                                lv.currentIndex=index
                                 run(fileName)
                             }
                             Component.onCompleted: {
