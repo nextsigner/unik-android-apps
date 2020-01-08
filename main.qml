@@ -389,7 +389,8 @@ ApplicationWindow {
 
     }
     UText {
-        text: 'FS: '+app.fs
+        text: 'FS: '+app.fs+' W: '+app.width+' H: '+app.height
+        font.pixelSize: app.fs*2
     }
     UWarnings{}
     Rectangle{
