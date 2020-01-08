@@ -29,7 +29,9 @@ ApplicationWindow {
     onClosing: {
         if(Qt.platform.os==='android'){
             close.accepted = true;
-            Qt.quit()
+            if(r.mod===0){
+                Qt.quit()
+            }
             //engine.load('qrc:/appsListLauncher.qml')
         }else{
             close.accepted = true;
@@ -484,7 +486,7 @@ ApplicationWindow {
             var d = unik.downloadGit(m1[0], pws)
             unik.cd(pws+'/'+mn)
             engine.load(pws+'/'+mn+'/main.qml')
-            //app.close()
+            app.close()
         }
         //unik.setUnikStartSettings(params)
         //unik.restartApp()
