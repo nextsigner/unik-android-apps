@@ -48,7 +48,7 @@ ApplicationWindow {
     }
     UnikSettings{
         id: unikSettings
-        //url:moduleName//pws+'/'+moduleName+'/settings.json'
+        url:moduleName//pws+'/'+moduleName+'/settings.json'
         onCurrentNumColorChanged: appSettings.currentNumColors = currentNumColor
         Component.onCompleted: {
             currentNumColor = appSettings.currentNumColors
@@ -499,6 +499,10 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: Qt.quit()
+    }
+
+    Component.onCompleted: {
+        unikSettings.currentNumColor = appSettings.currentNumColors
     }
 
     function updateUS(){
