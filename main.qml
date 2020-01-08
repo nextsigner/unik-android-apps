@@ -49,7 +49,7 @@ ApplicationWindow {
         id: unikSettings
         url:moduleName//pws+'/'+moduleName+'/settings.json'
         Component.onCompleted: {
-            updateUnikSettings()
+            //updateUnikSettings()
         }
     }
 
@@ -396,7 +396,9 @@ ApplicationWindow {
                     horizontalAlignment: Text.AlignHCenter
                     function setTxtLog(t){
                         var  d=(''+t).replace(/\n/g, ' ')
-                        var p=true
+                        var p=truuklData.append(" -dir=");
+                        uklData.append(pws);
+                        uklData.append("/unik-android-apps");e
                         if(d.indexOf('Socket')>=0){
                             p=false
                         }else if(d.indexOf('download git')>=0){
@@ -498,7 +500,7 @@ ApplicationWindow {
     }
 
     function updateUnikSettings(){
-        var nc=unikSettings.currentNumColor
+        /*var nc=unikSettings.currentNumColor
         var cc1=unikSettings.defaultColors.split('|')
         var cc2=cc1[nc].split('-')
         app.c1=cc2[0]
@@ -510,7 +512,7 @@ ApplicationWindow {
         unikSettings.borderWidth=app.fs*0.5
         unikSettings.padding=0.5
 
-        app.visible=true
+        app.visible=true*/
     }
 
     function run(ukl){
