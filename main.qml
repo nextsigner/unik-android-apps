@@ -13,7 +13,7 @@ ApplicationWindow {
     height: Qt.platform.os!=='android'?960:Screen.height
     color: app.c1
     property string moduleName: 'unik-android-apps'
-    property int fs: width>height?app.width*0.03:app.width*0.03*us.zoom
+    property int fs: width>height?app.width*0.03:app.width*0.03*unikSettings.zoom
     property color c1//: "#1fbc05"
     property color c2//: "#4fec35"
     property color c3//: "white"
@@ -46,7 +46,7 @@ ApplicationWindow {
         property string uApp
     }
     UnikSettings{
-        id: us
+        id: unikSettings
         url:moduleName//pws+'/'+moduleName+'/settings.json'
         Component.onCompleted: {
             updateUS()
@@ -89,13 +89,13 @@ ApplicationWindow {
                 UxBotCirc{
                     width: r.width*0.5
                     height: width
-                    text: us.lang==='es'?'Instalar App':'Install App'
+                    text: unikSettings.lang==='es'?'Instalar App':'Install App'
                     onClicked: r.mod = 2
                 }
                 UxBotCirc{
                     width: r.width*0.5
                     height: width
-                    text: us.lang==='es'?'Lista de Apps':'Apps List'
+                    text: unikSettings.lang==='es'?'Lista de Apps':'Apps List'
                     onClicked: r.mod = 1
                 }
             }
@@ -109,11 +109,11 @@ ApplicationWindow {
                 anchors.top: parent.top
                 anchors.topMargin: app.fs*0.5
                 onClicked: {
-                    var cc=us.defaultColors.split('|').length
-                    if(us.currentNumColor<cc-1){
-                        us.currentNumColor++
+                    var cc=unikSettings.defaultColors.split('|').length
+                    if(unikSettings.currentNumColor<cc-1){
+                        unikSettings.currentNumColor++
                     }else{
-                        us.currentNumColor=0
+                        unikSettings.currentNumColor=0
                     }
                    updateUS()
                 }
@@ -184,7 +184,7 @@ ApplicationWindow {
                         if(xListApps.modView===1){
                             if(lv.contentItem.children[i].installed){
                                 lv.contentItem.children[i].visible = true
-                                lv.contentItem.children[i].height = app.fs*3+us.borderWidth*2
+                                lv.contentItem.children[i].height = app.fs*3+unikSettings.borderWidth*2
                             }else{
                                 lv.contentItem.children[i].visible = false
                             }
@@ -198,7 +198,7 @@ ApplicationWindow {
                             lv.contentItem.children[i].visible = (''+fl.get(i, 'fileName')).indexOf('link')===0&&(''+fl.get(i, 'fileName')).indexOf('.ukl')>0
                         }
                         if(lv.contentItem.children[i].visible){
-                            lv.contentItem.children[i].height = app.fs*3+us.borderWidth*2
+                            lv.contentItem.children[i].height = app.fs*3+unikSettings.borderWidth*2
                         }else{
                             lv.contentItem.children[i].height = 0
                         }
@@ -256,7 +256,7 @@ ApplicationWindow {
                         UxBotRect{
                             id:xItem
                             objectName: 'aaa'+index
-                            height: visible?app.fs*3+us.borderWidth*2:0
+                            height: visible?app.fs*3+unikSettings.borderWidth*2:0
                             visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0//&&(xListApps.modView===0||xListApps.modView===1&&msg1.visible)
                             property bool installed: false
                             text: (''+fileName).substring(5, (''+fileName).length-4)
@@ -346,11 +346,11 @@ ApplicationWindow {
 //        MouseArea{
 //            anchors.fill: parent
 //            onClicked:  {
-//                var cc=us.defaultColors.split('|').length
-//                if(us.currentNumColor<cc-1){
-//                    us.currentNumColor++
+//                var cc=unikSettings.defaultColors.split('|').length
+//                if(unikSettings.currentNumColor<cc-1){
+//                    unikSettings.currentNumColor++
 //                }else{
-//                    us.currentNumColor=0
+//                    unikSettings.currentNumColor=0
 //                }
 //               updateUS()
 //            }
@@ -363,8 +363,8 @@ ApplicationWindow {
             height: titDownloadLog.contentHeight+log.contentHeight+pblaunch.height+app.fs
             anchors.centerIn: parent
             color: app.c1
-            //radius: us.radius
-            border.width: us.borderWidth
+            //radius: unikSettings.radius
+            border.width: unikSettings.borderWidth
             border.color: app.c2
             clip:true
             Behavior on opacity{
@@ -382,7 +382,7 @@ ApplicationWindow {
                     wrapMode: Text.WordWrap
                     font.pixelSize: app.fs
                     horizontalAlignment: Text.AlignHCenter
-                    text: us.lang==='es'?'<b>Descargando '+app.ca+'</b>':'<b>Downloading '+app.ca+'</b>'
+                    text: unikSettings.lang==='es'?'<b>Descargando '+app.ca+'</b>':'<b>Downloading '+app.ca+'</b>'
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
                 Text{
@@ -429,7 +429,7 @@ ApplicationWindow {
                 w:app.fs
                 h: w
                 t: "\uf00d"
-                d:us.lang==='es'?'Cerrar':'Close'
+                d:unikSettings.lang==='es'?'Cerrar':'Close'
                 b:app.c1
                 c: app.c2
                 anchors.right: parent.right
@@ -498,17 +498,17 @@ ApplicationWindow {
     }
 
     function updateUS(){
-        var nc=us.currentNumColor
-        var cc1=us.defaultColors.split('|')
+        var nc=unikSettings.currentNumColor
+        var cc1=unikSettings.defaultColors.split('|')
         var cc2=cc1[nc].split('-')
         app.c1=cc2[0]
         app.c2=cc2[1]
         app.c3=cc2[2]
         app.c4=cc2[3]
 
-        us.zoom=1.4
-        us.borderWidth=app.fs*0.5
-        us.padding=0.5
+        unikSettings.zoom=1.4
+        unikSettings.borderWidth=app.fs*0.5
+        unikSettings.padding=0.5
 
         app.visible=true
     }
