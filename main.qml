@@ -47,7 +47,7 @@ ApplicationWindow {
     }
     UnikSettings{
         id: unikSettings
-        url:moduleName//pws+'/'+moduleName+'/settings.json'
+        //url:moduleName//pws+'/'+moduleName+'/settings.json'
         Component.onCompleted: {
             updateUnikSettings()
         }
