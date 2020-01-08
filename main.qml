@@ -44,11 +44,14 @@ ApplicationWindow {
         id: appSettings
         category: 'conf-android-apps'
         property string uApp
+        property int currentNumColors
     }
     UnikSettings{
         id: unikSettings
         url:moduleName//pws+'/'+moduleName+'/settings.json'
+        onCurrentNumColorChanged: appSettings.currentNumColors = currentNumColor
         Component.onCompleted: {
+            currentNumColor = appSettings.currentNumColors
             updateUS()
         }
     }
