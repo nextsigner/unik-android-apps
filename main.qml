@@ -79,7 +79,7 @@ ApplicationWindow {
         height: app.width<app?app.height-app.fs:app.width-app.fs
         color: app.c1
         anchors.centerIn: parent
-        rotation: app.width<app.height?0:-90
+        rotation: app.width<app.height?0:90
         property int mod: 0
         Rectangle{
             anchors.fill: parent
@@ -139,7 +139,6 @@ ApplicationWindow {
                 }
             }
         }
-
         Item{
             id: xListApps
             anchors.fill: parent
@@ -302,7 +301,6 @@ ApplicationWindow {
                 }
             }
         }
-
         Rectangle{
             id: xPb
             opacity: 0.0
@@ -389,6 +387,9 @@ ApplicationWindow {
             }
         }
 
+    }
+    UText {
+        text: 'FS: '+app.fs
     }
     UWarnings{}
     Rectangle{

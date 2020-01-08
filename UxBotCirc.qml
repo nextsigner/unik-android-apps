@@ -22,14 +22,14 @@ Item{
         anchors.fill: r
     }
     Glow {
-            visible: r.glowEnabled
-            anchors.fill: r2
-            radius: 8
-            samples: 17
-            color: app.c1
-            source: r2
-            opacity: 1.0
-        }
+        visible: r.glowEnabled
+        anchors.fill: r2
+        radius: 8
+        samples: 17
+        color: app.c1
+        source: r2
+        opacity: 1.0
+    }
     BotonUX{
         id:  r2
         fontSize: r.fontSize
