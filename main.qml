@@ -53,6 +53,8 @@ ApplicationWindow {
         }
     }
 
+
+
     FolderListModel{
         folder: Qt.platform.os!=='android'?'file:./':'file://'+unik.currentFolderPath()
         id:fl
