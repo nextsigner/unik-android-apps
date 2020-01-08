@@ -177,6 +177,7 @@ ApplicationWindow {
                     width: app.width
                     height: app.fs*3
                     UxBotCirc{
+                        fontSize: app.fs*2
                         text: '\uf060'
                         animationEnabled: false
                         blurEnabled: false
