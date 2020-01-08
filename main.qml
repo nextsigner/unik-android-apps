@@ -59,7 +59,7 @@ ApplicationWindow {
             app.c4=cc2[3]
             app.visible=true
             zoom=1.4
-            borderWidth=10
+            borderWidth=app.fs*0.5
             padding=0.5
         }
     }
@@ -179,8 +179,8 @@ ApplicationWindow {
                     width: app.width
                     height: app.fs*3
                     UxBotCirc{
-                        fontSize: app.fs*2
                         text: '\uf060'
+                        fontSize: app.fs
                         animationEnabled: false
                         blurEnabled: false
                         anchors.verticalCenter: parent.verticalCenter
@@ -215,7 +215,7 @@ ApplicationWindow {
                     anchors.horizontalCenter: parent.horizontalCenter
                     //anchors.top: parent.top
                     //anchors.topMargin: app.fs*3
-                    spacing: app.fs*0.25
+                    spacing: app.fs
                     model:fl
                     delegate: delegate
                     Component{
@@ -223,7 +223,7 @@ ApplicationWindow {
                         UxBotRect{
                             id:xItem
                             objectName: 'aaa'+index
-                            height: visible?app.fs*3:0
+                            height: visible?app.fs*3+unikSettings.borderWidth*2:0
                             visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0//&&(xListApps.modView===0||xListApps.modView===1&&msg1.visible)
                             property bool installed: false
                             text: (''+fileName).substring(5, (''+fileName).length-4)
@@ -394,10 +394,10 @@ ApplicationWindow {
         }
 
     }
-    UText {
-        text: 'FS: '+app.fs+' W: '+app.width+' H: '+app.height
-        font.pixelSize: app.fs*2
-    }
+//    UText {
+//        text: 'FS: '+app.fs+' W: '+app.width+' H: '+app.height
+//        font.pixelSize: app.fs*2
+//    }
     UWarnings{}
     Rectangle{
         id:tap
