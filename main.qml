@@ -14,11 +14,11 @@ ApplicationWindow {
     //color: app.c1
     property string moduleName: 'unik-android-apps'
     property int fs: width>height?app.width*0.03:app.width*0.03*unikSettings.zoom
-    property color c1: "#1fbc05"
-    property color c2: "#4fec35"
-    property color c3: "white"
-    property color c4: "black"
-    property color c5: "#333333"
+    property color c1//: "#1fbc05"
+    property color c2//: "#4fec35"
+    property color c3//: "white"
+    property color c4//: "black"
+    property color c5//: "#333333"
 
     property bool prima: false
     property int sec: 0
@@ -47,7 +47,7 @@ ApplicationWindow {
     }
     UnikSettings{
         id: unikSettings
-        //url:pws+'/uaa.json'
+        url:pws+'/uaa.json'
         //zoom: 5.4
         Component.onCompleted: {
             console.log('UnikColorTheme currentNumColor: '+unikSettings.currentNumColor)
