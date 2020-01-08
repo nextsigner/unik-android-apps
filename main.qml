@@ -73,7 +73,7 @@ ApplicationWindow {
         width: app.width<app?app.width-app.fs:app.height-app.fs
         height: app.width<app?app.height-app.fs:app.width-app.fs
         color: app.c1
-        anchors.centerIn: Qt.platform.os!=='android'?app:parent
+        //anchors.centerIn: Qt.platform.os!=='android'?app:parent
         rotation: app.width<app.height?0:90
         property int mod: 0
         Rectangle{
