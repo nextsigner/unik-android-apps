@@ -228,7 +228,7 @@ ApplicationWindow {
                     delegate: delegate
                     Component{
                         id:delegate
-                        /*UxBotRect{
+                        UxBotRect{
                             id:xItem
                             objectName: 'aaa'+index
                             height: visible?app.fs*3+unikSettings.borderWidth*2:0
@@ -252,7 +252,7 @@ ApplicationWindow {
                                     xP.visible=true
                                 }
                                 //if( tlaunch.enabled){
-                                tinit.restart()
+                                timerInit.restart()
                                 //}
                                 if(xItem.width>lv.width){
                                     lv.width=xItem.width
@@ -261,59 +261,59 @@ ApplicationWindow {
                                 xItem.installed=unik.fileExist(uklFileLocation)
                             }
                         }
-                            */
-                        Rectangle{
-                            id:xItem
-                            width: txt.contentWidth+app.fs*2
-                            height: visible?app.fs*2:0
-                            color: xItem.border.width!==0?app.c1:app.c2
-                            radius: app.fs*0.25
-                            border.width: fileName===app.ca?2:0
-                            border.color: fileName===app.ca?app.c2:app.c1
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0//&&(xListApps.modView===0||xListApps.modView===1&&msg1.visible)
-                            property bool installed: false
-                            onColorChanged: {
-                                if(xItem.border.width!==0){
-                                    app.ca=app.al[index]
-                                    lv.currentIndex=index
-                                }
-                            }
-                            MouseArea{
-                                anchors.fill: parent
-                                onClicked: {
-                                    run(fileName)
-                                }
-                                onDoubleClicked: {
-                                    unik.restartApp()
-                                }
-                            }
-                            Text {
-                                id: txt
-                                text: (''+fileName).substring(5, (''+fileName).length-4)
-                                font.pixelSize: app.fs
-                                color:xItem.border.width!==0?app.c2:app.c1
-                                anchors.centerIn: parent
-                            }
-                            Component.onCompleted: {
-                                app.al.push(fileName)
-                                if((''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.json')>0&&!app.prima){
-                                    app.ca=app.al[index]
-                                    app.prima=true
-                                    tap.color='black'
-                                    xP.visible=true
-                                }
-                                //if( tlaunch.enabled){
-                                tinit.restart()
-                                //}
-                                if(xItem.width>lv.width){
-                                    lv.width=xItem.width
-                                }
-                                var uklFileLocation=pws+'/'+fileName
-                                xItem.installed=unik.fileExist(uklFileLocation)
-                                //msg1.visible=xItem.installed
-                            }
-                        }
+
+                        //                        Rectangle{
+                        //                            id:xItem
+                        //                            width: txt.contentWidth+app.fs*2
+                        //                            height: visible?app.fs*2:0
+                        //                            color: xItem.border.width!==0?app.c1:app.c2
+                        //                            radius: app.fs*0.25
+                        //                            border.width: fileName===app.ca?2:0
+                        //                            border.color: fileName===app.ca?app.c2:app.c1
+                        //                            anchors.horizontalCenter: parent.horizontalCenter
+                        //                            visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0//&&(xListApps.modView===0||xListApps.modView===1&&msg1.visible)
+                        //                            property bool installed: false
+                        //                            onColorChanged: {
+                        //                                if(xItem.border.width!==0){
+                        //                                    app.ca=app.al[index]
+                        //                                    lv.currentIndex=index
+                        //                                }
+                        //                            }
+                        //                            MouseArea{
+                        //                                anchors.fill: parent
+                        //                                onClicked: {
+                        //                                    run(fileName)
+                        //                                }
+                        //                                onDoubleClicked: {
+                        //                                    unik.restartApp()
+                        //                                }
+                        //                            }
+                        //                            Text {
+                        //                                id: txt
+                        //                                text: (''+fileName).substring(5, (''+fileName).length-4)
+                        //                                font.pixelSize: app.fs
+                        //                                color:xItem.border.width!==0?app.c2:app.c1
+                        //                                anchors.centerIn: parent
+                        //                            }
+                        //                            Component.onCompleted: {
+                        //                                app.al.push(fileName)
+                        //                                if((''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.json')>0&&!app.prima){
+                        //                                    app.ca=app.al[index]
+                        //                                    app.prima=true
+                        //                                    tap.color='black'
+                        //                                    xP.visible=true
+                        //                                }
+                        //                                //if( tlaunch.enabled){
+                        //                                timerInit.restart()
+                        //                                //}
+                        //                                if(xItem.width>lv.width){
+                        //                                    lv.width=xItem.width
+                        //                                }
+                        //                                var uklFileLocation=pws+'/'+fileName
+                        //                                xItem.installed=unik.fileExist(uklFileLocation)
+                        //                                //msg1.visible=xItem.installed
+                        //                            }
+                        //                        }
                     }
                 }
             }
@@ -424,7 +424,7 @@ ApplicationWindow {
 
 
     Timer{
-        id: tinit
+        id: timerInit
         running: true
         repeat: false
         interval: 1000
