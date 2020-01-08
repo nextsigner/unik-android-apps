@@ -118,6 +118,7 @@ ApplicationWindow {
                     }else{
                         unikSettings.currentNumColor=0
                     }
+                    appSettings.currentNumColors = unikSettings.currentNumColor
                    updateUS()
                 }
             }
