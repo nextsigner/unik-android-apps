@@ -145,23 +145,22 @@ ApplicationWindow {
                 anchors.right: parent.right
             }
             UxBotCirc{
-                width: app.fs*4
-                height: width
+                //width: app.fs*4
+                //height: width
                 text: '<b>A</b>'
                 animationEnabled: false
                 blurEnabled: false
                 anchors.bottom: parent.bottom
                 anchors.left:  parent.left
                 onClicked: {
-                    upd.download('https://github.com/nextsigner/ritme.git', pws+'/ritme')
+                    upd.download('https://github.com/nextsigner/'+moduleName+'.git', pws+'/'+moduleName)
                 }
-                visible: upd.visible
             }
         }
         UProgressDownload{
             id:upd
             width: app.width
-            visible: false
+            //visible: false
         }
         Item{
             id: xInstallApps
