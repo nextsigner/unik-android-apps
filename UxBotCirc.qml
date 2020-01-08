@@ -33,6 +33,7 @@ Item{
     BotonUX{
         id:  r2
         fontSize: r.fontSize
+        fontFamily: "FontAwesome"
         canceled: r.canceled
         t2: r.t2
         backgroudColor: r.backgroudColor
