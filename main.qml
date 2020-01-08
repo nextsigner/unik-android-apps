@@ -59,6 +59,8 @@ ApplicationWindow {
             app.c4=cc2[3]
             app.visible=true
             zoom=1.4
+            borderWidth=10
+            padding=0.5
         }
     }
     FolderListModel{
