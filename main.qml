@@ -230,11 +230,12 @@ ApplicationWindow {
                             let m0 = tiUrl.text.split('/')
                             let m1 =  m0[m0.length-1]
                             let m2 = m1.replace('.git', '').replace('.zip', '')
-                            if(uDownloadRequestUrl.indexOf('http')===0&&uDownloadRequestUrl.indexOf('.git')>0){
+                            if(uDownloadRequestUrl.indexOf('http')>=0&&uDownloadRequestUrl.indexOf('.git')>0){
                                 unik.setFile(pws+'/link_'+m2+'.ukl', '-git='+uDownloadRequestUrl)
                             }
-                            xApp.mod=1
-                            xListApps.modView=2
+                            infoText = '1:'+uDownloadRequestUrl+' 2:'+uDownloadRequestFolder+' 3:'+m2+' 4:'+pws
+                            //xApp.mod=1
+                            //xListApps.modView=2
                     }
                     function install(){
                         if(appSettings.uArrayUrls.indexOf(tiUrl.text)<0){
