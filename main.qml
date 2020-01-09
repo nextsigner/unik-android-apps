@@ -45,6 +45,7 @@ ApplicationWindow {
         category: 'conf-android-apps'
         property string uApp
         property int currentNumColors
+        property string uArrayUrls
     }
     UnikSettings{
         id: unikSettings
@@ -159,18 +160,78 @@ ApplicationWindow {
         UProgressDownload{
             id:upd
             width: app.width
-            //visible: false
         }
         Item{
             id: xInstallApps
-            width: app.width
+            width: app.width-app.fs
             height: app.height
+            //anchors.horizontalCenter: parent.horizontalCenter
             visible: r.mod===2
-            UText {
-                id: labelInstallApp
-                text: qsTr("Install Apps\nModulo en Construcción")
+            Column{
+                spacing: app.fs
                 anchors.centerIn: parent
+                UText {
+                    id: labelInstallApp
+                    text: unikSettings.lang==='es'?'<b>Instalar App</b>':'<b>Install App</b>'
+                    font.pixelSize: app.fs*2
+                }
+                Item {
+                    width: 1
+                    height: app.fs*2
+                }
+                UText {
+                    id: labelUrl
+                    text: 'Url: '
+                    font.pixelSize: app.fs*2
+                }
+                TextField{
+                    id: tiUrl
+                    width: parent.width-app.fs
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                Row{
+                    spacing: app.fs
+                    UxBotCirc{
+                        text: '\uf021'
+                        animationEnabled: false
+                        blurEnabled: false
+                        property int currentUrlIndex: 0
+                        onClicked: {
+                            let m0 = appSettings.uArrayUrls.split('|')
+                            if(currentUrlIndex+1===m0.length){
+                                currentUrlIndex++
+                            }else{
+                                currentUrlIndex=0
+                            }
+                            tiUrl.text = m0[currentUrlIndex]
+                        }
+                    }
+                    UxBotCirc{
+                        text: '\uf019'
+                        animationEnabled: false
+                        blurEnabled: false
+                        onClicked: {
+                            if(appSettings.uArrayUrls.indexOf(tiUrl.text)<0){
+                                appSettings.uArrayUrls+='|'+tiUrl.text
+                            }
+                            updInstallApp.infoText = unikSettings.lang==='es'?'Instalando '+tiUrl.text+'...':'Installing '+tiUrl.text+'...'
+                            updInstallApp.download(tiUrl.text, pws)
+                        }
+                    }
+                }
+                UProgressDownload{
+                    id:updInstallApp
+                    width: app.width
+                    onDownloaded: {
+                            let m0 = tiUrl.text.split('/')
+                            let m1 =  m0[m0.length-1]
+                            let m2 = m1.replace('.git', '').replace('.zip', '')
+
+                        r.mod=1
+                    }
+                }
             }
+
             Item{
                 width: app.width-app.fs
                 height: app.fs*2
@@ -178,14 +239,9 @@ ApplicationWindow {
                 anchors.top: parent.top
                 //anchors.topMargin: app.fs
                 UxBotCirc{
-                    width: app.fs*2
                     text: '\uf060'
                     animationEnabled: false
                     blurEnabled: false
-                    //anchors.top: parent.top
-                    //anchors.topMargin: width*0.1
-                    //anchors.left:  parent.left
-                    //anchors.leftMargin: width*0.1
                     onClicked: r.mod = 0
                 }
             }

@@ -5,15 +5,14 @@ Rectangle{
     id: r
     opacity: 0.0
     width: parent.width
-    //width: Screen.desktopAvailableWidth<Screen.desktopAvailableHeight ? Screen.desktopAvailableWidth*0.95 : Screen.desktopAvailableHeight*0.95
     height: colDownloadLog.height+app.fs*2//titDownloadLog.contentHeight+log.contentHeight+pblaunch.height+app.fs
-    //anchors.centerIn: parent
     color: app.c1
-    //radius: unikSettings.radius
     border.width: unikSettings.borderWidth/2
     border.color: app.c2
     clip:true
     antialiasing: true
+
+    signal downloaded
 
     property string fileName: ''
     property string infoText: ''
@@ -23,6 +22,9 @@ Rectangle{
 
     Behavior on opacity{
         NumberAnimation{duration: 1000}
+    }
+    MouseArea{
+        //anchors.fill: r
     }
     Column{
         id: colDownloadLog
@@ -136,7 +138,6 @@ Rectangle{
     }
 
     function setTxtLog(t){
-        //logDev.text += t
         let m3
         var  d=(''+t).replace(/\n/g, ' ')
         var p=true
@@ -147,7 +148,6 @@ Rectangle{
             var m1=m0.split(' ')
             if(m1.length>1){
                 var m2=(''+m1[1]).replace('%','')
-                //unik.setFile('/home/nextsigner/nnn', ''+m2)
                 m3=parseInt(m2.replace(/ /g,''))
                 if(parseInt(m3)>0){
                     pblaunch.width=r.width/100*m3
@@ -163,7 +163,7 @@ Rectangle{
             log.text=t
         }else{
             if(m3>=100){
-                log.text = unikSettings.lang === 'es'?uDownloadRequestUrl+' se ha descargado correctamente.':uDownloadRequestUrl+' download succesful.'
+                log.text = unikSettings.lang === 'es'?uDownloadRequestUrl+' se ha descargado correctamente.':uDownloadRequestUrl+' download successful.'
             }
         }
     }
@@ -181,5 +181,6 @@ Rectangle{
         r.opacity = 1.0
         var d = unik.downloadGit(url, folder)
         botCheck.opacity = 1.0
+        downloaded()
     }
 }
