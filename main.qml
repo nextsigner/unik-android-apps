@@ -141,6 +141,7 @@ ApplicationWindow {
                 anchors.bottomMargin: app.fs*0.5
                 anchors.right: parent.right
                 anchors.rightMargin: app.fs*0.5
+                onClicked: unik.restartApp()
             }
             UxBotCirc{
                 text: '\uf021'
@@ -176,11 +177,11 @@ ApplicationWindow {
                 }
                 Item {
                     width: 1
-                    height: app.fs*2
+                    height: app.fs
                 }
                 UText {
                     id: labelUrl
-                    text: 'Url: '+botLoadUrls.currentUrlIndex
+                    text: 'Url: '//+botLoadUrls.currentUrlIndex
                     font.pixelSize: app.fs*2
                 }
                 TextField{
