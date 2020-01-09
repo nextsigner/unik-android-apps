@@ -6,7 +6,7 @@ Rectangle{
     opacity: 0.0
     width: parent.width
     //width: Screen.desktopAvailableWidth<Screen.desktopAvailableHeight ? Screen.desktopAvailableWidth*0.95 : Screen.desktopAvailableHeight*0.95
-    height: titDownloadLog.contentHeight+log.contentHeight+pblaunch.height+app.fs
+    height: colDownloadLog.height+app.fs*2//titDownloadLog.contentHeight+log.contentHeight+pblaunch.height+app.fs
     //anchors.centerIn: parent
     color: app.c1
     //radius: unikSettings.radius
@@ -15,21 +15,14 @@ Rectangle{
     clip:true
     antialiasing: true
 
-    property string fileName: unikSettings.lang==='es'?'archivo':'file'
+    property string fileName: ''
+    property string infoText: ''
 
     Connections {id: con1; target: unik;onUkStdChanged:setTxtLog(''+unik.ukStd);}
     Connections {id: con2; target: unik;onUkStdChanged: setTxtLog(''+unik.ukStd); }
 
     Behavior on opacity{
         NumberAnimation{duration: 1000}
-    }
-    Text {
-        id: logDev
-        font.pixelSize: 14
-        width: r.width
-        height: 300
-        wrapMode: Text.WordWrap
-        anchors.top: r.bottom
     }
     Column{
         id: colDownloadLog
@@ -47,79 +40,104 @@ Rectangle{
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Text{
-            id: log
+            id: txtInfoText
+            text: r.infoText
             color: app.c2
-            width: r.width//app.width<app.height ? app.width*0.9 : app.height*0.9
+            width: app.width<app.height ? app.width*0.9 : app.height*0.9
             height: contentHeight
             wrapMode: Text.WordWrap
-            font.pixelSize: app.fs*0.5
+            font.pixelSize: app.fs
             horizontalAlignment: Text.AlignHCenter
-            /*function setTxtLog(t){
-                logDev.text = t
-                var  d=(''+t).replace(/\n/g, ' ')
-                var p=true
-                if(d.indexOf('Socket')>=0){
-                    p=false
-                }else if(d.indexOf('download git')>=0){
-                    var m0=''+d.replace('download git ','')
-                    var m1=m0.split(' ')
-                    if(m1.length>1){
-                        var m2=(''+m1[1]).replace('%','')
-                        //unik.setFile('/home/nextsigner/nnn', ''+m2)
-                        var m3=parseInt(m2.replace(/ /g,''))
-                        pblaunch.width=pblaunch.parent.width/100*m3
-                    }
-
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+        Text{
+            id: log
+            color: app.c2
+            width: r.width-app.fs//app.width<app.height ? app.width*0.9 : app.height*0.9
+            height: contentHeight<app.fs*4?app.fs*4:contentHeight
+            wrapMode: Text.WordWrap
+            font.pixelSize: app.fs
+            horizontalAlignment: Text.AlignHCenter
+            textFormat: Text.RichText
+        }
+        Row{
+            //height: app.fs*3
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: app.fs
+            UxBotCirc{
+                text: '\uf00d'
+                fontSize: app.fs
+                animationEnabled: false
+                blurEnabled: false
+                onClicked: {
+                    r.opacity = 0.0
                 }
-                if(p){
-                    log.text=t
+            }
+            UxBotCirc{
+                text: '\uf021'
+                fontSize: app.fs
+                animationEnabled: false
+                blurEnabled: false
+                onClicked: {
+                    pblaunch.width = 0
+                    download(r.uDownloadRequestUrl, r.uDownloadRequestFolder)
                 }
-            }*/
+            }
+            UxBotCirc{
+                id:botCheck
+                text: '\uf00c'
+                fontSize: app.fs
+                animationEnabled: false
+                blurEnabled: false
+                opacity: 0.0
+                onClicked: {
+                    r.opacity = 0.0
+                }
+                Behavior on opacity {NumberAnimation{duration: 1000}}
+            }
         }
+        Item{
+            width: r.width
+            height: xLabelPB.height
+            Rectangle{
+                width: parent.width
+                height: app.fs*0.5
+                color: 'transparent'
+                border.width: 1
+                border.color: app.c2
+                anchors.verticalCenter: parent.verticalCenter
+                Rectangle{
+                    id:pblaunch
+                    height: app.fs*0.5
+                    width: 0
+                    color: app.c4//'red'
+                }
+            }
+            Rectangle{
+                id:xLabelPB
+                width: labelPB.contentWidth+app.fs
+                height: width
+                radius: width*0.5
+                color: app.c1
+                border.color: app.c2
+                border.width: unikSettings.borderWidth*0.5
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                Text {
+                    id: labelPB
+                    text: '%0'
+                    color: app.c2
+                    font.pixelSize: app.fs
+                    anchors.centerIn: parent
+                }
+            }
 
-        Rectangle{
-            id:pblaunch
-            height: app.fs*0.5
-            width: 0
-            color: 'red'
         }
     }
 
-    Boton{//Close
-        id: btnCloseDownload
-        w:app.fs
-        h: w
-        t: "\uf00d"
-        d:unikSettings.lang==='es'?'Cerrar':'Close'
-        b:app.c1
-        c: app.c2
-        anchors.right: parent.right
-        anchors.rightMargin: app.fs*0.5
-        anchors.top: parent.top
-        anchors.topMargin: app.fs*0.5
-        onClicking: {
-            r.visible=false
-        }
-    }
-    Boton{//Close
-        id: btnRestartDownload
-        w:app.fs
-        h: w
-        t: "\uf021"
-        d:unikSettings.lang==='es'?'Cerrar':'Close'
-        b:app.c1
-        c: app.c2
-        anchors.right: parent.right
-        anchors.rightMargin: app.fs*0.5
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: app.fs*0.5
-        onClicking: {
-            pblaunch.width = 0
-            download(r.uDownloadRequestUrl, r.uDownloadRequestFolder)
-        }
-    }
     function setTxtLog(t){
-        logDev.text += t
+        //logDev.text += t
+        let m3
         var  d=(''+t).replace(/\n/g, ' ')
         var p=true
         if(d.indexOf('Socket')>=0){
@@ -130,9 +148,10 @@ Rectangle{
             if(m1.length>1){
                 var m2=(''+m1[1]).replace('%','')
                 //unik.setFile('/home/nextsigner/nnn', ''+m2)
-                var m3=parseInt(m2.replace(/ /g,''))
+                m3=parseInt(m2.replace(/ /g,''))
                 if(parseInt(m3)>0){
                     pblaunch.width=r.width/100*m3
+                    labelPB.text='%'+m3
                     r.color = app.c1
                 }else{
                     r.color = 'red'
@@ -140,17 +159,27 @@ Rectangle{
             }
 
         }
-        if(p){
+        if(p && m3<100){
             log.text=t
+        }else{
+            if(m3>=100){
+                log.text = unikSettings.lang === 'es'?uDownloadRequestUrl+' se ha descargado correctamente.':uDownloadRequestUrl+' download succesful.'
+            }
         }
     }
     property string uDownloadRequestUrl
     property string uDownloadRequestFolder
     function download(url, folder){
+        botCheck.opacity = 0.0
+        if(r.fileName===''){
+            let m0 = url.split('/')
+            let m1 =  m0[m0.length-1]
+            fileName = m1//.replace(/\./, '')
+        }
         uDownloadRequestUrl = url
         uDownloadRequestFolder = folder
         r.opacity = 1.0
         var d = unik.downloadGit(url, folder)
-        r.opacity = 0.5
+        botCheck.opacity = 1.0
     }
 }

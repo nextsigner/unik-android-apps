@@ -9,7 +9,7 @@ ApplicationWindow {
     objectName: 'uaa'
     visible: true
     visibility:  Qt.platform.os==='android'?"FullScreen":"Windowed"
-    width: Qt.platform.os!=='android'?540:Screen.width
+    width: Qt.platform.os!=='android'?390:Screen.width
     height: Qt.platform.os!=='android'?960:Screen.height
     color: app.c1
     property string moduleName: 'unik-android-apps'
@@ -84,21 +84,19 @@ ApplicationWindow {
             height: app.height
             color: 'transparent'
             visible: r.mod===0
-            //border.width: 10
-            //border.color: 'red'
             Column{
                 anchors.centerIn: parent
                 spacing: app.fs
                 UxBotCirc{
-                    width: r.width*0.5
-                    height: width
+                    fontSize: app.fs*2
                     text: unikSettings.lang==='es'?'Instalar App':'Install App'
+                    anchors.horizontalCenter: parent.horizontalCenter
                     onClicked: r.mod = 2
                 }
                 UxBotCirc{
-                    width: r.width*0.5
-                    height: width
+                    fontSize: app.fs*2
                     text: unikSettings.lang==='es'?'Lista de Apps':'Apps List'
+                    anchors.horizontalCenter: parent.horizontalCenter
                     onClicked: r.mod = 1
                 }
             }
@@ -119,7 +117,7 @@ ApplicationWindow {
                         unikSettings.currentNumColor=0
                     }
                     appSettings.currentNumColors = unikSettings.currentNumColor
-                   updateUS()
+                    updateUS()
                 }
             }
             UxBotCirc{
@@ -132,28 +130,29 @@ ApplicationWindow {
                 anchors.top: parent.top
                 anchors.topMargin: app.fs*0.5
                 onClicked: {
-                   Qt.quit()
+                    Qt.quit()
                 }
             }
             UxBotCirc{
-                width: app.fs*4
-                height: width
                 text: '<b>+</b>'
                 animationEnabled: false
                 blurEnabled: false
                 anchors.bottom: parent.bottom
+                anchors.bottomMargin: app.fs*0.5
                 anchors.right: parent.right
+                anchors.rightMargin: app.fs*0.5
             }
             UxBotCirc{
-                //width: app.fs*4
-                //height: width
-                text: '<b>A</b>'
+                text: '\uf021'
                 animationEnabled: false
                 blurEnabled: false
                 anchors.bottom: parent.bottom
+                anchors.bottomMargin: app.fs*0.5
                 anchors.left:  parent.left
+                anchors.leftMargin: app.fs*0.5
                 onClicked: {
-                    upd.download('https://github.com/nextsigner/'+moduleName+'.git', pws+'/'+moduleName)
+                    upd.infoText = unikSettings.lang==='es'?'<b>Actualización: </b>Se ha iniciado la actualización\nde <b>Unik Android Apps</b>':'<b>Update: </b> Updating <b>Unik Android Apps</b>'
+                    upd.download('https://github.com/nextsigner/'+moduleName+'.git', pws)
                 }
             }
         }
@@ -364,19 +363,6 @@ ApplicationWindow {
                 }
             }
         }
-//        MouseArea{
-//            anchors.fill: parent
-//            onClicked:  {
-//                var cc=unikSettings.defaultColors.split('|').length
-//                if(unikSettings.currentNumColor<cc-1){
-//                    unikSettings.currentNumColor++
-//                }else{
-//                    unikSettings.currentNumColor=0
-//                }
-//               updateUS()
-//            }
-//        }
-
         Rectangle{
             id: xPb
             opacity: 0.0
@@ -462,18 +448,17 @@ ApplicationWindow {
                 }
             }
         }
-
     }
-        UText {
-            text: 'FS: '+appSettings.currentNumColors//app.fs+' W: '+app.width+' H: '+app.height
-            font.pixelSize: app.fs*2
-            Rectangle{
-                width: parent.width
-                height: app.fs*2
-                anchors.centerIn: parent
-                z:parent.z-1
-            }
-        }
+//    UText {
+//        text: 'FS: '+appSettings.currentNumColors//app.fs+' W: '+app.width+' H: '+app.height
+//        font.pixelSize: app.fs*2
+//        Rectangle{
+//            width: parent.width
+//            height: app.fs*2
+//            anchors.centerIn: parent
+//            z:parent.z-1
+//        }
+//    }
     UWarnings{}
     Rectangle{
         id:tap
