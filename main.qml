@@ -160,6 +160,7 @@ ApplicationWindow {
         UProgressDownload{
             id:upd
             width: app.width
+            onDownloaded: unik.restartApp()
         }
         Item{
             id: xInstallApps
@@ -446,16 +447,16 @@ ApplicationWindow {
         }
 
     }
-//    UText {
-//        text: 'FS: '+appSettings.currentNumColors//app.fs+' W: '+app.width+' H: '+app.height
-//        font.pixelSize: app.fs*2
-//        Rectangle{
-//            width: parent.width
-//            height: app.fs*2
-//            anchors.centerIn: parent
-//            z:parent.z-1
-//        }
-//    }
+    UText {
+        text: 'FS: '+appSettings.currentNumColors//app.fs+' W: '+app.width+' H: '+app.height
+        font.pixelSize: app.fs*2
+        Rectangle{
+            width: parent.width
+            height: app.fs*2
+            anchors.centerIn: parent
+            z:parent.z-1
+        }
+    }
     UWarnings{}
     Rectangle{
         id:tap
