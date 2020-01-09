@@ -86,9 +86,6 @@ Item{
                     }else{
                         unik.restartApp("")
                     }
-
-                    //xApp.mod=1
-                    //xListApps.modView=2
             }
             function install(){
                 if(appSettings.uArrayUrls.indexOf(tiUrl.text)<0){
