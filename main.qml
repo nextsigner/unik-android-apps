@@ -187,6 +187,14 @@ ApplicationWindow {
                     id: tiUrl
                     width: parent.width-app.fs
                     anchors.horizontalCenter: parent.horizontalCenter
+                    Keys.onReturnPressed: {
+                        if(text==='clean'){
+                            appSettings.uArrayUrls = '|'
+                            tiUrl.text = ''
+                            return
+                        }
+                        updInstallApp.install()
+                    }
                 }
                 Row{
                     spacing: app.fs
@@ -203,7 +211,7 @@ ApplicationWindow {
                             }else{
                                 currentUrlIndex=0
                             }
-                            tiUrl.text = m0[currentUrlIndex+1]
+                            tiUrl.text = m0[currentUrlIndex]
                         }
                     }
                     UxBotCirc{
@@ -211,11 +219,7 @@ ApplicationWindow {
                         animationEnabled: false
                         blurEnabled: false
                         onClicked: {
-                            if(appSettings.uArrayUrls.indexOf(tiUrl.text)<0){
-                                appSettings.uArrayUrls+='|'+tiUrl.text
-                            }
-                            updInstallApp.infoText = unikSettings.lang==='es'?'Instalando '+tiUrl.text+'...':'Installing '+tiUrl.text+'...'
-                            updInstallApp.download(tiUrl.text, pws)
+                           updInstallApp.install()
                         }
                     }
                 }
@@ -231,6 +235,13 @@ ApplicationWindow {
                             }
                             xApp.mod=1
                             xListApps.modView=2
+                    }
+                    function install(){
+                        if(appSettings.uArrayUrls.indexOf(tiUrl.text)<0){
+                            appSettings.uArrayUrls+=tiUrl.text+'|'
+                        }
+                        updInstallApp.infoText = unikSettings.lang==='es'?'Instalando '+tiUrl.text+'...':'Installing '+tiUrl.text+'...'
+                        updInstallApp.download(tiUrl.text, pws)
                     }
                 }
             }

@@ -3,6 +3,7 @@ import QtQuick.Window 2.0
 
 Rectangle{
     id: r
+    enabled: opacity!==0.0
     opacity: 0.0
     width: parent.width
     height: colDownloadLog.height+app.fs*2//titDownloadLog.contentHeight+log.contentHeight+pblaunch.height+app.fs
