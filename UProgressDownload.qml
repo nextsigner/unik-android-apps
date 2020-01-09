@@ -24,7 +24,8 @@ Rectangle{
         NumberAnimation{duration: 1000}
     }
     MouseArea{
-        //anchors.fill: r
+        anchors.fill: r
+        enabled: r.opacity===1.0
     }
     Column{
         id: colDownloadLog

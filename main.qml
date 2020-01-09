@@ -29,7 +29,7 @@ ApplicationWindow {
     onClosing: {
         if(Qt.platform.os==='android'){
             close.accepted = true;
-            if(r.mod===0){
+            if(xApp.mod===0){
                 Qt.quit()
             }
             //engine.load('qrc:/appsListLauncher.qml')
@@ -73,18 +73,17 @@ ApplicationWindow {
         }
     }
     Rectangle{
-        id:r
-        width: app.width<app?app.width-app.fs:app.height-app.fs
-        height: app.width<app?app.height-app.fs:app.width-app.fs
+        id:xApp
+        width: app.width<app.height?app.width:app.height
+        height: app.width<app.height?app.height:app.width
         color: app.c1
-        //anchors.centerIn: Qt.platform.os!=='android'?app:parent
         rotation: app.width<app.height?0:90
         property int mod: 0
         Rectangle{
             width: app.width
             height: app.height
             color: 'transparent'
-            visible: r.mod===0
+            visible: xApp.mod===0
             Column{
                 anchors.centerIn: parent
                 spacing: app.fs
@@ -92,13 +91,13 @@ ApplicationWindow {
                     fontSize: app.fs*2
                     text: unikSettings.lang==='es'?'Instalar App':'Install App'
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: r.mod = 2
+                    onClicked: xApp.mod = 2
                 }
                 UxBotCirc{
                     fontSize: app.fs*2
                     text: unikSettings.lang==='es'?'Lista de Apps':'Apps List'
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: r.mod = 1
+                    onClicked: xApp.mod = 1
                 }
             }
             UxBotCirc{
@@ -163,10 +162,10 @@ ApplicationWindow {
         }
         Item{
             id: xInstallApps
-            width: app.width-app.fs
+            width: app.width-app.fs*2
             height: app.height
-            //anchors.horizontalCenter: parent.horizontalCenter
-            visible: r.mod===2
+            anchors.horizontalCenter: parent.horizontalCenter
+            visible: xApp.mod===2
             Column{
                 spacing: app.fs
                 anchors.centerIn: parent
@@ -181,7 +180,7 @@ ApplicationWindow {
                 }
                 UText {
                     id: labelUrl
-                    text: 'Url: '
+                    text: 'Url: '+botLoadUrls.currentUrlIndex
                     font.pixelSize: app.fs*2
                 }
                 TextField{
@@ -192,18 +191,19 @@ ApplicationWindow {
                 Row{
                     spacing: app.fs
                     UxBotCirc{
+                        id: botLoadUrls
                         text: '\uf021'
                         animationEnabled: false
                         blurEnabled: false
                         property int currentUrlIndex: 0
                         onClicked: {
                             let m0 = appSettings.uArrayUrls.split('|')
-                            if(currentUrlIndex+1===m0.length){
+                            if(currentUrlIndex+1<m0.length-1){
                                 currentUrlIndex++
                             }else{
                                 currentUrlIndex=0
                             }
-                            tiUrl.text = m0[currentUrlIndex]
+                            tiUrl.text = m0[currentUrlIndex+1]
                         }
                     }
                     UxBotCirc{
@@ -226,8 +226,11 @@ ApplicationWindow {
                             let m0 = tiUrl.text.split('/')
                             let m1 =  m0[m0.length-1]
                             let m2 = m1.replace('.git', '').replace('.zip', '')
-
-                        r.mod=1
+                            if(uDownloadRequestUrl.indexOf('http')===0&&uDownloadRequestUrl.indexOf('.git')>0){
+                                unik.setFile(pws+'/link_'+m2+'.ukl', '-git='+uDownloadRequestUrl)
+                            }
+                            xApp.mod=1
+                            xListApps.modView=2
                     }
                 }
             }
@@ -242,7 +245,7 @@ ApplicationWindow {
                     text: '\uf060'
                     animationEnabled: false
                     blurEnabled: false
-                    onClicked: r.mod = 0
+                    onClicked: xApp.mod = 0
                 }
             }
         }
@@ -250,7 +253,7 @@ ApplicationWindow {
             id: xListApps
             width: app.width
             height: app.height
-            visible: r.mod===1
+            visible: xApp.mod===1
             onVisibleChanged: if(visible)lv.focus=true
             property int modView: 0
             onModViewChanged: {
@@ -295,7 +298,7 @@ ApplicationWindow {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left:  parent.left
                         anchors.leftMargin: app.fs
-                        onClicked: r.mod = 0
+                        onClicked: xApp.mod = 0
                     }
                     UxBotCirc{
                         text: xListApps.modView===0?'\uf069':xListApps.modView===1?'\uf00c':'\uf019'
@@ -418,92 +421,17 @@ ApplicationWindow {
                     }
                 }
             }
-        }
-        Rectangle{
-            id: xPb
-            opacity: 0.0
-            width: Screen.desktopAvailableWidth<Screen.desktopAvailableHeight ? Screen.desktopAvailableWidth*0.95 : Screen.desktopAvailableHeight*0.95
-            height: titDownloadLog.contentHeight+log.contentHeight+pblaunch.height+app.fs
-            anchors.centerIn: parent
-            color: app.c1
-            //radius: unikSettings.radius
-            border.width: unikSettings.borderWidth
-            border.color: app.c2
-            clip:true
-            Behavior on opacity{
-                NumberAnimation{duration: 1000}
-            }
-            Column{
-                id: colDownloadLog
-                anchors.centerIn: parent
-                spacing: app.fs*0.5
-                Text{
-                    id: titDownloadLog
-                    color: app.c2
-                    width: app.width<app.height ? app.width*0.9 : app.height*0.9
-                    height: contentHeight
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: app.fs
-                    horizontalAlignment: Text.AlignHCenter
-                    text: unikSettings.lang==='es'?'<b>Descargando '+app.ca+'</b>':'<b>Downloading '+app.ca+'</b>'
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
-                Text{
-                    id: log
-                    color: app.c2
-                    width: app.width<app.height ? app.width*0.9 : app.height*0.9
-                    height: contentHeight
-                    textFormat: Text.RichText
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: app.fs*0.5
-                    horizontalAlignment: Text.AlignHCenter
-                    function setTxtLog(t){
-                        var  d=(''+t).replace(/\n/g, ' ')
-                        var p=true
-                        if(d.indexOf('Socket')>=0){
-                            p=false
-                        }else if(d.indexOf('download git')>=0){
-                            var m0=''+d.replace('download git ','')
-                            var m1=m0.split(' ')
-                            if(m1.length>1){
-                                var m2=(''+m1[1]).replace('%','')
-                                //unik.setFile('/home/nextsigner/nnn', ''+m2)
-                                var m3=parseInt(m2.replace(/ /g,''))
-                                pblaunch.width=pblaunch.parent.width/100*m3
-                            }
-
-                        }
-                        if(p){
-                            log.text=t
-                        }
-                    }
-                }
-
-                Rectangle{
-                    id:pblaunch
-                    height: app.fs*0.5
-                    width: 0
-                    color: 'red'
-                }
-            }
-
-            Boton{//Close
-                id: btnCloseDownload
-                w:app.fs
-                h: w
-                t: "\uf00d"
-                d:unikSettings.lang==='es'?'Cerrar':'Close'
-                b:app.c1
-                c: app.c2
-                anchors.right: parent.right
-                anchors.rightMargin: app.fs*0.5
-                anchors.top: parent.top
-                anchors.topMargin: app.fs*0.5
-                onClicking: {
-                    xPb.visible=false
+            UProgressDownload{
+                id:updInstallListApp
+                width: parent.width
+                property string uModuleName
+                onDownloaded: {
+                    engine.load(pws+'/'+uModuleName+'/main.qml')
+                    app.close()
                 }
             }
         }
+
     }
 //    UText {
 //        text: 'FS: '+appSettings.currentNumColors//app.fs+' W: '+app.width+' H: '+app.height
@@ -525,8 +453,8 @@ ApplicationWindow {
         }
     }
 
-    Connections {id: con1; target: unik;onUkStdChanged:log.setTxtLog(''+unik.ukStd);}
-    Connections {id: con2; target: unik;onUkStdChanged: log.setTxtLog(''+unik.ukStd); }
+    //Connections {id: con1; target: unik;onUkStdChanged:log.setTxtLog(''+unik.ukStd);}
+    //Connections {id: con2; target: unik;onUkStdChanged: log.setTxtLog(''+unik.ukStd); }
 
 
     Timer{
@@ -599,7 +527,7 @@ ApplicationWindow {
 
         //downloadGit(QByteArray url, QByteArray localFolder)
         if(params.indexOf('-git=')>=0&&params.indexOf('-git=')!==params.length-1&&params.length>5){
-            xPb.opacity=1.0
+            //xPb.opacity=1.0
             var m0=params.split('-git=')
             var m1=m0[1].split(',')
             var m2=m1[0].split('/')
@@ -609,10 +537,12 @@ ApplicationWindow {
             console.log('Launching from Unik Android Apps: '+m1[0])
             unik.cd(pws)
             unik.mkdir(pws+'/'+mn)
-            var d = unik.downloadGit(m1[0], pws)
+            //var d = unik.downloadGit(m1[0], pws)
+            updInstallListApp.download(m1[0], pws)
             unik.cd(pws+'/'+mn)
-            engine.load(pws+'/'+mn+'/main.qml')
-            app.close()
+            updInstallListApp.uModuleName = mn
+            //engine.load(pws+'/'+mn+'/main.qml')
+            //app.close()
         }
         //unik.setUnikStartSettings(params)
         //unik.restartApp()
