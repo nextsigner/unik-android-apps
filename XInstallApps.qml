@@ -3,13 +3,14 @@ import QtQuick.Controls 2.0
 import "qrc:/"
 
 Item{
-    id: xInstallApps
+    id: r
     width: app.width-app.fs*2
     height: app.height
     anchors.horizontalCenter: parent.horizontalCenter
     visible: xApp.mod===2
     Column{
         spacing: app.fs
+        width: r.width-app.fs
         anchors.centerIn: parent
         UText {
             id: labelInstallApp
@@ -25,17 +26,28 @@ Item{
             text: 'Url: '//+botLoadUrls.currentUrlIndex
             font.pixelSize: app.fs*2
         }
-        TextField{
-            id: tiUrl
-            width: parent.width-app.fs
-            anchors.horizontalCenter: parent.horizontalCenter
-            Keys.onReturnPressed: {
-                if(text==='clean'){
-                    appSettings.uArrayUrls = '|'
-                    tiUrl.text = ''
-                    return
+        Rectangle{
+            width: parent.width
+            height: r.height*0.2
+            color: 'transparent'
+            border.width: unikSettings.borderWidth*0.5
+            border.color: app.c2
+            TextInput{
+                id: tiUrl
+                width: parent.width-app.fs
+                height: parent.height-app.fs
+                anchors.centerIn: parent
+                font.pixelSize: app.fs*1.5
+                color: app.c2
+                wrapMode: Text.WrapAnywhere
+                Keys.onReturnPressed: {
+                    if(text==='clean'){
+                        appSettings.uArrayUrls = '|'
+                        tiUrl.text = ''
+                        return
+                    }
+                    updInstallApp.install()
                 }
-                updInstallApp.install()
             }
         }
         Row{
@@ -61,39 +73,40 @@ Item{
                 animationEnabled: false
                 blurEnabled: false
                 onClicked: {
-                   updInstallApp.install()
+                    updInstallApp.install()
                 }
             }
         }
-        UProgressDownload{
-            id:updInstallApp
-            width: app.width
-            onDownloaded: {
-                    let m0 = tiUrl.text.split('/')
-                    let m1 =  m0[m0.length-1]
-                    let m2 = m1.replace(".git", "").replace(".zip", "")
+    }
+    UProgressDownload{
+        id:updInstallApp
+        width: app.width
+        anchors.bottom: r.bottom
+        onDownloaded: {
+            let m0 = tiUrl.text.split('/')
+            let m1 =  m0[m0.length-1]
+            let m2 = m1.replace(".git", "").replace(".zip", "")
 
-                    let params = '-folder='+pws+'/'+m2+', '
+            let params = '-folder='+pws+'/'+m2+', '
 
-                    if(uDownloadRequestUrl.indexOf('http')>=0&&uDownloadRequestUrl.indexOf('.git')>0){
-                        unik.setFile(pws+'/link_'+m2+'.ukl', '-git='+uDownloadRequestUrl)
-                        params +=  '-git='+uDownloadRequestUrl
-                    }
-                    infoText = '1:'+uDownloadRequestUrl+' 2:'+uDownloadRequestFolder+' 3:'+m2+' 4:'+pws
-                    unik.setUnikStartSettings(params)
-                    if(Qt.platform.os==='android'){
-                        unik.restartApp()
-                    }else{
-                        unik.restartApp("")
-                    }
+            if(uDownloadRequestUrl.indexOf('http')>=0&&uDownloadRequestUrl.indexOf('.git')>0){
+                unik.setFile(pws+'/link_'+m2+'.ukl', '-git='+uDownloadRequestUrl)
+                params +=  '-git='+uDownloadRequestUrl
             }
-            function install(){
-                if(appSettings.uArrayUrls.indexOf(tiUrl.text)<0){
-                    appSettings.uArrayUrls+=tiUrl.text+'|'
-                }
-                updInstallApp.infoText = unikSettings.lang==='es'?'Instalando '+tiUrl.text+'...':'Installing '+tiUrl.text+'...'
-                updInstallApp.download(tiUrl.text, pws)
+            infoText = '1:'+uDownloadRequestUrl+' 2:'+uDownloadRequestFolder+' 3:'+m2+' 4:'+pws
+            unik.setUnikStartSettings(params)
+            if(Qt.platform.os==='android'){
+                unik.restartApp()
+            }else{
+                unik.restartApp("")
             }
+        }
+        function install(){
+            if(appSettings.uArrayUrls.indexOf(tiUrl.text)<0){
+                appSettings.uArrayUrls+=tiUrl.text+'|'
+            }
+            updInstallApp.infoText = unikSettings.lang==='es'?'Instalando '+tiUrl.text+'...':'Installing '+tiUrl.text+'...'
+            updInstallApp.download(tiUrl.text, pws)
         }
     }
 
