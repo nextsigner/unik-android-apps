@@ -3,7 +3,7 @@ import QtQuick.Controls 2.0
 import QtQuick.Window 2.2
 import Qt.labs.folderlistmodel 2.2
 import Qt.labs.settings 1.0
-import "qrc:/"
+//import "qrc:/"
 ApplicationWindow {
     id: app
     objectName: 'uaa'

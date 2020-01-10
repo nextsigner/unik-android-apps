@@ -101,6 +101,7 @@ Rectangle {
         id: a2
         text:a.text
         font.pixelSize: r.fontSize
+        font.family: r.fontFamily
         color: r.backgroudColor
         x: !maBX.p?a.x:a.x+2
         y:a.y
@@ -110,9 +111,10 @@ Rectangle {
     }
     UText {
         id: txtCancel
-        text: '<b>?</b>'
+        text: '<b>...</b>'
         font.pixelSize: r.fontSize*2
-        color: 'red'
+        font.family: r.fontFamily
+        color: app.c1
         anchors.centerIn: parent
         visible: !r.enabled
     }
