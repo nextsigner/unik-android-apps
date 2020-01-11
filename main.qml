@@ -230,7 +230,7 @@ ApplicationWindow {
         unikSettings.currentNumColor = appSettings.currentNumColors
         let cfgLocation = pws+'/cfg.json'
         let cfgData = '-folder='+pws+'/unik-android-apps'
-        unik.setFile(cfgLocation, cfgData)
+        //unik.setFile(cfgLocation, cfgData)
     }
 
     function updateUS(){
