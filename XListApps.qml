@@ -61,8 +61,8 @@ Item{
                 UxBotRect{
                     id:xItemInstalled
                     height: app.fs*3+unikSettings.borderWidth*2
-                    text: '<b>'+(''+fileName).substring(5, (''+fileName).length-4).replace(/-/g, '<br />')/+'</b>'
-                    fontSize: app.fs*1.65
+                    text: (''+fileName).substring(5, (''+fileName).length-4)
+                    fontSize: app.fs*1.5
                     anchors.horizontalCenter: parent.horizontalCenter
                     animationEnabled: false
                     glowEnabled: false
@@ -105,7 +105,7 @@ Item{
                     id:xItem
                     height: app.fs*3+unikSettings.borderWidth*2
                     visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0
-                    text: '<b>'+(''+fileName).substring(5, (''+fileName).length-4)+'</b>'
+                    text: '</b>'+(''+fileName).substring(5, (''+fileName).length-4)+'</b>'
                     fontSize: app.fs*1.65
                     anchors.horizontalCenter: parent.horizontalCenter
                     animationEnabled: false
@@ -142,7 +142,7 @@ Item{
                     id:xItemFolder
                     height: app.fs*3+unikSettings.borderWidth*2
                     text: '<b>'+fileName+'</b>'
-                    fontSize: app.fs*1.5
+                    fontSize: app.fs*1.65
                     anchors.horizontalCenter: parent.horizontalCenter
                     animationEnabled: false
                     glowEnabled: false

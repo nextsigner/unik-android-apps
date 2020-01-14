@@ -84,7 +84,7 @@ Item{
         width: r2.width+app.fs*0.5
         height: r2.height+app.fs*0.5
         anchors.centerIn: parent
-        radius: app.fs
+        radius: app.fs*0.5
         source: r2
         clip: true
         visible: blurEnabled
