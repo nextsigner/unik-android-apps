@@ -2,7 +2,7 @@ import QtQuick 2.0
 Rectangle {
     id: r
     width: a.contentWidth+(r.fontSize*2*(unikSettings.padding*2))+(unikSettings.borderWidth*2)+app.fs
-    height: a.contentHeight+(r.fontSize*2*(unikSettings.padding*2))+(unikSettings.borderWidth*2)
+    height: a.contentHeight+(r.fontSize*2*(unikSettings.padding*2))+(unikSettings.borderWidth*2)+app.fs
     opacity: enabled?1.0:0.5
     objectName: 'sin_nombre'
     color: 'transparent'
@@ -71,8 +71,8 @@ Rectangle {
             width: xR1.height
             height: xR1.width
             radius: unikSettings.radius
-            //rotation: -270
-            visible: false
+            rotation: 180//-270
+            //visible: false
             antialiasing: true
             onOpacityChanged: {
                 if(opacity>=0.5&&!maBX.p){

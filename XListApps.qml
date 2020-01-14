@@ -121,6 +121,11 @@ Item{
                         var uklFileLocation=pws+'/'+fileName
                         //xItem.installed=unik.fileExist(uklFileLocation)
                     }
+                    Rectangle{
+                        anchors.fill: parent
+                        color: 'red'
+                        opacity: 0.5
+                    }
                 }
             }
         }
