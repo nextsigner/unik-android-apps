@@ -80,7 +80,6 @@ Item{
                     Component.onCompleted:  {
                         let uklLocation = pws+'/'+fileName
                         let uklData = ''+unik.getFile(uklLocation)
-                        //xItemInstalled.text='*'+uklLocation
                         if(uklData.indexOf('-folder=')>=0){
                             let m0 = (''+uklData).split('-folder=')
                             if(m0.length>0){
@@ -88,11 +87,11 @@ Item{
                                 let m2=(''+m1[1]).split(' ')
                                 xItemInstalled.text+=' -'+m2[0]
                                 if(unik.fileExist(pws+'/'+m2[0]+'/main.qml')){
-                                    aaa.color='red'
-                                    //xItemInstalled.visible=true
+                                    //aaa.color='red'
+                                    xItemInstalled.visible=true
                                 }else{
-                                    aaa.color='blue'
-                                    //xItemInstalled.visible=false
+                                    //aaa.color='blue'
+                                    xItemInstalled.visible=false
                                 }
                             }
                         }else{
@@ -100,11 +99,11 @@ Item{
                             //xItemInstalled.text+=' ++'+mn
                             //ddd.visible=false
                             if(unik.fileExist(pws+'/'+mn+'/main.qml')){
-                                aaa.color='pink'
+                                //aaa.color='pink'
                                 xItemInstalled.visible=true
                             }else{
-                                aaa.color='green'
-                                //xItemInstalled.visible=false
+                                //aaa.color='green'
+                                xItemInstalled.visible=false
                             }
                         }
                     }
