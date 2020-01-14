@@ -22,14 +22,14 @@ Item{
         anchors.fill: r
     }
     Glow {
-            visible: r.glowEnabled
-            anchors.fill: r2
-            radius: 8
-            samples: 17
-            color: app.c1
-            source: r2
-            opacity: 1.0
-        }
+        visible: r.glowEnabled
+        anchors.fill: r2
+        radius: 8
+        samples: 17
+        color: app.c1
+        source: r2
+        opacity: 1.0
+    }
     BotonUX{
         id:  r2
         fontSize: r.fontSize
@@ -50,7 +50,7 @@ Item{
             if(!r.animationEnabled)return
             tRestartAn1.restart()
         }
-        Component.objectName: {
+        Component.onCompleted:  {
             var nr = r.width*0.5
             children[0].radius= nr
             children[0].children[0].radius= nr
