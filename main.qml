@@ -69,6 +69,21 @@ ApplicationWindow {
             f++
         }
     }
+    FolderListModel{
+        folder: Qt.platform.os!=='android'?'file:./':'file://'+pws+'/'//unik.currentFolderPath()
+        id:fl2
+        showDirs:  false
+        showDotAndDotDot: false
+        showHidden: false
+        showOnlyReadable: true
+        sortField: FolderListModel.Name
+        nameFilters: "*.ukl"
+        property int f: 0
+        onCountChanged: {
+            console.log('File: '+fl.get(f,"fileName"))
+            f++
+        }
+    }
     Rectangle{
         id:xApp
         width: Screen.width<Screen.height?app.width:app.height
@@ -161,6 +176,11 @@ ApplicationWindow {
         }
         XInstallApps{anchors.centerIn: parent}
         XListApps{anchors.centerIn: parent}
+    }
+    UText{
+        text: '1:'+fl.folder+' <br />'+fl2.folder
+        color: 'red'
+        font.pixelSize: 14
     }
     UWarnings{}
     ULogView{id:uLogView}
