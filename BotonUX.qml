@@ -38,6 +38,7 @@ Rectangle {
             width: parent.width
             height: parent.height
             radius: settingObj.radius
+            visible: false
             anchors.centerIn: parent
             color: app.c2
             antialiasing: true
