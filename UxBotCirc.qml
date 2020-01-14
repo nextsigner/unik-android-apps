@@ -35,7 +35,6 @@ Item{
         fontSize: r.fontSize
         fontFamily: "FontAwesome"
         canceled: r.canceled
-        height: width
         t2: r.t2
         backgroudColor: r.backgroudColor
         fontColor: r.fontColor
