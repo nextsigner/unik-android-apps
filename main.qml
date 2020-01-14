@@ -192,7 +192,7 @@ ApplicationWindow {
                 }
             }
             if(vacio){
-                engine.load('qrc:/main.qml')
+                //engine.load('qrc:/main.qml')
             }
         }
     }
