@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
-import "qrc:/"
+//import "qrc:/"
 Item{
     id:r
     width: r2.width//+app.fs
