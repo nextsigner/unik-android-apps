@@ -42,11 +42,6 @@ Item{
             }
 
         }
-        UText{
-            text:  r.modView===0?'Todas':r.modView===1?'Instaladas':'Descargar'
-            font.pixelSize: 20
-
-        }
         ListView{
             id:lv
             width: r.width-app.fs
@@ -91,7 +86,7 @@ Item{
                         lv.currentIndex=index
                         run(fileName)
                     }
-                    /*Component.onCompleted: {
+                    Component.onCompleted: {
                         app.al.push(fileName)
                         if((''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.json')>0&&!app.prima){
                             app.ca=app.al[index]
@@ -107,7 +102,7 @@ Item{
                         }
                         var uklFileLocation=pws+'/'+fileName
                         xItem.installed=unik.fileExist(uklFileLocation)
-                    }*/
+                    }
                 }                
             }
         }
