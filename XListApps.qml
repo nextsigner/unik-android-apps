@@ -43,7 +43,7 @@ Item{
 
         }
         UText{
-            text:  r.modView===0?'Todas':r.modView===1?'Instaladas':'Descargar'
+            //text:  r.modView===0?'Todas':r.modView===1?'Instaladas':'Descargar'
             font.pixelSize: 20
             anchors.centerIn: parent
         }
