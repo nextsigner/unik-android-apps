@@ -53,7 +53,7 @@ Rectangle{
     }
     Boton{//Close
         id: btnCloseXUWarning
-        w:app.fs
+        w:app.fs*2
         h: w
         t: "\uf00d"
         d:unikSettings.lang==='es'?'Cerrar':'Close'
@@ -69,7 +69,7 @@ Rectangle{
     }
     Boton{//Close for ever
         id: btnCloseXUWarningNotAgain
-        w:app.fs
+        w:app.fs*2
         h: w
         t: "\uf011"
         d:unikSettings.lang==='es'?'Cerrar - No mostrar mas':'Close - Not Show Again'
@@ -85,7 +85,7 @@ Rectangle{
     }
     Boton{//Clear
         id: btnCloseXUWarningClear
-        w:app.fs
+        w:app.fs*2
         h: w
         t: "\uf12d"
         d:unikSettings.lang==='es'?'Limpiar':'Clear'

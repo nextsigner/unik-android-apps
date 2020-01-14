@@ -80,10 +80,9 @@ Item{
                         if(uklData.indexOf('-folder=')){
                             let m0 = uklData.split('-folder=')
                             if(m0.length>0){
-                                let m1=m0[1]
-                                let m2=m1.split(' ')
-                                let m3=m2[0]
-                                if(unik.fileExist(pws+'/unik-android-apps/'+m3+'/main.qml')){
+                                let m1=(''+m0[1]).split(' ')
+                                let m2=m1[0]
+                                if(unik.fileExist(pws+'/unik-android-apps/'+m2+'/main.qml')){
                                     aaa.color='red'
                                 }else{
                                     aaa.color='blue'
