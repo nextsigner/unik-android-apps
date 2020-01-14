@@ -52,7 +52,7 @@ Item{
             width: r.width-app.fs
             height: r.height-app.fs*5
             anchors.horizontalCenter: parent.horizontalCenter
-            spacing: app.fs
+            spacing: app.fs*2
             model:fl
             delegate: r.modView!==1 ? delegate : delegateInstalled
             Component{
@@ -61,6 +61,7 @@ Item{
                     id:xItemInstalled
                     height: app.fs*3+unikSettings.borderWidth*2
                     text: (''+fileName).substring(5, (''+fileName).length-4)
+                    fontSize: app.fs*1.5
                     anchors.horizontalCenter: parent.horizontalCenter
                     animationEnabled: false
                     glowEnabled: false
@@ -104,7 +105,7 @@ Item{
                     height: app.fs*3+unikSettings.borderWidth*2
                     visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0
                     text: (''+fileName).substring(5, (''+fileName).length-4)
-                    fontSize: app.fs*2
+                    fontSize: app.fs*1.5
                     anchors.horizontalCenter: parent.horizontalCenter
                     animationEnabled: false
                     glowEnabled: false
@@ -122,11 +123,6 @@ Item{
                         var uklFileLocation=pws+'/'+fileName
                         //xItem.installed=unik.fileExist(uklFileLocation)
                     }
-                    Rectangle{
-                        anchors.fill: parent
-                        color: 'red'
-                        opacity: 0.5
-                    }
                 }
             }
         }
@@ -136,7 +132,7 @@ Item{
             width: r.width-app.fs
             height: r.height-app.fs*5
             anchors.horizontalCenter: parent.horizontalCenter
-            spacing: app.fs
+            spacing: app.fs*2
             model:flFolders
             delegate: delegateFolder
             Component{
@@ -144,7 +140,8 @@ Item{
                 UxBotRect{
                     id:xItemFolder
                     height: app.fs*3+unikSettings.borderWidth*2
-                    text: (''+fileName)//.substring(5, (''+fileName).length-4)
+                    text: (''+fileName)
+                    fontSize: app.fs*1.5
                     anchors.horizontalCenter: parent.horizontalCenter
                     animationEnabled: false
                     glowEnabled: false
