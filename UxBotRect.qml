@@ -136,11 +136,11 @@ Item{
     }
     Glow {
         id: glowPressed
-        visible: r.glowEnabled
+        //visible: r.glowEnabled
         anchors.fill: r2
-        radius: 8
+        radius: 12
         samples: 17
-        color: app.c1
+        color: app.c2
         source: r2
         opacity: 1.0
     }
