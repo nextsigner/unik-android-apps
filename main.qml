@@ -184,6 +184,8 @@ ApplicationWindow {
         text:  ''+flFolders.folder
         font.pixelSize: 20
         color: 'red'
+        width: Screen.width
+        wrapMode: Text.WrapAnywhere
     }
     Rectangle{
         id:tap
