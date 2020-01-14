@@ -96,13 +96,14 @@ Item{
                             }
                         }else{
                             let mn = (''+fileName).replace('link_', '').replace('.ukl', '')
-                            xItemInstalled.text+=' ++'+mn
+                            //xItemInstalled.text+=' ++'+mn
+                            ddd.visible=false
                             if(unik.fileExist(pws+'/'+mn+'/main.qml')){
                                 aaa.color='pink'
-                                //xItemInstalled.visible=true
+                                xItemInstalled.visible=true
                             }else{
                                 aaa.color='green'
-                                //xItemInstalled.visible=false
+                                xItemInstalled.visible=false
                             }
                         }
                     }
