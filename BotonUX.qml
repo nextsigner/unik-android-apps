@@ -115,15 +115,7 @@ Rectangle {
         Behavior on x{NumberAnimation{duration:200}}
         opacity: b3.opacity
     }
-    UText {
-        id: txtCancel
-        text: '<b>...</b>'
-        font.pixelSize: r.fontSize*1.2
-        font.family: r.fontFamily
-        color: app.c1
-        anchors.centerIn: parent
-        visible: !r.enabled
-    }
+
     Rectangle{
         id: xBg1
         z:xR1.z-1
