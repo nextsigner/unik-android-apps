@@ -2,8 +2,7 @@ import QtQuick 2.0
 
 Item{
     id: xListApps
-    width: app.width
-    height: app.height
+    anchors.fill: parent
     visible: xApp.mod===1
     onVisibleChanged: if(visible)lv.focus=true
     property int modView: 0
