@@ -9,11 +9,11 @@ ApplicationWindow {
     objectName: 'uaa'
     visible: true
     visibility:  Qt.platform.os==='android'?"FullScreen":"Windowed"
-    width: Qt.platform.os!=='android'?390:Screen.width//<Screen.height?Screen.width:Screen.height
-    height: Qt.platform.os!=='android'?960:Screen.height//<Screen.height?Screen.height:Screen.width
+    width: Qt.platform.os!=='android'?390:Screen.width
+    height: Qt.platform.os!=='android'?960:Screen.height
     color: app.c1
     property string moduleName: 'unik-android-apps'
-    property int fs: Screen.width<Screen.height?Screen.width*0.03:Screen.width*0.03*unikSettings.zoom//width>height?app.width*0.03:app.width*0.03*unikSettings.zoom
+    property int fs: width>height?app.width*0.03:app.height*0.03*unikSettings.zoom
     property color c1//: "#1fbc05"
     property color c2//: "#4fec35"
     property color c3//: "white"
@@ -74,10 +74,10 @@ ApplicationWindow {
     }
     Rectangle{
         id:xApp
-        width: Screen.width<Screen.height?Screen.width:Screen.height
-        height: Screen.width<Screen.height?Screen.height:Screen.width
+        width: app.width<app.height?app.width:app.height
+        height: app.width<app.height?app.height:app.width
         color: app.c1
-        rotation: Screen.width<Screen.height?0:90
+        rotation: app.width<app.height?0:90
         anchors.centerIn: parent
         border.width: 2
         border.color: 'red'
