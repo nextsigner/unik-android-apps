@@ -65,7 +65,7 @@ Item{
     }
     FastBlur{
         id: blur
-        width: r2.width+app.fs*0.5
+        width: app.fs//r2.width+app.fs*0.5
         height: r2.height+app.fs*0.5
         anchors.centerIn: parent
         radius: app.fs
