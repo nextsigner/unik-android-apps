@@ -78,6 +78,9 @@ ApplicationWindow {
         height: app.width<app.height?app.height:app.width
         color: app.c1
         rotation: app.width<app.height?0:90
+        anchors.centerIn: parent
+        border.width: 2
+        border.color: 'red'
         property int mod: 0
         Rectangle{
             width: app.width
@@ -230,6 +233,7 @@ ApplicationWindow {
         unikSettings.currentNumColor = appSettings.currentNumColors
         let cfgLocation = pws+'/cfg.json'
         let cfgData = '-folder='+pws+'/unik-android-apps'
+         //NO HABILITAR NI ESCRIBIR CFJ.JSON PORQUE FALLA!
         //unik.setFile(cfgLocation, cfgData)
     }
 

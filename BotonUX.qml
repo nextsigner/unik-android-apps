@@ -1,8 +1,8 @@
 import QtQuick 2.0
 Rectangle {
     id: r
-    width: a.contentWidth+(r.fontSize*2*(unikSettings.padding*2))+(unikSettings.borderWidth*2)+app.fs
-    height: a.contentHeight+(r.fontSize*2*(unikSettings.padding*2))+(unikSettings.borderWidth*2)
+    width: a.contentWidth+(r.fontSize*2*(settingObj.padding*2))+(settingObj.borderWidth*2)+app.fs
+    height: a.contentHeight+(r.fontSize*2*(settingObj.padding*2))+(settingObj.borderWidth*2)
     opacity: enabled?1.0:0.5
     objectName: 'sin_nombre'
     color: 'transparent'
@@ -10,6 +10,7 @@ Rectangle {
     border.color: xR1.border.color
     border.width: 0
     antialiasing: true
+    property var settingObj
     property int fontSize: app.fs
     property bool canceled: false
     property alias text: a.text
@@ -24,9 +25,9 @@ Rectangle {
     Rectangle{
         id: xR1
         color: 'transparent'
-        border.width: unikSettings.borderWidth
+        border.width: settingObj.borderWidth
         border.color: r.fontColor
-        radius: unikSettings.radius
+        radius: settingObj.radius
         width: parent.width
         height: parent.height
         anchors.centerIn: r
@@ -36,7 +37,7 @@ Rectangle {
             opacity: b1.opacity!==0.5?1.0:0.0
             width: parent.width
             height: parent.height
-            radius: unikSettings.radius
+            radius: settingObj.radius
             anchors.centerIn: parent
             color: app.c2
             antialiasing: true
@@ -46,7 +47,7 @@ Rectangle {
             id: b1
             width: xR1.height
             height: xR1.width
-            radius: unikSettings.radius
+            radius: settingObj.radius
             rotation: -90
             anchors.centerIn: parent
             opacity: 0.5
@@ -68,7 +69,7 @@ Rectangle {
             opacity: 0.5-b1.opacity
             width: xR1.width
             height: xR1.height
-            radius: unikSettings.radius
+            radius: settingObj.radius
             rotation: -270
             antialiasing: true
             onOpacityChanged: {
