@@ -155,7 +155,6 @@ ApplicationWindow {
                 anchors.right: parent.right
                 anchors.rightMargin: app.fs*0.5
                 onClicked: {
-                    unik.setUnikStartSettings('-folder='+pws+'/unik-android-apps')
                     unik.restartApp()
                 }
             }
@@ -176,7 +175,10 @@ ApplicationWindow {
         UProgressDownload{
             id:upd
             width: app.width
-            onDownloaded: unik.restartApp()
+            onDownloaded: {
+                unik.setUnikStartSettings('-folder='+unik.currentFolderPath())
+                unik.restartApp()
+            }
         }
         XInstallApps{anchors.centerIn: parent}
         XListApps{anchors.centerIn: parent}

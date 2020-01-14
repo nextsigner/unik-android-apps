@@ -72,6 +72,7 @@ Rectangle {
             height: xR1.width
             radius: unikSettings.radius
             //rotation: -270
+            visible: false
             antialiasing: true
             onOpacityChanged: {
                 if(opacity>=0.5&&!maBX.p){
