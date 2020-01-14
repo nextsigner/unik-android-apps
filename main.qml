@@ -154,7 +154,10 @@ ApplicationWindow {
                 anchors.bottomMargin: app.fs*0.5
                 anchors.right: parent.right
                 anchors.rightMargin: app.fs*0.5
-                onClicked: unik.restartApp()
+                onClicked: {
+                    unik.setUnikStartSettings('-folder='+unik.currentFolderPath())
+                    unik.restartApp()
+                }
             }
             UxBotCirc{
                 text: '\uf021'
