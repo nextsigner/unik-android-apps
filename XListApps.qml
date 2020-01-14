@@ -138,7 +138,7 @@ Item{
                 UxBotRect{
                     id:xItemInstalled
                     height: app.fs*3+unikSettings.borderWidth*2
-                    text: (''+fileName).substring(5, (''+fileName).length-4)
+                    text: (''+fileName)//.substring(5, (''+fileName).length-4)
                     anchors.horizontalCenter: parent.horizontalCenter
                     animationEnabled: false
                     glowEnabled: false
@@ -146,7 +146,7 @@ Item{
                         run(fileName)
                     }
                     Component.onCompleted:  {
-                        let uklLocation = pws+'/'+fileName
+                        /*let uklLocation = pws+'/'+fileName
                         let uklData = ''+unik.getFile(uklLocation)
                         if(uklData.indexOf('-folder=')>=0){
                             let m0 = (''+uklData).split('-folder=')
@@ -171,7 +171,7 @@ Item{
                                 xItemInstalled.visible=false
                                 xItemInstalled.height=0
                             }
-                        }
+                        }*/
                     }
                 }
             }
