@@ -7,6 +7,8 @@ Item{
     onVisibleChanged: if(visible)lv.focus=true
     property int modView: 0
     Column{
+        anchors.top: r.top
+        anchors.topMargin: app.fs*2
         Item{
             id: xBotListApps
             width: app.width
@@ -122,6 +124,9 @@ Item{
     function run(fileName){
         let uklLocation = pws+'/'+app.moduleName+'/'+fileName
         let uklData = unik.getFile(uklLocation).replace(/\n/g, '')
+        if(!unik.fileExist(pws+'/'+fileName)){
+            unik.sendFile(pws+'/'+fileName, uklData)
+        }
         let params = uklData.replace(/ /g, ', ')
         unik.setUnikStartSettings(params)
         //uLogView.showLog(fileName)
