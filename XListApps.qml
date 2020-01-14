@@ -64,10 +64,32 @@ Item{
                         lv.currentIndex=index
                         run(fileName)
                     }
+                    Rectangle{
+                        id:aaa
+                        anchors.fill: parent
+                        color: 'yellow'
+                    }
                     UText{
                         text:  'instalado'
                         font.pixelSize: 20
                         anchors.centerIn: parent
+                    }
+                    Component.onCompleted:  {
+                        let uklLocation = pws+'/'+fileName
+                        let uklData = ''+unik.getFile(uklLocation)
+                        if(uklData.indexOf('-folder=')){
+                            let m0 = uklData.split('-folder=')
+                            if(m0.length>0){
+                                let m1=m0[1]
+                                let m2=m1.split(' ')
+                                let m3=m2[0]
+                                if(unik.fileExist(pws+'/unik-android-apps/'+m3+'/main.qml')){
+                                    aaa.color='red'
+                                }else{
+                                    aaa.color='blue'
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -87,13 +109,7 @@ Item{
                         run(fileName)
                     }
                     Component.onCompleted: {
-                        app.al.push(fileName)
-                        if((''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.json')>0&&!app.prima){
-                            app.ca=app.al[index]
-                            app.prima=true
-                            tap.color='black'
-                            xP.visible=true
-                        }
+
                         //if( tlaunch.enabled){
                         timerInit.restart()
                         //}
@@ -101,7 +117,7 @@ Item{
                             lv.width=xItem.width
                         }
                         var uklFileLocation=pws+'/'+fileName
-                        xItem.installed=unik.fileExist(uklFileLocation)
+                        //xItem.installed=unik.fileExist(uklFileLocation)
                     }
                 }                
             }
