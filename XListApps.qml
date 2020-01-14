@@ -48,6 +48,7 @@ Item{
         }
         ListView{
             id:lv
+            visible: r.modView!==3
             width: r.width-app.fs
             height: r.height-app.fs*5
             anchors.horizontalCenter: parent.horizontalCenter
@@ -120,7 +121,59 @@ Item{
                         var uklFileLocation=pws+'/'+fileName
                         //xItem.installed=unik.fileExist(uklFileLocation)
                     }
-                }                
+                }
+            }
+        }
+        ListView{
+            id:lvAppsFolders
+            visible: r.modView===3
+            width: r.width-app.fs
+            height: r.height-app.fs*5
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: app.fs
+            model:flFolders
+            delegate: delegateFolder
+            Component{
+                id:delegateFolder
+                UxBotRect{
+                    id:xItemInstalled
+                    height: app.fs*3+unikSettings.borderWidth*2
+                    text: (''+fileName).substring(5, (''+fileName).length-4)
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    animationEnabled: false
+                    glowEnabled: false
+                    onClicked: {
+                        run(fileName)
+                    }
+                    Component.onCompleted:  {
+                        let uklLocation = pws+'/'+fileName
+                        let uklData = ''+unik.getFile(uklLocation)
+                        if(uklData.indexOf('-folder=')>=0){
+                            let m0 = (''+uklData).split('-folder=')
+                            if(m0.length>0){
+                                let m1=(''+m0[1]).split('-folder=')
+                                let m2=(''+m1[1]).split(' ')
+                                xItemInstalled.text+=' -'+m2[0]
+                                if(unik.fileExist(pws+'/'+m2[0]+'/main.qml')){
+                                    xItemInstalled.visible=true
+                                    xItemInstalled.height=app.fs*3+unikSettings.borderWidth*2
+                                }else{
+                                    xItemInstalled.visible=false
+                                    xItemInstalled.height=0
+                                }
+                            }
+                        }else{
+                            let mn = (''+fileName).replace('link_', '').replace('.ukl', '')
+                            if(unik.fileExist(pws+'/'+mn+'/main.qml')){
+                                xItemInstalled.visible=true
+                                xItemInstalled.height=app.fs*3+unikSettings.borderWidth*2
+                            }else{
+                                xItemInstalled.visible=false
+                                xItemInstalled.height=0
+                            }
+                        }
+                    }
+                }
             }
         }
     }
