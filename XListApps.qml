@@ -51,7 +51,7 @@ Item{
                 onClicked: xApp.mod = 0
             }
             UxBotCirc{
-                text: r.modView===0?'\uf069':r.modView===1?'\uf00c':'\uf019'
+                text: r.modView===0?'\uf069 '+r.modView:r.modView===1?'\uf00c '+r.modView:'\uf019 '+r.modView
                 fontSize: app.fs
                 animationEnabled: false
                 blurEnabled: false

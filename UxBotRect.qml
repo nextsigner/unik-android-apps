@@ -92,7 +92,7 @@ Item{
                 to: 1.0
                 easing.type: Easing.InOutQuad
             }
-            NumberAnimation {
+            /*NumberAnimation {
                 target: r2.children[0]
                 property: "rotation"
                 duration: 2000
@@ -107,7 +107,7 @@ Item{
                 from: 180
                 to: 0
                 easing.type: Easing.InOutExpo
-            }
+            }*/
             NumberAnimation {
                 target: blur
                 property: "opacity"
