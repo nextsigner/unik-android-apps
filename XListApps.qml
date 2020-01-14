@@ -86,7 +86,7 @@ Item{
                                 let m1=(''+m0[1]).split(' ')
                                 let m2=m1[0]
                                 xItemInstalled.text+=' -'+m2
-                                if(unik.fileExist(pws+'/unik-android-apps/'+m2+'/main.qml')){
+                                if(unik.fileExist(pws+'/'+m2+'/main.qml')){
                                     aaa.color='red'
                                     //xItemInstalled.visible=true
                                 }else{
@@ -97,7 +97,7 @@ Item{
                         }else{
                             let mn = (''+fileName).replace('link_', '').replace('.ukl', '')
                             xItemInstalled.text+=' ++'+mn
-                            if(unik.fileExist(pws+'/unik-android-apps/'+mn+'/main.qml')){
+                            if(unik.fileExist(pws+'/'+mn+'/main.qml')){
                                 aaa.color='pink'
                                 //xItemInstalled.visible=true
                             }else{
