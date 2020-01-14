@@ -49,7 +49,7 @@ Rectangle {
             width: xR1.height
             height: xR1.width
             radius: unikSettings.radius
-            //rotation: -90
+            rotation: -90
             anchors.centerIn: parent
             opacity: 0.5
             antialiasing: true
