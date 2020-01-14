@@ -83,23 +83,20 @@ ApplicationWindow {
         border.color: 'red'
         property int mod: 0
         Rectangle{
-            //width: app.width
-            //height: app.height
             anchors.fill: parent
             color: 'transparent'
             visible: xApp.mod===0
-            //anchors.centerIn: parent
             Column{
                 anchors.centerIn: parent
                 spacing: app.fs
                 UxBotCirc{
-                    fontSize: app.fs*2
+                    fontSize: app.fs*1.5
                     text: unikSettings.lang==='es'?'Instalar App':'Install App'
                     anchors.horizontalCenter: parent.horizontalCenter
                     onClicked: xApp.mod = 2
                 }
                 UxBotCirc{
-                    fontSize: app.fs*2
+                    fontSize: app.fs*1.5
                     text: unikSettings.lang==='es'?'Lista de Apps':'Apps List'
                     anchors.horizontalCenter: parent.horizontalCenter
                     onClicked: xApp.mod = 1
