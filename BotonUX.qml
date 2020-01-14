@@ -67,8 +67,8 @@ Rectangle {
         Rectangle{
             id: b2
             opacity: 0.5-b1.opacity
-            width: xR1.width
-            height: xR1.height
+            width: xR1.height
+            height: xR1.width
             radius: settingObj.radius
             rotation: -270
             antialiasing: true
