@@ -177,7 +177,7 @@ Item{
     function runFolder(folder){
         let params = '-folder='+folder
         unik.setUnikStartSettings(params)
-        uLogView.showLog(fileName)
+        //uLogView.showLog(folder)
 
         if(Qt.platform.os==='android'){
             unik.restartApp()
