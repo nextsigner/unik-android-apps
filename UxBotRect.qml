@@ -118,6 +118,10 @@ Item{
             }*/
         }
     }
+    Rectangle{
+        anchors.fill: r
+        color: 'yellow'
+    }
     Timer{
         id: tInit
         running: false
