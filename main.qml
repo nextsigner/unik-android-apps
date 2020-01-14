@@ -180,13 +180,14 @@ ApplicationWindow {
     }
     UWarnings{}
     ULogView{id:uLogView}
-    UText{
+    /*UText{
+        id: devInfo
         text:  ''+flFolders.folder
         font.pixelSize: 20
         color: 'red'
         width: Screen.width
         wrapMode: Text.WrapAnywhere
-    }
+    }*/
     Rectangle{
         id:tap
         anchors.fill: parent
