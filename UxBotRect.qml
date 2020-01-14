@@ -63,65 +63,6 @@ Item{
             r2.radius = nr
         }
     }
-    FastBlur{
-        id: blur
-        width: app.fs//r2.width+app.fs*0.5
-        height: r2.height+app.fs*0.5
-        anchors.centerIn: parent
-        radius: app.fs
-        source: r2
-        clip: true
-        visible: false//blurEnabled
-        Timer{
-            id:tRestartAn1
-            repeat: false
-            interval: 3000
-            running: false
-            onTriggered: an1.start()
-        }
-        SequentialAnimation{
-            id: an1
-            running: false//!r2.children[4].p
-            loops: 3//Animation.Infinite
-            onStopped: tRestartAn1.restart()
-            /*NumberAnimation {
-                target: blur
-                property: "opacity"
-                duration: 1000
-                from: 0.0
-                to: 1.0
-                easing.type: Easing.InOutQuad
-            }
-            NumberAnimation {
-                target: r2.children[0]
-                property: "rotation"
-                duration: 2000
-                from: 0
-                to: 180
-                easing.type: Easing.InOutQuad
-            }
-            NumberAnimation {
-                target: r2.children[0]
-                property: "rotation"
-                duration: 2000
-                from: 180
-                to: 0
-                easing.type: Easing.InOutExpo
-            }
-            NumberAnimation {
-                target: blur
-                property: "opacity"
-                duration: 1500
-                from: 1.0
-                to: 0.0
-                easing.type: Easing.InOutQuad
-            }*/
-        }
-    }
-    Rectangle{
-        anchors.fill: r
-        color: 'yellow'
-    }
     Timer{
         id: tInit
         running: false
