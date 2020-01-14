@@ -9,11 +9,11 @@ ApplicationWindow {
     objectName: 'uaa'
     visible: true
     visibility:  Qt.platform.os==='android'?"FullScreen":"Windowed"
-    width: Qt.platform.os!=='android'?390:Screen.width
-    height: Qt.platform.os!=='android'?960:Screen.height
+    width: Qt.platform.os!=='android'?390:Screen.width<Screen.height?Screen.width:Screen.height
+    height: Qt.platform.os!=='android'?960:Screen.width<Screen.height?Screen.height:Screen.width
     color: app.c1
     property string moduleName: 'unik-android-apps'
-    property int fs: width>height?app.width*0.03*unikSettings.zoom:app.height*0.03*unikSettings.zoom
+    property int fs: width>height?app.width*0.01*unikSettings.zoom:app.height*0.01*unikSettings.zoom
     property color c1//: "#1fbc05"
     property color c2//: "#4fec35"
     property color c3//: "white"
