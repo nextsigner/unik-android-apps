@@ -23,7 +23,6 @@ Rectangle {
     property int speed: 100
     property alias touchEnabled: maBX.enabled
     property alias pressed: maBX.p
-    property alias textFormat: a.textFormat
     signal clicked
 
     Rectangle{
@@ -107,7 +106,6 @@ Rectangle {
     UText {
         id: a2
         text:a.text
-        textFormat: a.textFormat
         font.pixelSize: r.fontSize
         font.family: r.fontFamily
         color: r.backgroudColor
