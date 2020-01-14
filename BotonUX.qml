@@ -101,7 +101,7 @@ Rectangle {
         font.family: r.fontFamily
         color: r.fontColor
         anchors.centerIn: parent
-        visible: r.enabled
+        //visible: r.enabled
     }
     UText {
         id: a2
@@ -113,7 +113,7 @@ Rectangle {
         y:a.y
         visible: r.enabled
         Behavior on x{NumberAnimation{duration:200}}
-        //opacity: b3.opacity
+        opacity: b3.opacity
     }
 
     Rectangle{
