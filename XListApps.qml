@@ -101,7 +101,7 @@ Item{
                 id:delegate
                 UxBotRect{
                     id:xItem
-                    height: app.fs//app.fs*3+unikSettings.borderWidth*2
+                    height: app.fs*3+unikSettings.borderWidth*2
                     visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0
                     text: (''+fileName).substring(5, (''+fileName).length-4)
                     anchors.horizontalCenter: parent.horizontalCenter

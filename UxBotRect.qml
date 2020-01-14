@@ -21,7 +21,7 @@ Item{
     MouseArea{
         anchors.fill: r
     }
-    Glow {
+    /*Glow {
         visible: r.glowEnabled
         anchors.fill: r2
         radius: 8
@@ -29,7 +29,7 @@ Item{
         color: app.c1
         source: r2
         opacity: 1.0
-    }
+    }*/
     BotonUX{
         id:  r2
         fontSize: r.fontSize
@@ -63,73 +63,76 @@ Item{
             r2.radius = nr
         }
     }
-    FastBlur{
-        id: blur
-        width: r2.width+app.fs*0.5
-        height: r2.height+app.fs*0.5
-        anchors.centerIn: parent
-        radius: app.fs
-        source: r2
-        clip: true
-        visible: blurEnabled
-        Timer{
-            id:tRestartAn1
-            repeat: false
-            interval: 3000
-            running: false
-            onTriggered: an1.start()
-        }
-        SequentialAnimation{
-            id: an1
-            running: false//!r2.children[4].p
-            loops: 3//Animation.Infinite
-            onStopped: tRestartAn1.restart()
-            NumberAnimation {
-                target: blur
-                property: "opacity"
-                duration: 1000
-                from: 0.0
-                to: 1.0
-                easing.type: Easing.InOutQuad
-            }
-            NumberAnimation {
-                target: r2.children[0]
-                property: "rotation"
-                duration: 2000
-                from: 0
-                to: 180
-                easing.type: Easing.InOutQuad
-            }
-            NumberAnimation {
-                target: r2.children[0]
-                property: "rotation"
-                duration: 2000
-                from: 180
-                to: 0
-                easing.type: Easing.InOutExpo
-            }
-            NumberAnimation {
-                target: blur
-                property: "opacity"
-                duration: 1500
-                from: 1.0
-                to: 0.0
-                easing.type: Easing.InOutQuad
-            }
-        }
-    }
+
+
+//    FastBlur{
+//        id: blur
+//        width: r2.width+app.fs*0.5
+//        height: r2.height+app.fs*0.5
+//        anchors.centerIn: parent
+//        radius: app.fs
+//        source: r2
+//        clip: true
+//        visible: blurEnabled
+//        Timer{
+//            id:tRestartAn1
+//            repeat: false
+//            interval: 3000
+//            running: false
+//            onTriggered: an1.start()
+//        }
+//        SequentialAnimation{
+//            id: an1
+//            running: false//!r2.children[4].p
+//            loops: 3//Animation.Infinite
+//            onStopped: tRestartAn1.restart()
+//            NumberAnimation {
+//                target: blur
+//                property: "opacity"
+//                duration: 1000
+//                from: 0.0
+//                to: 1.0
+//                easing.type: Easing.InOutQuad
+//            }
+//            NumberAnimation {
+//                target: r2.children[0]
+//                property: "rotation"
+//                duration: 2000
+//                from: 0
+//                to: 180
+//                easing.type: Easing.InOutQuad
+//            }
+//            NumberAnimation {
+//                target: r2.children[0]
+//                property: "rotation"
+//                duration: 2000
+//                from: 180
+//                to: 0
+//                easing.type: Easing.InOutExpo
+//            }
+//            NumberAnimation {
+//                target: blur
+//                property: "opacity"
+//                duration: 1500
+//                from: 1.0
+//                to: 0.0
+//                easing.type: Easing.InOutQuad
+//            }
+//        }
+//    }
+
     Timer{
         id: tInit
         running: false
         repeat: false
-        onTriggered: an1.start()
+        //onTriggered: an1.start()
     }
     Component.onCompleted: {
         if(!animationEnabled)return
         var min = 0
         var max = 4
         let seconds   = Math.floor(Math.random()*(max-min+1)+min);
-        console.log('UxBotCirc: '+unikSettings.lang)
+        console.log('UxBotRect: '+unikSettings.lang)
         tInit.interval = seconds*1000
         tInit.start()
     }
