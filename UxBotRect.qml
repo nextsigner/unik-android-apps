@@ -57,6 +57,9 @@ Item{
         anchors.centerIn: parent
         radius: width*0.5
         opacity: 0.5
+        onPressedChanged: {
+            glowPressed.visible=pressed
+        }
         onClicked: {
             r.clicked()
             an1.stop()
@@ -130,6 +133,16 @@ Item{
                 easing.type: Easing.InOutQuad
             }
         }
+    }
+    Glow {
+        id: glowPressed
+        visible: r.glowEnabled
+        anchors.fill: r2
+        radius: 8
+        samples: 17
+        color: app.c1
+        source: r2
+        opacity: 1.0
     }
     Timer{
         id: tInit

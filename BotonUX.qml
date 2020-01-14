@@ -22,7 +22,20 @@ Rectangle {
     property string qmlCode:''
     property int speed: 100
     property alias touchEnabled: maBX.enabled
+    property alias pressed: maBX.p
     signal clicked
+    Rectangle{
+        id: xBg1
+        color: app.c1
+        border.width: unikSettings.borderWidth
+        border.color: r.fontColor
+        radius: unikSettings.radius
+        width: parent.width
+        height: parent.height/2
+        anchors.centerIn: r
+        antialiasing: true
+        opacity: 0.5
+    }
     Rectangle{
         id: xR1
         color: 'transparent'
