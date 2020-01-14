@@ -83,11 +83,12 @@ ApplicationWindow {
         border.color: 'red'
         property int mod: 0
         Rectangle{
-            width: app.width
-            height: app.height
+            //width: app.width
+            //height: app.height
+            anchors.fill: parent
             color: 'transparent'
             visible: xApp.mod===0
-            anchors.centerIn: parent
+            //anchors.centerIn: parent
             Column{
                 anchors.centerIn: parent
                 spacing: app.fs
