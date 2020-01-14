@@ -50,7 +50,7 @@ Item{
             if(!r.animationEnabled)return
             tRestartAn1.restart()
         }
-        Component.objectName: {
+        Component.onCompleted:  {
             var nr = r.width*0.5
             children[0].radius= nr
             children[0].children[0].radius= nr
