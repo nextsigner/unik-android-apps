@@ -22,7 +22,7 @@ Item{
         anchors.fill: r
     }
     Glow {
-            visible: r.glowEnabled
+            visible: false//r.glowEnabled
             anchors.fill: r2
             radius: 8
             samples: 17
@@ -71,7 +71,7 @@ Item{
         radius: app.fs
         source: r2
         clip: true
-        visible: blurEnabled
+        visible: false//blurEnabled
         Timer{
             id:tRestartAn1
             repeat: false
@@ -129,7 +129,7 @@ Item{
         var min = 0
         var max = 4
         let seconds   = Math.floor(Math.random()*(max-min+1)+min);
-        console.log('UxBotCirc: '+unikSettings.lang)
+        console.log('UxBotRect: '+unikSettings.lang)
         tInit.interval = seconds*1000
         tInit.start()
     }
