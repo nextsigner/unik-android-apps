@@ -6,37 +6,6 @@ Item{
     visible: xApp.mod===1
     onVisibleChanged: if(visible)lv.focus=true
     property int modView: 0
-    onModViewChanged: {
-
-        /*for(let i=0;i<lv.count;i++){
-            if(lv.contentItem.children[i]){
-                console.log('lv'+i+': '+lv.contentItem.children[i].objectName)
-                if(r.modView===1){
-                    if(lv.contentItem.children[i].installed){
-                        lv.contentItem.children[i].visible = true
-                        lv.contentItem.children[i].height = app.fs*3+unikSettings.borderWidth*2
-                    }else{
-                        lv.contentItem.children[i].visible = false
-                    }
-                }else  if(r.modView===2){
-                    if(!lv.contentItem.children[i].installed){
-                        lv.contentItem.children[i].visible = false//(''+fl.get(i, 'fileName')).indexOf('link')===0&&(''+fl.get(i, 'fileName')).indexOf('.ukl')>0
-                        lv.contentItem.children[i].height = 0
-                    }else{
-                        lv.contentItem.children[i].visible = true
-                        lv.contentItem.children[i].height = app.fs*3+unikSettings.borderWidth*2
-                    }
-                }else{
-                    lv.contentItem.children[i].visible = (''+fl.get(i, 'fileName')).indexOf('link')===0&&(''+fl.get(i, 'fileName')).indexOf('.ukl')>0
-                }
-                if(lv.contentItem.children[i].visible){
-                    lv.contentItem.children[i].height = app.fs*3+unikSettings.borderWidth*2
-                }else{
-                    lv.contentItem.children[i].height = 0
-                }
-            }
-        }*/
-    }
     Column{
         anchors.centerIn: parent
         Item{
@@ -73,6 +42,11 @@ Item{
             }
 
         }
+        UText{
+            text:  r.modView===0?'Todas':r.modView===1?'Instaladas':'Descargar'
+            font.pixelSize: 20
+            anchors.centerIn: parent
+        }
         ListView{
             id:lv
             width: r.width-app.fs
@@ -80,15 +54,12 @@ Item{
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: app.fs
             model:fl
-            delegate: r.modView!==2?delegate:delegateInstalled
+            delegate: r.modView!==1 ? delegate : delegateInstalled
             Component{
                 id:delegateInstalled
                 UxBotRect{
                     id:xItemInstalled
                     height: app.fs*3+unikSettings.borderWidth*2
-                    //height: visible?app.fs*3+unikSettings.borderWidth*2:0
-                    //visible:r.modView!==2?(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0:installed
-                    //property bool installed: false
                     text: (''+fileName).substring(5, (''+fileName).length-4)
                     anchors.horizontalCenter: parent.horizontalCenter
                     animationEnabled: false
@@ -109,9 +80,8 @@ Item{
                 id:delegate
                 UxBotRect{
                     id:xItem
-                    height: visible?app.fs*3+unikSettings.borderWidth*2:0
-                    visible:r.modView!==2?(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0:installed
-                    property bool installed: false
+                    height: app.fs*3+unikSettings.borderWidth*2
+                    visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0
                     text: (''+fileName).substring(5, (''+fileName).length-4)
                     anchors.horizontalCenter: parent.horizontalCenter
                     animationEnabled: false
@@ -121,7 +91,7 @@ Item{
                         lv.currentIndex=index
                         run(fileName)
                     }
-                    Component.onCompleted: {
+                    /*Component.onCompleted: {
                         app.al.push(fileName)
                         if((''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.json')>0&&!app.prima){
                             app.ca=app.al[index]
@@ -137,7 +107,7 @@ Item{
                         }
                         var uklFileLocation=pws+'/'+fileName
                         xItem.installed=unik.fileExist(uklFileLocation)
-                    }
+                    }*/
                 }                
             }
         }
