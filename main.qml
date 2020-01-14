@@ -13,7 +13,7 @@ ApplicationWindow {
     height: Qt.platform.os!=='android'?960:Screen.height//<Screen.height?Screen.height:Screen.width
     color: app.c1
     property string moduleName: 'unik-android-apps'
-    property int fs: width>height?app.width*0.03:app.width*0.03*unikSettings.zoom
+    property int fs: Screen.width<Screen.height?Screen.width*0.03:Screen.width*0.03*unikSettings.zoom//width>height?app.width*0.03:app.width*0.03*unikSettings.zoom
     property color c1//: "#1fbc05"
     property color c2//: "#4fec35"
     property color c3//: "white"
