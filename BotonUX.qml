@@ -113,7 +113,7 @@ Rectangle {
         y:a.y
         visible: r.enabled
         Behavior on x{NumberAnimation{duration:200}}
-        opacity: b3.opacity
+        //opacity: b3.opacity
     }
 
     Rectangle{

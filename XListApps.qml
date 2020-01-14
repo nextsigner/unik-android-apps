@@ -13,6 +13,7 @@ Item{
             id: xBotListApps
             width: app.width
             height: app.fs*3
+            z:lv.visible?lv.z+1:lvAppsFolders.z+1
             UxBotCirc{
                 text: '\uf060'
                 fontSize: app.fs
