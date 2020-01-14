@@ -70,9 +70,11 @@ Item{
                         color: 'yellow'
                     }
                     UText{
+                        id:ddd
                         text:  'instalado'
                         font.pixelSize: 20
                         anchors.centerIn: parent
+                        color: 'black'
                     }
                     Component.onCompleted:  {
                         let uklLocation = pws+'/'+fileName
@@ -82,8 +84,10 @@ Item{
                             if(m0.length>0){
                                 let m1=(''+m0[1]).split(' ')
                                 let m2=m1[0]
+                                ddd.text=m2
                                 if(unik.fileExist(pws+'/unik-android-apps/'+m2+'/main.qml')){
                                     aaa.color='red'
+                                    xItemInstalled.visible=false
                                 }else{
                                     aaa.color='blue'
                                 }
