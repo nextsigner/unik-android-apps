@@ -87,6 +87,7 @@ ApplicationWindow {
             height: app.height
             color: 'transparent'
             visible: xApp.mod===0
+            anchors.centerIn: parent
             Column{
                 anchors.centerIn: parent
                 spacing: app.fs
@@ -165,8 +166,8 @@ ApplicationWindow {
             width: app.width
             onDownloaded: unik.restartApp()
         }
-        XInstallApps{}
-        XListApps{}
+        XInstallApps{anchors.centerIn: parent}
+        XListApps{anchors.centerIn: parent}
     }
 //    UText {
 //        text: 'FS: '+appSettings.currentNumColors//app.fs+' W: '+app.width+' H: '+app.height
