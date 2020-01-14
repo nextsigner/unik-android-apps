@@ -87,20 +87,20 @@ Item{
                                 ddd.text=m2
                                 if(unik.fileExist(pws+'/unik-android-apps/'+m2+'/main.qml')){
                                     aaa.color='red'
-                                    xItemInstalled.visible=true
+                                    //xItemInstalled.visible=true
                                 }else{
                                     aaa.color='blue'
-                                    xItemInstalled.visible=false
+                                    //xItemInstalled.visible=false
                                 }
                             }
                         }else{
                             let mn = (''+fileName).replace('link_', '').replace('.ukl', '')
                             if(unik.fileExist(pws+'/unik-android-apps/'+mn+'/main.qml')){
                                 aaa.color='pink'
-                                xItemInstalled.visible=true
+                                //xItemInstalled.visible=true
                             }else{
                                 aaa.color='green'
-                                xItemInstalled.visible=false
+                                //xItemInstalled.visible=false
                             }
                         }
                     }
