@@ -70,7 +70,7 @@ ApplicationWindow {
         }
     }
     FolderListModel{
-        folder: Qt.platform.os!=='android'?'file:./':'file://'+unik.currentFolderPath()
+        folder: Qt.platform.os!=='android'?'file:./':'file://'+unik.currentFolderPath().replace('/unik-android-apps', '')
         id:flFolders
         showFiles: false
         showDirs:  true
@@ -180,6 +180,11 @@ ApplicationWindow {
     }
     UWarnings{}
     ULogView{id:uLogView}
+    UText{
+        text:  ''+flFolders.folder
+        font.pixelSize: 20
+        color: 'red'
+    }
     Rectangle{
         id:tap
         anchors.fill: parent
