@@ -29,7 +29,7 @@ Rectangle {
         border.color: r.fontColor
         radius: settingObj.radius
         width: parent.width
-        height: parent.height
+        height: parent.height/2
         anchors.centerIn: r
         antialiasing: true
         Rectangle{
