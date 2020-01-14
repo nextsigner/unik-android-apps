@@ -24,7 +24,7 @@ Item{
                 onClicked: xApp.mod = 0
             }
             UxBotCirc{
-                property var arrayIcon: ['\uf069', '\uf00c', '\uf019', 'AA']
+                property var arrayIcon: ['\uf069', '\uf00c', '\uf019', '\uf07b']
                 text: arrayIcon[r.modView]
                 fontSize: app.fs
                 animationEnabled: false
@@ -136,42 +136,24 @@ Item{
             Component{
                 id:delegateFolder
                 UxBotRect{
-                    id:xItemInstalled
+                    id:xItemFolder
                     height: app.fs*3+unikSettings.borderWidth*2
                     text: (''+fileName)//.substring(5, (''+fileName).length-4)
                     anchors.horizontalCenter: parent.horizontalCenter
                     animationEnabled: false
                     glowEnabled: false
                     onClicked: {
-                        run(fileName)
+                        runFolder(unik.currentFolderPath().replace('/unik-android-apps', '')+'/'+fileName)
                     }
                     Component.onCompleted:  {
-                        /*let uklLocation = pws+'/'+fileName
-                        let uklData = ''+unik.getFile(uklLocation)
-                        if(uklData.indexOf('-folder=')>=0){
-                            let m0 = (''+uklData).split('-folder=')
-                            if(m0.length>0){
-                                let m1=(''+m0[1]).split('-folder=')
-                                let m2=(''+m1[1]).split(' ')
-                                xItemInstalled.text+=' -'+m2[0]
-                                if(unik.fileExist(pws+'/'+m2[0]+'/main.qml')){
-                                    xItemInstalled.visible=true
-                                    xItemInstalled.height=app.fs*3+unikSettings.borderWidth*2
-                                }else{
-                                    xItemInstalled.visible=false
-                                    xItemInstalled.height=0
-                                }
-                            }
+                        let mainQml = unik.currentFolderPath().replace('/unik-android-apps', '')+'/'+fileName
+                        if(unik.fileExist(mainQml)){
+                            xItemFolder.visible=true
+                            xItemFolder.height=app.fs*3+unikSettings.borderWidth*2
                         }else{
-                            let mn = (''+fileName).replace('link_', '').replace('.ukl', '')
-                            if(unik.fileExist(pws+'/'+mn+'/main.qml')){
-                                xItemInstalled.visible=true
-                                xItemInstalled.height=app.fs*3+unikSettings.borderWidth*2
-                            }else{
-                                xItemInstalled.visible=false
-                                xItemInstalled.height=0
-                            }
-                        }*/
+                            xItemFolder.visible=false
+                            xItemFolder.height=0
+                        }
                     }
                 }
             }
@@ -186,6 +168,17 @@ Item{
         let params = uklData.replace(/ /g, ', ')
         unik.setUnikStartSettings(params)
         //uLogView.showLog(fileName)
+        if(Qt.platform.os==='android'){
+            unik.restartApp()
+        }else{
+            unik.restartApp("")
+        }
+    }
+    function runFolder(folder){
+        let params = '-folder='+folder
+        unik.setUnikStartSettings(params)
+        uLogView.showLog(fileName)
+
         if(Qt.platform.os==='android'){
             unik.restartApp()
         }else{
