@@ -78,7 +78,7 @@ Item{
                         color: 'black'
                     }
                     Component.onCompleted:  {
-                        let uklLocation = pws+'/unik-android-apps/'+fileName
+                        let uklLocation = pws+'/'+fileName
                         let uklData = ''+unik.getFile(uklLocation)
                         //xItemInstalled.text='*'+uklLocation
                         if(uklData.indexOf('-folder=')>=0){
@@ -87,7 +87,7 @@ Item{
                                 let m1=(''+m0[1]).split('-folder=')
                                 let m2=(''+m1[1]).split(' ')
                                 xItemInstalled.text+=' -'+m2[0]
-                                if(unik.fileExist(pws+'/unik-android-apps/'+m2[0]+'/main.qml')){
+                                if(unik.fileExist(pws+'/'+m2[0]+'/main.qml')){
                                     aaa.color='red'
                                     //xItemInstalled.visible=true
                                 }else{
@@ -99,7 +99,7 @@ Item{
                             let mn = (''+fileName).replace('link_', '').replace('.ukl', '')
                             //xItemInstalled.text+=' ++'+mn
                             //ddd.visible=false
-                            if(unik.fileExist(pws+'/unik-android-apps/'+mn+'/main.qml')){
+                            if(unik.fileExist(pws+'/'+mn+'/main.qml')){
                                 aaa.color='pink'
                                 xItemInstalled.visible=true
                             }else{
