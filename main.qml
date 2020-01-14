@@ -77,7 +77,7 @@ ApplicationWindow {
         width: Screen.width<Screen.height?app.width:app.height
         height: Screen.width<Screen.height?app.height:app.width
         color: app.c1
-        rotation: app.width<app.height?0:90
+        rotation: Screen.width<Screen.height?0:90
         anchors.centerIn: parent
         border.width: 2
         border.color: 'red'
