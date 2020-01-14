@@ -66,7 +66,8 @@ Item{
                     }
                     Rectangle{
                         id:aaa
-                        anchors.fill: parent
+                        width: 10
+                        height: 10
                         color: 'yellow'
                     }
                     UText{
@@ -84,7 +85,7 @@ Item{
                             if(m0.length>0){
                                 let m1=(''+m0[1]).split(' ')
                                 let m2=m1[0]
-                                ddd.text=m2
+                                xItemInstalled.text+=' -'+m2
                                 if(unik.fileExist(pws+'/unik-android-apps/'+m2+'/main.qml')){
                                     aaa.color='red'
                                     //xItemInstalled.visible=true
@@ -95,6 +96,7 @@ Item{
                             }
                         }else{
                             let mn = (''+fileName).replace('link_', '').replace('.ukl', '')
+                            xItemInstalled.text+=' ++'+mn
                             if(unik.fileExist(pws+'/unik-android-apps/'+mn+'/main.qml')){
                                 aaa.color='pink'
                                 //xItemInstalled.visible=true
