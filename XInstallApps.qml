@@ -4,9 +4,10 @@ import "qrc:/"
 
 Item{
     id: r
-    width: app.width-app.fs*2
-    height: app.height
-    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.fill: parent
+//    width: app.width-app.fs*2
+//    height: app.height
+//    anchors.horizontalCenter: parent.horizontalCenter
     visible: xApp.mod===2
     Column{
         spacing: app.fs
