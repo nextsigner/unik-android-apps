@@ -80,8 +80,8 @@ Item{
                     Component.onCompleted:  {
                         let uklLocation = pws+'/'+fileName
                         let uklData = ''+unik.getFile(uklLocation)
-                        if(uklData.indexOf('-folder=')){
-                            let m0 = uklData.split('-folder=')
+                        if(uklData.indexOf('-folder=')>=0){
+                            let m0 = (''+uklData).split('-folder=')
                             if(m0.length>0){
                                 let m1=(''+m0[1]).split(' ')
                                 let m2=m1[0]
