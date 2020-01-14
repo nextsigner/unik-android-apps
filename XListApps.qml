@@ -7,7 +7,8 @@ Item{
     onVisibleChanged: if(visible)lv.focus=true
     property int modView: 0
     onModViewChanged: {
-        for(let i=0;i<lv.count;i++){
+
+        /*for(let i=0;i<lv.count;i++){
             if(lv.contentItem.children[i]){
                 console.log('lv'+i+': '+lv.contentItem.children[i].objectName)
                 if(r.modView===1){
@@ -28,13 +29,13 @@ Item{
                 }else{
                     lv.contentItem.children[i].visible = (''+fl.get(i, 'fileName')).indexOf('link')===0&&(''+fl.get(i, 'fileName')).indexOf('.ukl')>0
                 }
-                /*if(lv.contentItem.children[i].visible){
+                if(lv.contentItem.children[i].visible){
                     lv.contentItem.children[i].height = app.fs*3+unikSettings.borderWidth*2
                 }else{
                     lv.contentItem.children[i].height = 0
-                }*/
+                }
             }
-        }
+        }*/
     }
     Column{
         anchors.centerIn: parent
@@ -79,7 +80,31 @@ Item{
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: app.fs
             model:fl
-            delegate: delegate
+            delegate: r.modView!==2?delegate:delegateInstalled
+            Component{
+                id:delegateInstalled
+                UxBotRect{
+                    id:xItemInstalled
+                    height: app.fs*3+unikSettings.borderWidth*2
+                    //height: visible?app.fs*3+unikSettings.borderWidth*2:0
+                    //visible:r.modView!==2?(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0:installed
+                    //property bool installed: false
+                    text: (''+fileName).substring(5, (''+fileName).length-4)
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    animationEnabled: false
+                    glowEnabled: false
+                    onClicked: {
+                        app.ca=app.al[index]
+                        lv.currentIndex=index
+                        run(fileName)
+                    }
+                    UText{
+                        text:  'instalado'
+                        font.pixelSize: 20
+                        anchors.centerIn: parent
+                    }
+                }
+            }
             Component{
                 id:delegate
                 UxBotRect{
