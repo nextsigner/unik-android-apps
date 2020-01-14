@@ -70,7 +70,7 @@ Rectangle {
             width: xR1.height
             height: xR1.width
             radius: settingObj.radius
-            rotation: -270
+            //rotation: -270
             antialiasing: true
             onOpacityChanged: {
                 if(opacity>=0.5&&!maBX.p){
