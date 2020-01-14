@@ -49,7 +49,7 @@ Item{
             height: r.height-app.fs*5
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: app.fs
-            model:r.modView!==1 ? fl : fl2
+            model:fl
             delegate: r.modView!==1 ? delegate : delegateInstalled
             Component{
                 id:delegateInstalled
