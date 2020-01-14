@@ -104,6 +104,7 @@ Item{
                     height: app.fs*3+unikSettings.borderWidth*2
                     visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0
                     text: (''+fileName).substring(5, (''+fileName).length-4)
+                    fontSize: app.fs*2
                     anchors.horizontalCenter: parent.horizontalCenter
                     animationEnabled: false
                     glowEnabled: false
