@@ -13,7 +13,7 @@ ApplicationWindow {
     height: Qt.platform.os!=='android'?960:Screen.width<Screen.height?Screen.height:Screen.width
     color: app.c1
     property string moduleName: 'unik-android-apps'
-    property int fs: width>height?app.width*0.01*unikSettings.zoom:app.height*0.01*unikSettings.zoom
+    property int fs: width>height?app.width*0.02*unikSettings.zoom:app.height*0.02*unikSettings.zoom
     property color c1//: "#1fbc05"
     property color c2//: "#4fec35"
     property color c3//: "white"
@@ -74,8 +74,8 @@ ApplicationWindow {
     }
     Rectangle{
         id:xApp
-        width: app.width<app.height?app.width:app.height
-        height: app.width<app.height?app.height:app.width
+        width: Screen.width<Screen.height?app.width:app.height
+        height: Screen.width<Screen.height?app.height:app.width
         color: app.c1
         rotation: app.width<app.height?0:90
         anchors.centerIn: parent
