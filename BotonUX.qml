@@ -1,8 +1,8 @@
 import QtQuick 2.0
 Rectangle {
     id: r
-    width: a.contentWidth+(r.fontSize*2*(settingObj.padding*2))+(settingObj.borderWidth*2)+app.fs
-    height: a.contentHeight+(r.fontSize*2*(settingObj.padding*2))+(settingObj.borderWidth*2)
+    width: a.contentWidth+(r.fontSize*2*(unikSettings.padding*2))+(unikSettings.borderWidth*2)+app.fs
+    height: a.contentHeight+(r.fontSize*2*(unikSettings.padding*2))+(unikSettings.borderWidth*2)
     opacity: enabled?1.0:0.5
     objectName: 'sin_nombre'
     color: 'transparent'
@@ -25,9 +25,9 @@ Rectangle {
     Rectangle{
         id: xR1
         color: 'transparent'
-        border.width: settingObj.borderWidth
+        border.width: unikSettings.borderWidth
         border.color: r.fontColor
-        radius: settingObj.radius
+        radius: unikSettings.radius
         width: parent.width
         height: parent.height/2
         anchors.centerIn: r
@@ -37,7 +37,7 @@ Rectangle {
             opacity: b1.opacity!==0.5?1.0:0.0
             width: parent.width
             height: parent.height
-            radius: settingObj.radius
+            radius: unikSettings.radius
             visible: false
             anchors.centerIn: parent
             color: app.c2
@@ -48,7 +48,7 @@ Rectangle {
             id: b1
             width: xR1.height
             height: xR1.width
-            radius: settingObj.radius
+            radius: unikSettings.radius
             //rotation: -90
             anchors.centerIn: parent
             opacity: 0.5
@@ -70,7 +70,7 @@ Rectangle {
             opacity: 0.5-b1.opacity
             width: xR1.height
             height: xR1.width
-            radius: settingObj.radius
+            radius: unikSettings.radius
             //rotation: -270
             antialiasing: true
             onOpacityChanged: {
