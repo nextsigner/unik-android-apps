@@ -37,8 +37,8 @@ Item{
     Glow {
         visible: r.glowEnabled
         anchors.fill: r2
-        radius: 8
-        samples: 17
+        radius: 2
+        samples: 28
         color: app.c1
         source: r2
         opacity: 1.0
@@ -108,7 +108,7 @@ Item{
                 to: 1.0
                 easing.type: Easing.InOutQuad
             }
-            NumberAnimation {
+            /*NumberAnimation {
                 target: r2.children[0]
                 property: "rotation"
                 duration: 2000
@@ -123,7 +123,7 @@ Item{
                 from: 180
                 to: 0
                 easing.type: Easing.InOutExpo
-            }
+            }*/
             NumberAnimation {
                 target: blur
                 property: "opacity"
@@ -136,9 +136,9 @@ Item{
     }
     Glow {
         id: glowPressed
-        //visible: r.glowEnabled
+        visible: false
         anchors.fill: r2
-        radius: 12
+        radius: 6
         samples: 17
         color: app.c2
         source: r2
