@@ -155,7 +155,7 @@ ApplicationWindow {
                 anchors.right: parent.right
                 anchors.rightMargin: app.fs*0.5
                 onClicked: {
-                    unik.setUnikStartSettings('-folder='+unik.currentFolderPath())
+                    unik.setUnikStartSettings('-folder='+pws+'/unik-android-apps')
                     unik.restartApp()
                 }
             }
