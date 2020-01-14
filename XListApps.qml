@@ -7,7 +7,6 @@ Item{
     onVisibleChanged: if(visible)lv.focus=true
     property int modView: 0
     Column{
-        anchors.centerIn: parent
         Item{
             id: xBotListApps
             width: app.width
@@ -23,7 +22,7 @@ Item{
                 onClicked: xApp.mod = 0
             }
             UxBotCirc{
-                text: r.modView===0?'\uf069 '+r.modView:r.modView===1?'\uf00c '+r.modView:'\uf019 '+r.modView
+                text: r.modView===0?'\uf069':r.modView===1?'\uf00c':'\uf019'
                 fontSize: app.fs
                 animationEnabled: false
                 blurEnabled: false
