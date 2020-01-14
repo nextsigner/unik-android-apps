@@ -87,21 +87,7 @@ Item{
                         run(fileName)
                     }
                     Component.onCompleted: {
-                        app.al.push(fileName)
-                        if((''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.json')>0&&!app.prima){
-                            app.ca=app.al[index]
-                            app.prima=true
-                            tap.color='black'
-                            xP.visible=true
-                        }
-                        //if( tlaunch.enabled){
-                        timerInit.restart()
-                        //}
-                        if(xItem.width>lv.width){
-                            lv.width=xItem.width
-                        }
-                        var uklFileLocation=pws+'/'+fileName
-                        xItem.installed=unik.fileExist(uklFileLocation)
+
                     }
                 }                
             }
