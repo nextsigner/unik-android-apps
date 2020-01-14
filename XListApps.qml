@@ -24,7 +24,8 @@ Item{
                 onClicked: xApp.mod = 0
             }
             UxBotCirc{
-                text: r.modView===0?'\uf069':r.modView===1?'\uf00c':'\uf019'
+                property var arrayIcon: ['\uf069', '\uf00c', '\uf019', 'AA']
+                text: arrayIcon[r.modView]
                 fontSize: app.fs
                 animationEnabled: false
                 blurEnabled: false
@@ -36,6 +37,8 @@ Item{
                         r.modView=1
                     }else  if(r.modView===1){
                         r.modView=2
+                    }else  if(r.modView===2){
+                        r.modView=3
                     }else{
                         r.modView=0
                     }
