@@ -62,19 +62,6 @@ Item{
                     onClicked: {
                         run(fileName)
                     }
-                    Rectangle{
-                        id:aaa
-                        width: 10
-                        height: 10
-                        color: 'yellow'
-                    }
-                    UText{
-                        id:ddd
-                        text:  'instalado'
-                        font.pixelSize: 20
-                        anchors.centerIn: parent
-                        color: 'black'
-                    }
                     Component.onCompleted:  {
                         let uklLocation = pws+'/'+fileName
                         let uklData = ''+unik.getFile(uklLocation)
@@ -85,23 +72,21 @@ Item{
                                 let m2=(''+m1[1]).split(' ')
                                 xItemInstalled.text+=' -'+m2[0]
                                 if(unik.fileExist(pws+'/'+m2[0]+'/main.qml')){
-                                    //aaa.color='red'
                                     xItemInstalled.visible=true
+                                    xItemInstalled.height=app.fs*3+unikSettings.borderWidth*2
                                 }else{
-                                    //aaa.color='blue'
                                     xItemInstalled.visible=false
+                                    xItemInstalled.height=0
                                 }
                             }
                         }else{
                             let mn = (''+fileName).replace('link_', '').replace('.ukl', '')
-                            //xItemInstalled.text+=' ++'+mn
-                            //ddd.visible=false
                             if(unik.fileExist(pws+'/'+mn+'/main.qml')){
-                                //aaa.color='pink'
                                 xItemInstalled.visible=true
+                                xItemInstalled.height=app.fs*3+unikSettings.borderWidth*2
                             }else{
-                                //aaa.color='green'
                                 xItemInstalled.visible=false
+                                xItemInstalled.height=0
                             }
                         }
                     }

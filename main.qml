@@ -177,11 +177,6 @@ ApplicationWindow {
         XInstallApps{anchors.centerIn: parent}
         XListApps{anchors.centerIn: parent}
     }
-    UText{
-        text: '1:'+fl.folder+' <br />'+fl2.folder
-        color: 'red'
-        font.pixelSize: 14
-    }
     UWarnings{}
     ULogView{id:uLogView}
     Rectangle{
