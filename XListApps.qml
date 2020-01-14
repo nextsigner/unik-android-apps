@@ -19,18 +19,20 @@ Item{
                     }
                 }else  if(r.modView===2){
                     if(!lv.contentItem.children[i].installed){
-                        lv.contentItem.children[i].visible = (''+fl.get(i, 'fileName')).indexOf('link')===0&&(''+fl.get(i, 'fileName')).indexOf('.ukl')>0
+                        lv.contentItem.children[i].visible = false//(''+fl.get(i, 'fileName')).indexOf('link')===0&&(''+fl.get(i, 'fileName')).indexOf('.ukl')>0
+                        lv.contentItem.children[i].height = 0
                     }else{
-                        lv.contentItem.children[i].visible = false
+                        lv.contentItem.children[i].visible = true
+                        lv.contentItem.children[i].height = app.fs*3+unikSettings.borderWidth*2
                     }
                 }else{
                     lv.contentItem.children[i].visible = (''+fl.get(i, 'fileName')).indexOf('link')===0&&(''+fl.get(i, 'fileName')).indexOf('.ukl')>0
                 }
-                if(lv.contentItem.children[i].visible){
+                /*if(lv.contentItem.children[i].visible){
                     lv.contentItem.children[i].height = app.fs*3+unikSettings.borderWidth*2
                 }else{
                     lv.contentItem.children[i].height = 0
-                }
+                }*/
             }
         }
     }
