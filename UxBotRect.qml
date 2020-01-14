@@ -84,7 +84,7 @@ Item{
             running: false//!r2.children[4].p
             loops: 3//Animation.Infinite
             onStopped: tRestartAn1.restart()
-            NumberAnimation {
+            /*NumberAnimation {
                 target: blur
                 property: "opacity"
                 duration: 1000
@@ -92,7 +92,7 @@ Item{
                 to: 1.0
                 easing.type: Easing.InOutQuad
             }
-            /*NumberAnimation {
+            NumberAnimation {
                 target: r2.children[0]
                 property: "rotation"
                 duration: 2000
@@ -107,7 +107,7 @@ Item{
                 from: 180
                 to: 0
                 easing.type: Easing.InOutExpo
-            }*/
+            }
             NumberAnimation {
                 target: blur
                 property: "opacity"
@@ -115,7 +115,7 @@ Item{
                 from: 1.0
                 to: 0.0
                 easing.type: Easing.InOutQuad
-            }
+            }*/
         }
     }
     Timer{
