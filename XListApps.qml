@@ -100,8 +100,8 @@ Item{
                         if(xItem.width>lv.width){
                             lv.width=xItem.width
                         }
-                        //var uklFileLocation=pws+'/'+fileName
-                        //xItem.installed=unik.fileExist(uklFileLocation)
+                        var uklFileLocation=pws+'/'+fileName
+                        xItem.installed=unik.fileExist(uklFileLocation)
                     }
                 }                
             }
