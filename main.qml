@@ -70,7 +70,7 @@ ApplicationWindow {
         }
     }
     FolderListModel{
-        folder: Qt.platform.os!=='android'?'file:./':('file://'+unik.currentFolderPath()).replace('/unik-android-apps', '')
+        folder: Qt.platform.os!=='android'?'file:./':'file://'+unik.currentFolderPath()
         id:flFolders
         showFiles: false
         showDirs:  true
