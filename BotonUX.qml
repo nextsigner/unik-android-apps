@@ -21,6 +21,7 @@ Rectangle {
     property var objToRunQml
     property string qmlCode:''
     property int speed: 100
+    property alias touchEnabled: maBX.enabled
     signal clicked
     Rectangle{
         id: xR1
@@ -115,7 +116,7 @@ Rectangle {
     UText {
         id: txtCancel
         text: '<b>...</b>'
-        font.pixelSize: r.fontSize*2
+        font.pixelSize: r.fontSize*1.2
         font.family: r.fontFamily
         color: app.c1
         anchors.centerIn: parent

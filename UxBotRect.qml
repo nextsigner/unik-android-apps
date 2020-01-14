@@ -21,6 +21,19 @@ Item{
     MouseArea{
         anchors.fill: r
     }
+    onYChanged: {
+        r2.touchEnabled = false
+        timerUnlockTouch.restart()
+    }
+    Timer{
+        id: timerUnlockTouch
+        running: false
+        repeat: false
+        interval: 1500
+        onTriggered: {
+            r2.touchEnabled = true
+        }
+    }
     Glow {
         visible: r.glowEnabled
         anchors.fill: r2
