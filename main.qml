@@ -114,7 +114,7 @@ ApplicationWindow {
                 }
             }
             UxBotCirc{
-                text: '\uf1fc'
+                text: '\uf1fc '+unikSettings.currentNumColor
                 fontSize: app.fs
                 animationEnabled: false
                 blurEnabled: false

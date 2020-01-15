@@ -81,8 +81,12 @@ Item{
     }
     Component.onCompleted: {
         if(r.url!=='conf-unik'){
+            console.log('Archivo Unik Settings: '+r.url)
             if(!unik.fileExist(r.url)){
+                console.log('Archivo Unik Settings inexistente.')
                 setCfgFile()
+            }else{
+                console.log('Archivo Unik Settings existente.')
             }
             getCfgFile()
         }
