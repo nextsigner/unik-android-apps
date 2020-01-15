@@ -81,6 +81,9 @@ Item{
     }
     Component.onCompleted: {
         if(r.url!=='conf-unik'){
+            if(!unik.fileExist(r.url)){
+                setCfgFile()
+            }
             getCfgFile()
         }
         numberRun++
