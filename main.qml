@@ -2,7 +2,8 @@
 import QtQuick.Controls 2.0
 import QtQuick.Window 2.2
 import Qt.labs.folderlistmodel 2.2
-import Qt.labs.settings 1.0
+import Qt.labs.settings 1.1
+import "qrc:/"
 
 ApplicationWindow {
     id: app
@@ -41,14 +42,14 @@ ApplicationWindow {
     FontLoader {name: "FontAwesome";source: "qrc:/fontawesome-webfont.ttf";}
     Settings{
         id: appSettings
-        category: 'conf-android-apps'
+        //category: 'conf-android-apps'
         property string uApp
         property int currentNumColors
         property string uArrayUrls
     }
-    UnikSettings{
+    USettings{
         id: unikSettings
-        url:moduleName
+        url:pws+'/'+moduleName+'/'+moduleName+'.json'
         Component.onCompleted: {
             currentNumColor = appSettings.currentNumColors
             updateUS()
