@@ -72,7 +72,6 @@ Rectangle{
                 text: '\uf00d'
                 fontSize: app.fs
                 animationEnabled: false
-                blurEnabled: false
                 onClicked: {
                     r.opacity = 0.0
                 }
@@ -81,7 +80,6 @@ Rectangle{
                 text: '\uf021'
                 fontSize: app.fs
                 animationEnabled: false
-                blurEnabled: false
                 onClicked: {
                     pblaunch.width = 0
                     download(r.uDownloadRequestUrl, r.uDownloadRequestFolder)
@@ -92,7 +90,6 @@ Rectangle{
                 text: '\uf00c'
                 fontSize: app.fs
                 animationEnabled: false
-                blurEnabled: false
                 opacity: 0.0
                 onClicked: {
                     r.opacity = 0.0

@@ -54,7 +54,6 @@ Item{
                 id: botLoadUrls
                 text: '\uf021'
                 animationEnabled: false
-                blurEnabled: false
                 property int currentUrlIndex: 0
                 onClicked: {
                     let m0 = appSettings.uArrayUrls.split('|')
@@ -69,7 +68,6 @@ Item{
             UxBotCirc{
                 text: '\uf019'
                 animationEnabled: false
-                blurEnabled: false
                 onClicked: {
                     updInstallApp.install()
                 }
@@ -118,7 +116,6 @@ Item{
         UxBotCirc{
             text: '\uf060'
             animationEnabled: false
-            blurEnabled: false
             onClicked: xApp.mod = 0
         }
     }

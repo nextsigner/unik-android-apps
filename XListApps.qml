@@ -40,7 +40,6 @@ Item{
                 clip: false
                 text: '\uf060'
                 animationEnabled: false
-                blurEnabled: false
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left:  parent.left
                 anchors.leftMargin: app.fs
@@ -51,7 +50,6 @@ Item{
                 property var arrayIcon: ['\uf069', '\uf00c', '\uf019', '\uf07b']
                 text: arrayIcon[r.modView]
                 animationEnabled: false
-                blurEnabled: false
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right:  parent.right
                 anchors.rightMargin: app.fs

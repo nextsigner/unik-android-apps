@@ -106,7 +106,7 @@ ApplicationWindow {
                     fontSize: app.fs*3
                     text: unikSettings.lang==='es'?'Instalar App':'Install App'
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: xApp.mod = 2
+                    onClicked: xApp.mod = 2                    
                 }
                 UxBotCirc{
                     width: app.fs*25
@@ -119,7 +119,6 @@ ApplicationWindow {
             UxBotCirc{
                 text: '\uf1fc'//+unikSettings.currentNumColor
                 animationEnabled: false
-                blurEnabled: false
                 anchors.left: parent.left
                 anchors.leftMargin: app.fs*0.5
                 anchors.top: parent.top
@@ -138,7 +137,6 @@ ApplicationWindow {
             UxBotCirc{
                 text: '\uf011'
                 animationEnabled: false
-                blurEnabled: false
                 anchors.right: parent.right
                 anchors.rightMargin: app.fs*0.5
                 anchors.top: parent.top
@@ -150,7 +148,6 @@ ApplicationWindow {
             UxBotCirc{
                 text: '<b>+</b>'
                 animationEnabled: false
-                blurEnabled: false
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: app.fs*0.5
                 anchors.right: parent.right
@@ -162,7 +159,6 @@ ApplicationWindow {
             UxBotCirc{
                 text: '\uf021'
                 animationEnabled: false
-                blurEnabled: false
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: app.fs*0.5
                 anchors.left:  parent.left
