@@ -2,8 +2,8 @@
 import QtQuick.Controls 2.0
 import QtQuick.Window 2.2
 import Qt.labs.folderlistmodel 2.2
-import Qt.labs.settings 1.1
-import "qrc:/"
+import Qt.labs.settings 1.0
+//import "qrc:/"
 
 ApplicationWindow {
     id: app
@@ -14,7 +14,7 @@ ApplicationWindow {
     height: Qt.platform.os!=='android'?960:Screen.height//Screen.width<Screen.height?Screen.height:Screen.width
     color: app.c1
     property string moduleName: 'unik-android-apps'
-    property int fs: width>height?app.width*0.02*unikSettings.zoom:app.height*0.02*unikSettings.zoom
+    property int fs: Qt.platform.os==='android'?(width>height?app.width*0.02*unikSettings.zoom:app.height*0.02*unikSettings.zoom):width*0.03*unikSettings.zoom
     property color c1
     property color c2
     property color c3
@@ -42,7 +42,7 @@ ApplicationWindow {
     FontLoader {name: "FontAwesome";source: "qrc:/fontawesome-webfont.ttf";}
     Settings{
         id: appSettings
-        //category: 'conf-android-apps'
+        category: 'conf-android-apps'
         property string uApp
         property int currentNumColors
         property string uArrayUrls
@@ -88,10 +88,10 @@ ApplicationWindow {
     }
     Rectangle{
         id:xApp
-        width: Screen.width<Screen.height?app.width:app.height
-        height: Screen.width<Screen.height?app.height:app.width
+        width: Qt.platform.os==='android'?(Screen.width<Screen.height?app.width:app.height):app.width
+        height: Qt.platform.os==='android'?(Screen.width<Screen.height?app.height:app.width):app.height
         color: app.c1
-        rotation: Screen.width<Screen.height?0:90
+        rotation: Qt.platform.os==='android'?(Screen.width<Screen.height?0:90):0
         anchors.centerIn: parent
         property int mod: 0
         Rectangle{
@@ -102,13 +102,15 @@ ApplicationWindow {
                 anchors.centerIn: parent
                 spacing: app.fs
                 UxBotCirc{
-                    fontSize: app.fs*1.5
+                    width: app.fs*25
+                    fontSize: app.fs*3
                     text: unikSettings.lang==='es'?'Instalar App':'Install App'
                     anchors.horizontalCenter: parent.horizontalCenter
                     onClicked: xApp.mod = 2
                 }
                 UxBotCirc{
-                    fontSize: app.fs*1.5
+                    width: app.fs*25
+                    fontSize: app.fs*3
                     text: unikSettings.lang==='es'?'Lista de Apps':'Apps List'
                     anchors.horizontalCenter: parent.horizontalCenter
                     onClicked: xApp.mod = 1
@@ -116,7 +118,6 @@ ApplicationWindow {
             }
             UxBotCirc{
                 text: '\uf1fc'//+unikSettings.currentNumColor
-                fontSize: app.fs
                 animationEnabled: false
                 blurEnabled: false
                 anchors.left: parent.left
@@ -136,7 +137,6 @@ ApplicationWindow {
             }
             UxBotCirc{
                 text: '\uf011'
-                fontSize: app.fs
                 animationEnabled: false
                 blurEnabled: false
                 anchors.right: parent.right
@@ -184,7 +184,7 @@ ApplicationWindow {
         XInstallApps{anchors.centerIn: parent}
         XListApps{anchors.centerIn: parent}
     }
-    UWarnings{}
+    UWarnings{showEnabled: false}
     ULogView{id:uLogView}
     /*UText{
         id: devInfo
@@ -249,9 +249,9 @@ ApplicationWindow {
         app.c3=cc2[2]
         app.c4=cc2[3]
 
-        unikSettings.zoom=1.4
-        unikSettings.borderWidth=app.fs*0.5
-        unikSettings.padding=0.5
+        //unikSettings.zoom=1.4
+        //unikSettings.borderWidth=app.fs*0.5
+        //unikSettings.padding=0.5
 
         app.visible=true
     }

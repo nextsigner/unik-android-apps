@@ -10,14 +10,26 @@ Rectangle{
     border.color: app.c2
     visible: false
     clip: true
+    property bool showEnabled: true
     property bool notShowAgain: false
+    property var arrayErrorsShowed: []
     Connections {
         target: unik
         onUWarningChanged: {
-            txtUWarnings.text+=''+unik.getUWarning()+'<br /><br />';
-            if(!xUWarnings.notShowAgain){
-                xUWarnings.visible=true
+            if((''+Qt.application.arguments).indexOf('-fuw')>=0){
+                xUWarnings.showEnabled=true
             }
+            if(!xUWarnings.showEnabled){
+                return
+            }
+            if(arrayErrorsShowed.indexOf(unik.getUWarning())<0){
+                arrayErrorsShowed.push(unik.getUWarning())
+                txtUWarnings.text+=''+unik.getUWarning()+'<br /><br />';
+                if(!xUWarnings.notShowAgain){
+                    xUWarnings.visible=true
+                }
+            }
+
         }
     }
     Flickable{

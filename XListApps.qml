@@ -6,17 +6,39 @@ Item{
     visible: xApp.mod===1
     onVisibleChanged: if(visible)lv.focus=true
     property int modView: 0
+    property string modViewLabel: unikSettings.lang==='es'?'Todas las aplicaciones':'All apps'
+    onModViewChanged: {
+        if(modView===0){
+            modViewLabel=unikSettings.lang==='es'?'Todas las aplicaciones':'All apps'
+        }
+        if(modView===1){
+            modViewLabel=unikSettings.lang==='es'?'Aplicaciones Instaladas':'Apps installed'
+        }
+        if(modView===2){
+            modViewLabel=unikSettings.lang==='es'?'Para descargar':'For Download'
+        }
+        if(modView===3){
+            modViewLabel=unikSettings.lang==='es'?'Disponibles en carpeta':'Available in folder'
+        }
+    }
     Column{
-        anchors.top: r.top
-        anchors.topMargin: app.fs*2
-        Item{
-            id: xBotListApps
-            width: app.width
-            height: app.fs*3
-            z:lv.visible?lv.z+1:lvAppsFolders.z+1
+        anchors.horizontalCenter: parent.horizontalCenter
+        Rectangle{
+            width: lv.width
+            height: app.fs*10
+            color: app.c2
+            border.width: 2
+            border.color: app.c1
+            z:lvAppsFolders.z+100
+            Text{
+                text: '<b>'+r.modViewLabel+'</b>'
+                font.pixelSize: app.fs*2
+                color: app.c1
+                anchors.centerIn: parent
+            }
             UxBotCirc{
+                clip: false
                 text: '\uf060'
-                fontSize: app.fs
                 animationEnabled: false
                 blurEnabled: false
                 anchors.verticalCenter: parent.verticalCenter
@@ -25,9 +47,9 @@ Item{
                 onClicked: xApp.mod = 0
             }
             UxBotCirc{
+                clip: false
                 property var arrayIcon: ['\uf069', '\uf00c', '\uf019', '\uf07b']
                 text: arrayIcon[r.modView]
-                fontSize: app.fs
                 animationEnabled: false
                 blurEnabled: false
                 anchors.verticalCenter: parent.verticalCenter
@@ -58,14 +80,14 @@ Item{
             delegate: r.modView!==1 ? delegate : delegateInstalled
             Component{
                 id:delegateInstalled
-                UxBotRect{
+                BotonUX{
                     id:xItemInstalled
                     height: app.fs*3+unikSettings.borderWidth*2
+                    customRadius: app.fs*0.5
+                    customBorder: app.fs*0.1
                     text: (''+fileName).substring(5, (''+fileName).length-4)
-                    fontSize: app.fs*1.5
+                    fontSize: app.fs*2
                     anchors.horizontalCenter: parent.horizontalCenter
-                    animationEnabled: false
-                    glowEnabled: false
                     onClicked: {
                         run(fileName)
                     }
@@ -101,15 +123,15 @@ Item{
             }
             Component{
                 id:delegate
-                UxBotRect{
+                BotonUX{
                     id:xItem
                     height: app.fs*3+unikSettings.borderWidth*2
+                    customRadius: app.fs*0.5
+                    customBorder: app.fs*0.1
                     visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0
                     text: (''+fileName).substring(5, (''+fileName).length-4)
-                    fontSize: app.fs*1.5
+                    fontSize: app.fs*2
                     anchors.horizontalCenter: parent.horizontalCenter
-                    animationEnabled: false
-                    glowEnabled: false
                     onClicked: {
                         run(fileName)
                     }
@@ -138,14 +160,16 @@ Item{
             delegate: delegateFolder
             Component{
                 id:delegateFolder
-                UxBotRect{
+                BotonUX{
                     id:xItemFolder
+                    fontSize: app.fs*2
                     height: app.fs*3+unikSettings.borderWidth*2
+                    customRadius: app.fs*0.5
+                    customBorder: app.fs*0.1
                     text: (''+fileName)
-                    fontSize: app.fs*1.5
                     anchors.horizontalCenter: parent.horizontalCenter
-                    animationEnabled: false
-                    glowEnabled: false
+                    //animationEnabled: false
+                    //glowEnabled: false
                     onClicked: {
                         runFolder(unik.currentFolderPath().replace('/unik-android-apps', '')+'/'+fileName)
                     }
@@ -163,6 +187,7 @@ Item{
             }
         }
     }
+    //}
     function run(fileName){
         let uklLocation = pws+'/'+app.moduleName+'/'+fileName
         let uklData = unik.getFile(uklLocation).replace(/\n/g, '')
