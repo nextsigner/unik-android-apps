@@ -54,9 +54,9 @@ Item{
             children[0].children[1].radius= nr
             children[0].children[2].radius= nr
 
-            children[0].children[0].border.width = r.width*0.05
-            children[0].children[1].border.width =r.width*0.05
-            children[0].children[2].border.width = r.width*0.05
+            children[0].children[0].border.width = r.width*0.025
+            children[0].children[1].border.width =r.width*0.025
+            children[0].children[2].border.width = r.width*0.025
             r2.radius = nr
         }
     }
@@ -116,7 +116,7 @@ Item{
         var min = 0
         var max = 4
         let seconds   = Math.floor(Math.random()*(max-min+1)+min);
-        console.log('UxBotCirc: '+unikSettings.lang)
+        //console.log('UxBotCirc: '+unikSettings.lang)
         tinit2.interval = seconds*1000
         tinit2.start()
     }
