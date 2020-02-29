@@ -189,9 +189,11 @@ Item{
     function run(fileName){
         let uklLocation = pws+'/'+app.moduleName+'/'+fileName
         let uklData = unik.getFile(uklLocation).replace(/\n/g, '')
-        if(!unik.fileExist(pws+'/'+fileName)){
-            unik.sendFile(pws+'/'+fileName, uklData)
-        }
+        let logData='uklLocation: '+uklLocation+' uklData: '+uklData
+        unik.setFile('/sdcard/Documents/unik/logData.txt', logData)
+//        if(!unik.fileExist(pws+'/'+fileName)){
+//            unik.sendFile(pws+'/'+fileName, uklData)
+//        }
         let params = uklData.replace(/ /g, ', ')
         unik.setUnikStartSettings(params)
         //uLogView.showLog(fileName)
