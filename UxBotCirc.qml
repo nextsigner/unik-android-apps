@@ -23,15 +23,7 @@ Item{
     MouseArea{
         anchors.fill: r
     }
-    Glow {
-        visible: r.glowEnabled
-        anchors.fill: r2
-        radius: 8
-        samples: 17
-        color: app.c1
-        source: r2
-        opacity: 1.0
-    }
+
     BotonUX{
         id:  r2
         clip: true
@@ -68,6 +60,16 @@ Item{
             children[0].children[1].border.width =r.width*0.05
             children[0].children[2].border.width = r.width*0.05
             r2.radius = nr
+        }
+        Glow {
+            visible: r.glowEnabled
+            anchors.fill: r2
+            radius: 8
+            samples: 17
+            color: app.c1
+            source: r2
+            opacity: 1.0
+            z:parent.z-1
         }
         FastBlur{
             id: blur
