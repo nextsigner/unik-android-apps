@@ -40,7 +40,7 @@ Item{
         text: r.text
         anchors.centerIn: r
         radius: width*0.5
-        opacity: 0.5
+        opacity: 0.75
         onClicked: {
             r.clicked()
             an1.stop()
@@ -76,7 +76,7 @@ Item{
             target: r2
             property: "opacity"
             duration: 2000
-            from: 0.5
+            from: 0.75
             to: 1.0
             easing.type: Easing.InOutQuad
         }
@@ -101,7 +101,7 @@ Item{
             property: "opacity"
             duration: 2000
             from: 1.0
-            to: 0.5
+            to: 0.75
             easing.type: Easing.InOutQuad
         }
     }

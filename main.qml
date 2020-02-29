@@ -51,7 +51,7 @@ ApplicationWindow {
         id: unikSettings
         url:pws+'/'+moduleName+'/'+moduleName+'.json'
         Component.onCompleted: {
-            currentNumColor = appSettings.currentNumColors
+            //currentNumColor = appSettings.currentNumColors
             updateUS()
         }
     }
