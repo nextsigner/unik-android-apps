@@ -134,7 +134,6 @@ Item{
                         run(fileName)
                     }
                     Component.onCompleted: {
-
                         //if( tlaunch.enabled){
                         timerInit.restart()
                         //}
@@ -191,12 +190,13 @@ Item{
         let uklData = unik.getFile(uklLocation).replace(/\n/g, '')
         let logData='uklLocation: '+uklLocation+' uklData: '+uklData
         unik.setFile('/sdcard/Documents/unik/logData.txt', logData)
-//        if(!unik.fileExist(pws+'/'+fileName)){
+        uLogView.showLog(logData)
+        //        if(!unik.fileExist(pws+'/'+fileName)){
 //            unik.sendFile(pws+'/'+fileName, uklData)
 //        }
         let params = uklData.replace(/ /g, ', ')
         unik.setUnikStartSettings(params)
-        //uLogView.showLog(fileName)
+        uLogView.showLog(fileName)
         if(Qt.platform.os==='android'){
             unik.restartApp()
         }else{
