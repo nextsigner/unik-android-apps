@@ -202,7 +202,7 @@ Item{
     function run(fileName){
         let uklLocation = pws+'/'+app.moduleName+'/'+fileName
         //labelStatus.text+='->'+uklLocation
-        let uklData = ''+unik.getFile(uklLocation).replace(/\n/g, '')
+        let uklData = '-git=https://github.com/nextsigner/mercurio.git'//+unik.getFile(uklLocation).replace(/\n/g, '')
         let m0 = uklData.split('/')
         let m1 =  m0[m0.length-1]
         let m2 = m1.replace(".git", "").replace(".zip", "")
