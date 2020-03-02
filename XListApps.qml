@@ -40,6 +40,7 @@ Item{
             UxBotCirc{
                 clip: false
                 text: '\uf060'
+                backgroudColor: 'red'
                 animationEnabled: false
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left:  parent.left
@@ -66,7 +67,6 @@ Item{
                     }
                 }
             }
-
         }
         ListView{
             id:lv
@@ -174,7 +174,15 @@ Item{
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: {
                 labelStatus.text='->'+fileName
-                run(fileName)
+                let uklLocation = pws+'/'+app.moduleName+'/'+fileName
+                labelStatus.text+='\n->'+uklLocation
+                let uklData = unik.getFile(uklLocation).replace(/\n/g, '')
+                let logData='uklLocation: '+uklLocation+' uklData: '+uklData
+                console.log('unik-android-apps: '+logData)
+                uLogView.showLog(logData)
+                unik.setFile('/sdcard/Documents/unik/logData.txt', logData)
+                return
+                //run(fileName)
             }
             Component.onCompleted: {
                 //if( tlaunch.enabled){
@@ -186,7 +194,7 @@ Item{
                 var uklFileLocation=pws+'/'+fileName
                 //xItem.installed=unik.fileExist(uklFileLocation)
             }
-            Rectangle{width: 50; height: 50; color: 'red'}
+            Rectangle{width: 5; height: 5; color: 'red'; anchors.verticalCenter: parent.verticalCenter}
         }
     }
 
