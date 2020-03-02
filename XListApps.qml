@@ -207,7 +207,7 @@ Item{
         let m1 =  m0[m0.length-1]
         let m2 = m1.replace(".git", "").replace(".zip", "")
         let params = '-folder='+pws+'/'+m2+', '
-        params += (''+uklData).replace(/ /g, ', ')
+        params += (''+uklData)//.replace(/ /g, ', ')
         unik.setUnikStartSettings(params)
         if(Qt.platform.os==='android'){
             unik.restartApp()
