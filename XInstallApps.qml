@@ -6,6 +6,9 @@ Item{
     id: r
     anchors.fill: parent
     visible: xApp.mod===2
+    onVisibleChanged: {
+        tiUrl.focus=visible
+    }
     Column{
         spacing: app.fs
         width: r.width-app.fs

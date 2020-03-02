@@ -76,75 +76,6 @@ Item{
             spacing: app.fs*2
             model:fl
             delegate: r.modView!==1 ? delegate : delegateInstalled
-            Component{
-                id:delegateInstalled
-                BotonUX{
-                    id:xItemInstalled
-                    height: app.fs*3+unikSettings.borderWidth*2
-                    customRadius: app.fs*0.5
-                    customBorder: app.fs*0.1
-                    text: (''+fileName).substring(5, (''+fileName).length-4)
-                    fontSize: app.fs*2
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: {
-                        run(fileName)
-                    }
-                    Component.onCompleted:  {
-                        let uklLocation = pws+'/'+fileName
-                        let uklData = ''+unik.getFile(uklLocation)
-                        if(uklData.indexOf('-folder=')>=0){
-                            let m0 = (''+uklData).split('-folder=')
-                            if(m0.length>0){
-                                let m1=(''+m0[1]).split('-folder=')
-                                let m2=(''+m1[1]).split(' ')
-                                xItemInstalled.text+=' -'+m2[0]
-                                if(unik.fileExist(pws+'/'+m2[0]+'/main.qml')){
-                                    xItemInstalled.visible=true
-                                    xItemInstalled.height=app.fs*3+unikSettings.borderWidth*2
-                                }else{
-                                    xItemInstalled.visible=false
-                                    xItemInstalled.height=0
-                                }
-                            }
-                        }else{
-                            let mn = (''+fileName).replace('link_', '').replace('.ukl', '')
-                            if(unik.fileExist(pws+'/'+mn+'/main.qml')){
-                                xItemInstalled.visible=true
-                                xItemInstalled.height=app.fs*3+unikSettings.borderWidth*2
-                            }else{
-                                xItemInstalled.visible=false
-                                xItemInstalled.height=0
-                            }
-                        }
-                    }
-                }
-            }
-            Component{
-                id:delegate
-                BotonUX{
-                    id:xItem
-                    height: app.fs*3+unikSettings.borderWidth*2
-                    customRadius: app.fs*0.5
-                    customBorder: app.fs*0.1
-                    visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0
-                    text: (''+fileName).substring(5, (''+fileName).length-4)
-                    fontSize: app.fs*2
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: {
-                        run(fileName)
-                    }
-                    Component.onCompleted: {
-                        //if( tlaunch.enabled){
-                        timerInit.restart()
-                        //}
-                        if(xItem.width>lv.width){
-                            lv.width=xItem.width
-                        }
-                        var uklFileLocation=pws+'/'+fileName
-                        //xItem.installed=unik.fileExist(uklFileLocation)
-                    }
-                }
-            }
         }
         ListView{
             id:lvAppsFolders
@@ -155,35 +86,108 @@ Item{
             spacing: app.fs*2
             model:flFolders
             delegate: delegateFolder
-            Component{
-                id:delegateFolder
-                BotonUX{
-                    id:xItemFolder
-                    fontSize: app.fs*2
-                    height: app.fs*3+unikSettings.borderWidth*2
-                    customRadius: app.fs*0.5
-                    customBorder: app.fs*0.1
-                    text: (''+fileName)
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    //animationEnabled: false
-                    //glowEnabled: false
-                    onClicked: {
-                        runFolder(unik.currentFolderPath().replace('/unik-android-apps', '')+'/'+fileName)
-                    }
-                    Component.onCompleted:  {
-                        let mainQml = unik.currentFolderPath().replace('/unik-android-apps', '')+'/'+fileName
-                        if(unik.fileExist(mainQml)){
-                            xItemFolder.visible=true
-                            xItemFolder.height=app.fs*3+unikSettings.borderWidth*2
+            }
+    }
+    Component{
+        id:delegateFolder
+        BotonUX{
+            id:xItemFolder
+            fontSize: app.fs*2
+            height: app.fs*3+unikSettings.borderWidth*2
+            customRadius: app.fs*0.5
+            customBorder: app.fs*0.1
+            text: (''+fileName)
+            anchors.horizontalCenter: parent.horizontalCenter
+            //animationEnabled: false
+            //glowEnabled: false
+            onClicked: {
+                runFolder(unik.currentFolderPath().replace('/unik-android-apps', '')+'/'+fileName)
+            }
+            Component.onCompleted:  {
+                let mainQml = unik.currentFolderPath().replace('/unik-android-apps', '')+'/'+fileName
+                if(unik.fileExist(mainQml)){
+                    xItemFolder.visible=true
+                    xItemFolder.height=app.fs*3+unikSettings.borderWidth*2
+                }else{
+                    xItemFolder.visible=false
+                    xItemFolder.height=0
+                }
+            }
+            Rectangle{width: 50; height: 50; color: 'green'}
+        }
+    }
+    Component{
+        id:delegateInstalled
+        BotonUX{
+            id:xItemInstalled
+            height: app.fs*3+unikSettings.borderWidth*2
+            customRadius: app.fs*0.5
+            customBorder: app.fs*0.1
+            text: (''+fileName).substring(5, (''+fileName).length-4)
+            fontSize: app.fs*2
+            anchors.horizontalCenter: parent.horizontalCenter
+            onClicked: {
+                run(fileName)
+            }
+            Component.onCompleted:  {
+                let uklLocation = pws+'/'+fileName
+                let uklData = ''+unik.getFile(uklLocation)
+                if(uklData.indexOf('-folder=')>=0){
+                    let m0 = (''+uklData).split('-folder=')
+                    if(m0.length>0){
+                        let m1=(''+m0[1]).split('-folder=')
+                        let m2=(''+m1[1]).split(' ')
+                        xItemInstalled.text+=' -'+m2[0]
+                        if(unik.fileExist(pws+'/'+m2[0]+'/main.qml')){
+                            xItemInstalled.visible=true
+                            xItemInstalled.height=app.fs*3+unikSettings.borderWidth*2
                         }else{
-                            xItemFolder.visible=false
-                            xItemFolder.height=0
+                            xItemInstalled.visible=false
+                            xItemInstalled.height=0
                         }
+                    }
+                }else{
+                    let mn = (''+fileName).replace('link_', '').replace('.ukl', '')
+                    if(unik.fileExist(pws+'/'+mn+'/main.qml')){
+                        xItemInstalled.visible=true
+                        xItemInstalled.height=app.fs*3+unikSettings.borderWidth*2
+                    }else{
+                        xItemInstalled.visible=false
+                        xItemInstalled.height=0
                     }
                 }
             }
+            Rectangle{width: 50; height: 50; color: 'blue'}
         }
     }
+    Component{
+        id:delegate
+        BotonUX{
+            id:xItem
+            height: app.fs*3+unikSettings.borderWidth*2
+            customRadius: app.fs*0.5
+            customBorder: app.fs*0.1
+            visible:(''+fileName).indexOf('link')===0&&(''+fileName).indexOf('.ukl')>0
+            text: (''+fileName).substring(5, (''+fileName).length-4)
+            fontSize: app.fs*2
+            anchors.horizontalCenter: parent.horizontalCenter
+            onClicked: {
+                run(fileName)
+            }
+            Component.onCompleted: {
+                //if( tlaunch.enabled){
+                timerInit.restart()
+                //}
+                if(xItem.width>lv.width){
+                    lv.width=xItem.width
+                }
+                var uklFileLocation=pws+'/'+fileName
+                //xItem.installed=unik.fileExist(uklFileLocation)
+            }
+            Rectangle{width: 50; height: 50; color: 'red'}
+        }
+    }
+
     //}
     function run(fileName){
         let uklLocation = pws+'/'+app.moduleName+'/'+fileName
