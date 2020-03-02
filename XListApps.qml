@@ -203,16 +203,12 @@ Item{
         let uklLocation = pws+'/'+app.moduleName+'/'+fileName
         //labelStatus.text+='->'+uklLocation
         let uklData = ''+unik.getFile(uklLocation).replace(/\n/g, '')
-        //let logData='uklLocation: '+uklLocation+' uklData: '+uklData
-        //unik.setFile('/sdcard/Documents/unik/logData.txt', logData)
-        //uLogView.showLog(logData)
-        //return
-        //        if(!unik.fileExist(pws+'/'+fileName)){
-//            unik.sendFile(pws+'/'+fileName, uklData)
-//        }
-        var params = (''+uklData)//.replace(/ /g, ', ')
+        let m0 = uklData.split('/')
+        let m1 =  m0[m0.length-1]
+        let m2 = m1.replace(".git", "").replace(".zip", "")
+        let params = '-folder='+pws+'/'+m2+', '
+        params += (''+uklData).replace(/ /g, ', ')
         unik.setUnikStartSettings(params)
-        //uLogView.showLog(fileName)
         if(Qt.platform.os==='android'){
             unik.restartApp()
         }else{
