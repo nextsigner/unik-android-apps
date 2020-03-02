@@ -203,6 +203,8 @@ Item{
         let uklLocation = pws+'/'+app.moduleName+'/'+fileName
         //labelStatus.text+='->'+uklLocation
         let uklData = '-git=https://github.com/nextsigner/mercurio.git'//+unik.getFile(uklLocation).replace(/\n/g, '')
+        console.log('xListApps: fileName='+fileName+' uklLocation='+uklLocation+' uklData='+uklData)
+
         let m0 = uklData.split('/')
         let m1 =  m0[m0.length-1]
         let m2 = m1.replace(".git", "").replace(".zip", "")
@@ -210,11 +212,11 @@ Item{
         params += (''+uklData)//.replace(/ /g, ', ')
         console.log('xListApps: '+params)
         unik.setUnikStartSettings(params)
-        if(Qt.platform.os==='android'){
+        /*if(Qt.platform.os==='android'){
             unik.restartApp()
         }else{
             unik.restartApp("")
-        }
+        }*/
     }
     function runFolder(folder){
         let params = '-folder='+folder
