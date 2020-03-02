@@ -198,6 +198,7 @@ Item{
         let logData='uklLocation: '+uklLocation+' uklData: '+uklData
         unik.setFile('/sdcard/Documents/unik/logData.txt', logData)
         uLogView.showLog(logData)
+        return
         //        if(!unik.fileExist(pws+'/'+fileName)){
 //            unik.sendFile(pws+'/'+fileName, uklData)
 //        }
