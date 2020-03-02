@@ -173,16 +173,24 @@ Item{
             fontSize: app.fs*2
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: {
-                /*labelStatus.text='->'+fileName
                 let uklLocation = pws+'/'+app.moduleName+'/'+fileName
-                labelStatus.text+='\n->'+uklLocation
-                let uklData = unik.getFile(uklLocation).replace(/\n/g, '')
-                let logData='uklLocation: '+uklLocation+' uklData: '+uklData
-                console.log('unik-android-apps: '+logData)
-                uLogView.showLog(logData)
-                unik.setFile('/sdcard/Documents/unik/logData.txt', logData)
-                return*/
-                run(fileName)
+                //labelStatus.text+='->'+uklLocation
+                let uklData = '-git=https://github.com/nextsigner/mercurio.git'//+unik.getFile(uklLocation).replace(/\n/g, '')
+                console.log('xListApps: fileName='+fileName+' uklLocation='+uklLocation+' uklData='+uklData)
+
+                let m0 = uklData.split('/')
+                let m1 =  m0[m0.length-1]
+                let m2 = m1.replace(".git", "").replace(".zip", "")
+                let params = '-folder='+pws+'/'+m2+', '
+                params += (''+uklData)//.replace(/ /g, ', ')
+                //unik.log('xListApps: '+params)
+                unik.setUnikStartSettings(params)
+                if(Qt.platform.os==='android'){
+                    unik.restartApp()
+                }else{
+                    unik.restartApp("")
+                }
+                //run(fileName)
             }
             Component.onCompleted: {
                 //if( tlaunch.enabled){
