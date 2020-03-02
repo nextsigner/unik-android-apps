@@ -173,7 +173,7 @@ Item{
             fontSize: app.fs*2
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: {
-                labelStatus.text='->'+fileName
+                /*labelStatus.text='->'+fileName
                 let uklLocation = pws+'/'+app.moduleName+'/'+fileName
                 labelStatus.text+='\n->'+uklLocation
                 let uklData = unik.getFile(uklLocation).replace(/\n/g, '')
@@ -181,8 +181,8 @@ Item{
                 console.log('unik-android-apps: '+logData)
                 uLogView.showLog(logData)
                 unik.setFile('/sdcard/Documents/unik/logData.txt', logData)
-                return
-                //run(fileName)
+                return*/
+                run(fileName)
             }
             Component.onCompleted: {
                 //if( tlaunch.enabled){
@@ -201,18 +201,18 @@ Item{
     //}
     function run(fileName){
         let uklLocation = pws+'/'+app.moduleName+'/'+fileName
-        labelStatus.text+='\n->'+uklLocation
-        let uklData = unik.getFile(uklLocation).replace(/\n/g, '')
-        let logData='uklLocation: '+uklLocation+' uklData: '+uklData
-        unik.setFile('/sdcard/Documents/unik/logData.txt', logData)
-        uLogView.showLog(logData)
-        return
+        //labelStatus.text+='->'+uklLocation
+        let uklData = ''+unik.getFile(uklLocation).replace(/\n/g, '')
+        //let logData='uklLocation: '+uklLocation+' uklData: '+uklData
+        //unik.setFile('/sdcard/Documents/unik/logData.txt', logData)
+        //uLogView.showLog(logData)
+        //return
         //        if(!unik.fileExist(pws+'/'+fileName)){
 //            unik.sendFile(pws+'/'+fileName, uklData)
 //        }
-        let params = uklData.replace(/ /g, ', ')
+        var params = (''+uklData)//.replace(/ /g, ', ')
         unik.setUnikStartSettings(params)
-        uLogView.showLog(fileName)
+        //uLogView.showLog(fileName)
         if(Qt.platform.os==='android'){
             unik.restartApp()
         }else{
