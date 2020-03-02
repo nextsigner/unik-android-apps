@@ -31,6 +31,7 @@ Item{
             border.color: app.c1
             z:lvAppsFolders.z+100
             Text{
+                id: labelStatus
                 text: '<b>'+r.modViewLabel+'</b>'
                 font.pixelSize: app.fs*2
                 color: app.c1
@@ -172,6 +173,7 @@ Item{
             fontSize: app.fs*2
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: {
+                labelStatus.text='->'+fileName
                 run(fileName)
             }
             Component.onCompleted: {
@@ -191,6 +193,7 @@ Item{
     //}
     function run(fileName){
         let uklLocation = pws+'/'+app.moduleName+'/'+fileName
+        labelStatus.text+='\n->'+uklLocation
         let uklData = unik.getFile(uklLocation).replace(/\n/g, '')
         let logData='uklLocation: '+uklLocation+' uklData: '+uklData
         unik.setFile('/sdcard/Documents/unik/logData.txt', logData)
